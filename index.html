@@ -14121,8 +14121,8 @@
     if (Math.random() >= dropRate) return false;
     state.timeCapsules = Math.min(TIME_CAPSULE_CAP, (state.timeCapsules || 0) + 1);
     playSfx('timeCapsuleGet');
-    logEvent('⏳ 鼠鼠在' + getLocationInfo().label + '捡到一颗时间胶囊，时间胶囊+1');
-    showGameNotice('捡到一颗时间胶囊！可以在时钟里跳过3小时。', '💊');
+    logEvent('时间胶囊+1！可以在时钟里跳过3小时。');
+    showGameNotice('捡到一颗时间胶囊', '💊');
     updateClock();
     return true;
   }
