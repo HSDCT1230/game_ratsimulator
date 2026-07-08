@@ -17372,12 +17372,10 @@
     const basket = ensureSnackBasket();
     queue.textContent = '';
     if (!basket.length) {
-      const empty = document.createElement('span');
-      empty.className = 'basket-queue-item empty';
-      empty.textContent = '零食筐空空的，明天会刷新';
-      queue.appendChild(empty);
+      queue.hidden = true;
       return;
     }
+    queue.hidden = false;
     basket.slice(0, 8).forEach(function(item, index) {
       const chip = document.createElement('span');
       chip.className = 'basket-queue-item' + (index === 0 ? ' current' : '');
