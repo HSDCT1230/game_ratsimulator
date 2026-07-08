@@ -7255,6 +7255,112 @@
       }
     }
 
+    @media (max-width: 540px) {
+      #startOverlay,
+      #pauseOverlay,
+      #newDayOverlay,
+      #profileOverlay,
+      #diaryOverlay,
+      #limitAlertOverlay,
+      #neighborRatOverlay,
+      #neighborReplyOverlay,
+      #traitDetailOverlay,
+      #basketOverlay,
+      #snackListOverlay,
+      #foodPoisonOverlay,
+      #callConfirmPopup,
+      #homeMapOverlay,
+      #ownerDiscoveredPopup,
+      #bossPopup,
+      #coldPopup,
+      #lostPopup,
+      #shockPopup,
+      #injuryPopup,
+      #poisonPopup,
+      #petPopup,
+      #statsOverlay,
+      #lifeSummaryOverlay {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+
+      .game,
+      .head,
+      .info,
+      .owner-panel,
+      .bars,
+      .scene,
+      .log,
+      .home-map-modal,
+      .profile-modal,
+      .basket-modal,
+      .snack-list-modal,
+      .food-poison-box,
+      .pause-box,
+      .start-dialog,
+      .new-day-popup,
+      .limit-alert-box,
+      .call-confirm-box,
+      .owner-discovered-box,
+      .boss-popup-box,
+      .cold-box,
+      .lost-box,
+      .shock-box,
+      .injury-box,
+      .poison-box,
+      .pet-popup {
+        box-shadow: 0 4px 12px rgba(92, 123, 146, 0.10) !important;
+        filter: none !important;
+      }
+
+      .level1 button,
+      .level2 button,
+      .home-map-btn,
+      .home-map-room,
+      .profile-btn,
+      .basket-btn,
+      .music-btn,
+      .pause-btn,
+      .time-clock-btn,
+      .owner-phone-icon-btn,
+      .snack-item,
+      .time-capsule-use,
+      .boss-popup-btn,
+      .owner-discovered-btn {
+        box-shadow: 0 3px 8px rgba(92, 123, 146, 0.12) !important;
+        filter: none !important;
+        transition: transform 0.08s ease, opacity 0.12s ease, background 0.12s ease !important;
+      }
+
+      .game::before,
+      .game::after,
+      .head::before,
+      .head::after,
+      .scene::before,
+      .scene::after,
+      .bars::before,
+      .bars::after,
+      .home-map-modal::before,
+      .profile-modal::before,
+      .basket-modal::before {
+        box-shadow: none !important;
+        filter: none !important;
+      }
+
+      .water-ripple,
+      .freeze-icon,
+      .choke-icon {
+        animation: none !important;
+      }
+
+      .pet-hand.show,
+      .rat-icon.shake,
+      .owner-avatar.shake,
+      .profile-photo.shake {
+        animation-iteration-count: 1 !important;
+      }
+    }
+
     @media (max-width: 340px) {
       #gameContainer {
         border-radius: 20px !important;
@@ -11077,6 +11183,10 @@
 <script>
   // 简化选择器，$代表document.querySelector
   const $ = document.querySelector.bind(document);
+  const HOME_MAP_ROOMS = Array.from(document.querySelectorAll('[data-map-location]'));
+  const HOME_MAP_ROUTES = Array.from(document.querySelectorAll('[data-map-route]'));
+  const MAX_LOG_ENTRIES = 60;
+  let lastHomeMapRenderKey = '';
 
   function randomChoice(list) {
     return list[Math.floor(Math.random() * list.length)];
@@ -11164,46 +11274,59 @@
 
   // 音效播放函数
   const SFX = {
-    click: { src: './sound effect/click2.wav', volume: 0.5 },
-    rat: { src: './sound effect/rat-shout.ogg', volume: 0.5 },
-    restart: { src: './sound effect/cash-register-purchase.wav', volume: 0.5 },
-    snack: { src: './sound effect/chewing-breadstick-single-b.wav', volume: 0.5 },
+    click: { src: './sound effect/click2.mp3', volume: 0.5 },
+    rat: { src: './sound effect/rat-shout.mp3', volume: 0.5 },
+    restart: { src: './sound effect/cash-register-purchase.mp3', volume: 0.5 },
+    snack: { src: './sound effect/chewing-breadstick-single-b.mp3', volume: 0.5 },
     phone: { src: './sound effect/notification-sound-effect-372475.mp3', volume: 0.5 },
     neighbor: { src: './sound effect/notification-sound-effect-372475.mp3', volume: 0.5 },
-    profileOpen: { src: './sound effect/mixkit-page-turn-single-1104.wav', volume: 0.34 },
+    profileOpen: { src: './sound effect/mixkit-page-turn-single-1104.mp3', volume: 0.34 },
     ownerBubble: { src: './sound effect/mixkit-message-pop-alert-2354.mp3', volume: 0.38 },
-    profileBubble: { src: './sound effect/mixkit-bubble-pop-alert-2357.wav', volume: 0.3 },
-    timeCapsuleGet: { src: './sound effect/mixkit-bubble-pop-alert-2357.wav', volume: 0.34 },
-    timeCapsuleUse: { src: './sound effect/mixkit-video-game-mystery-alert-234.wav', volume: 0.36 },
-    timeCapsuleEmpty: { src: './sound effect/click2.wav', volume: 0.22 },
-    lost: { src: './sound effect/mixkit-video-game-mystery-alert-234.wav', volume: 0.32 },
-    drown: { src: './sound effect/mixkit-jump-into-the-water-1180.wav', volume: 0.48 },
-    ownerDiscovered: { src: './sound effect/mixkit-female-astonished-gasp-964.wav', volume: 0.52 },
+    profileBubble: { src: './sound effect/mixkit-bubble-pop-alert-2357.mp3', volume: 0.3 },
+    timeCapsuleGet: { src: './sound effect/mixkit-bubble-pop-alert-2357.mp3', volume: 0.34 },
+    timeCapsuleUse: { src: './sound effect/mixkit-video-game-mystery-alert-234.mp3', volume: 0.36 },
+    timeCapsuleEmpty: { src: './sound effect/click2.mp3', volume: 0.22 },
+    lost: { src: './sound effect/mixkit-video-game-mystery-alert-234.mp3', volume: 0.32 },
+    drown: { src: './sound effect/mixkit-jump-into-the-water-1180.mp3', volume: 0.48 },
+    ownerDiscovered: { src: './sound effect/mixkit-female-astonished-gasp-964.mp3', volume: 0.52 },
     ownerStatus: { src: './sound effect/ding-sfx-472366.mp3', volume: 0.3 },
-    bossCaught: { src: './sound effect/mixkit-double-beep-tone-alert-2868.wav', volume: 0.45 },
+    bossCaught: { src: './sound effect/mixkit-double-beep-tone-alert-2868.mp3', volume: 0.45 },
     cat: { src: './sound effect/cute-cat-meow.mp3', volume: 0.6 },
-    poison: { src: './sound effect/dizzy-take-slide-whistle.wav', volume: 0.6 },
-    slipper: { src: './sound effect/snap1.wav', volume: 1 },
-    crush: { src: './sound effect/rat-shout.ogg', volume: 0.5 },
-    stuck: { src: './sound effect/rat-shout.ogg', volume: 0.5 },
-    wheelStuck: { src: './sound effect/rat-shout.ogg', volume: 0.55 },
-    tangle: { src: './sound effect/rat-shout.ogg', volume: 0.5 },
-    fall: { src: './sound effect/dizzy-take-slide-whistle.wav', volume: 0.55 },
-    heatstroke: { src: './sound effect/dizzy-take-slide-whistle.wav', volume: 0.48 },
-    cold: { src: './sound effect/please-help-me.ogg', volume: 0.45 },
-    freeze: { src: './sound effect/please-help-me.ogg', volume: 0.58 },
-    electricZap: { src: './sound effect/electriczap.flac', volume: 0.28 },
-    shockDeath: { src: './sound effect/electriczap.flac', volume: 0.7 },
-    choke: { src: './sound effect/mixkit-male-clearing-the-throat-2226.wav', volume: 0.58 },
-    revive: { src: './sound effect/please-help-me.ogg', volume: 0.5 }
+    poison: { src: './sound effect/dizzy-take-slide-whistle.mp3', volume: 0.6 },
+    slipper: { src: './sound effect/snap1.mp3', volume: 1 },
+    crush: { src: './sound effect/rat-shout.mp3', volume: 0.5 },
+    stuck: { src: './sound effect/rat-shout.mp3', volume: 0.5 },
+    wheelStuck: { src: './sound effect/rat-shout.mp3', volume: 0.55 },
+    tangle: { src: './sound effect/rat-shout.mp3', volume: 0.5 },
+    fall: { src: './sound effect/dizzy-take-slide-whistle.mp3', volume: 0.55 },
+    heatstroke: { src: './sound effect/dizzy-take-slide-whistle.mp3', volume: 0.48 },
+    cold: { src: './sound effect/please-help-me.mp3', volume: 0.45 },
+    freeze: { src: './sound effect/please-help-me.mp3', volume: 0.58 },
+    electricZap: { src: './sound effect/electriczap.mp3', volume: 0.28 },
+    shockDeath: { src: './sound effect/electriczap.mp3', volume: 0.7 },
+    choke: { src: './sound effect/mixkit-male-clearing-the-throat-2226.mp3', volume: 0.58 },
+    revive: { src: './sound effect/please-help-me.mp3', volume: 0.5 }
   };
+
+  const sfxAudioCache = new Map();
 
   function playSfx(name, volume) {
     const cfg = SFX[name];
     if (!cfg) return Promise.resolve(false);
     try {
-      const sound = new Audio(cfg.src);
+      let sound = sfxAudioCache.get(cfg.src);
+      if (!sound) {
+        sound = new Audio(cfg.src);
+        sound.preload = 'auto';
+        sfxAudioCache.set(cfg.src, sound);
+      }
       sound.volume = volume ?? cfg.volume ?? 0.5;
+      if (!sound.paused) sound.pause();
+      try {
+        sound.currentTime = 0;
+      } catch (error) {
+        // Some mobile browsers block seeking until metadata is ready.
+      }
       const playPromise = sound.play();
       if (!playPromise || typeof playPromise.then !== 'function') {
         return Promise.resolve(true);
@@ -11607,6 +11730,7 @@
   };
 
   const DAILY_TIDY_NEST_LIMIT = 3;
+  const DAILY_GROOM_SELF_LIMIT = 6;
   const FOOD_PORTION_COST = 6;
   const FOOD_STOCK_CAP = 180;
   const BASE_DAILY_STOCK = 150;
@@ -11807,7 +11931,7 @@
     });
   }
 
-  function updateHomeMapUI() {
+  function updateHomeMapUI(forceRender) {
     const locationKey = getLocationKey();
     const info = LOCATIONS[locationKey] || LOCATIONS.cage;
     const reachable = LOCATION_LINKS[locationKey] || [];
@@ -11819,11 +11943,16 @@
       btn.title = '查看主人家的地图，当前在' + info.label;
       btn.setAttribute('aria-label', '查看主人家的地图，当前在' + info.label);
     }
+    const overlay = $('#homeMapOverlay');
+    const renderKey = [locationKey, state.gameOver ? 1 : 0, isGrounded() ? 1 : 0].join('|');
+    const shouldRenderMap = !!forceRender || (overlay && !overlay.classList.contains('hide'));
+    if (!shouldRenderMap && renderKey === lastHomeMapRenderKey) return;
+    lastHomeMapRenderKey = renderKey;
     const status = $('#homeMapStatus');
     if (status) {
       status.innerHTML = '<span class="home-map-status-icon">🐭</span><span>鼠鼠现在：' + info.place + '。' + (HOME_MAP_NOTES[locationKey] || '') + '</span>';
     }
-    document.querySelectorAll('[data-map-location]').forEach(function(room) {
+    HOME_MAP_ROOMS.forEach(function(room) {
       const roomLocation = room.dataset.mapLocation;
       const isCurrent = roomLocation === locationKey;
       const canReach = reachable.includes(roomLocation) && !isRouteGrounded(locationKey, roomLocation);
@@ -11837,7 +11966,7 @@
         stateTag.textContent = isCurrent ? '现在' : (canReach ? '可去' : getMapLockedLabel(locationKey, roomLocation));
       }
     });
-    document.querySelectorAll('[data-map-route]').forEach(function(route) {
+    HOME_MAP_ROUTES.forEach(function(route) {
       const points = HOME_MAP_ROUTE_KEYS[route.dataset.mapRoute] || [];
       route.classList.toggle('reachable', points.includes(locationKey) && points.some(function(point) {
         return canUseLocationLink(locationKey, point);
@@ -11856,7 +11985,7 @@
 
   function showHomeMap() {
     if (state.gameOver) return;
-    updateHomeMapUI();
+    updateHomeMapUI(true);
     playClickSound();
     $('#homeMapOverlay').classList.remove('hide');
   }
@@ -12045,6 +12174,7 @@
     groundedHours: 0,     // 被主人抓包后的禁足剩余小时，只限制从笼子外出
     dayInjuries: 0,      // 今日轻伤/逃过一劫次数
     dayTidyNestCount: 0, // 今日整理窝有效收益次数
+    dayGroomSelfCount: 0, // 今日梳毛有效收益次数
     timeCapsules: 0,     // 本局持有的时间胶囊，笼子外行动有小概率获得
     dangerMemory: createDangerMemory(), // 当天同类危险是否已触发轻伤
     neighborRatRepliesToday: 0, // 今日已收到邻居鼠回应次数（上限8）
@@ -12359,7 +12489,7 @@
     $('#toilet').disabled = disabledByGameOver || (location !== 'cage' && state.playLeft <= 0);
     $('#wire').disabled = disabledByGameOver || (location === 'living' ? state.chewLeft <= 0 : (location !== 'cage' && state.playLeft <= 0));
     $('#trash').disabled = disabledByGameOver || (location !== 'cage' && state.playLeft <= 0);
-    $('#sewer').disabled = disabledByGameOver || state.playLeft <= 0;
+    $('#sewer').disabled = disabledByGameOver || (location !== 'cage' && state.playLeft <= 0);
     $('#wander').disabled = disabledByGameOver || state.playLeft <= 0;
   }
 
@@ -13164,9 +13294,9 @@
     },
     '甜点零食类': {
       short: '甜点',
-      clue: '心情好但容易涨出恭',
-      known: '谨慎：加闲游和饱腹，可能涨出恭',
-      categoryHint: '偏加心情，但吃多了会有负担'
+      clue: '补饱腹但容易涨出恭',
+      known: '谨慎：主要加饱腹，少量加闲游，可能涨出恭',
+      categoryHint: '偏补饱腹，吃多了会有负担'
     },
     '主食类': {
       short: '主食',
@@ -13179,7 +13309,7 @@
   const SNACK_DISPLAY_CATEGORIES = {
     '果蔬类': '多数补饱腹，但个别需要靠图鉴记住风险',
     '坚果类': '多数能磨牙，适合牙痒时试',
-    '甜点零食类': '多数加心情，但可能带来出恭压力',
+    '甜点零食类': '多数补饱腹，但可能带来出恭压力',
     '主食类': '多数效果稳定，适合保守照顾'
   };
   const SNACK_CATEGORY_ORDER = ['果蔬类', '坚果类', '甜点零食类', '主食类'];
@@ -13383,7 +13513,15 @@
   function log(msg, type) {
     type = type || 'rat';
     const cls = type === 'owner' ? 'log-owner' : (type === 'event' ? 'log-event' : 'log-rat');
-    $('#log').innerHTML = '<span class="' + cls + '">' + msg + '</span>' + $('#log').innerHTML;
+    const logEl = $('#log');
+    if (!logEl) return;
+    const entry = document.createElement('span');
+    entry.className = cls;
+    entry.textContent = msg;
+    logEl.prepend(entry);
+    while (logEl.children.length > MAX_LOG_ENTRIES) {
+      logEl.removeChild(logEl.lastElementChild);
+    }
   }
   function logOwner(msg) { 
     log(msg, 'owner');
@@ -14434,6 +14572,7 @@
     state.dayOwnerDiscoveries = 0;
     state.dayInjuries = 0;
     state.dayTidyNestCount = 0;
+    state.dayGroomSelfCount = 0;
     state.dangerMemory = createDangerMemory();
     state.neighborRatRepliesToday = 0;
     state.foodLeft = DAILY_LIMITS.food;
@@ -14593,6 +14732,7 @@
       state.dayOwnerDiscoveries = 0;
       state.dayInjuries = 0;
       state.dayTidyNestCount = 0;
+      state.dayGroomSelfCount = 0;
       state.dangerMemory = createDangerMemory();
       state.neighborRatRepliesToday = 0;
       state.foodLeft = DAILY_LIMITS.food;
@@ -14755,12 +14895,10 @@
     recordLifeAction('睡觉');
     state.consecutiveEatCount = 0;
     const loveGain = randomGain(9, 17, getRatTrait().loveGain);
-    const playGain = randomGain(8, 14, getRatTrait().playGain);
     const foodLoss = randomGain(3, 6, getRatTrait().foodDecay);
     const actualLoveGain = addLoveWhenOwnerHome(loveGain);
-    state.play = Math.min(100, state.play + playGain);
     state.food = Math.max(0, state.food - foodLoss);
-    logRat('窝里睡了一小觉' + loveGainLogText(actualLoveGain) + '，闲游+' + playGain + '，饱腹-' + foodLoss);
+    logRat('窝里睡了一小觉' + loveGainLogText(actualLoveGain) + '，饱腹-' + foodLoss);
     finishAction({ warn: false });
   }
 
@@ -14790,13 +14928,20 @@
   }
 
   function groomSelf() {
-    if (!spendPlayAction('梳毛')) return;
     playClickSound();
+    recordLifeAction('梳毛');
     state.consecutiveEatCount = 0;
     const trait = getRatTrait();
+    if (state.dayGroomSelfCount >= DAILY_GROOM_SELF_LIMIT) {
+      logRat('鼠鼠又把毛毛理了一遍，今天已经很蓬松啦，没有额外收益');
+      finishAction({ warn: false });
+      return;
+    }
+
+    state.dayGroomSelfCount += 1;
     const chewGain = Math.min(2, randomGain(1, 2, trait.chewGain));
     state.chew = Math.min(100, state.chew + chewGain);
-    let msg = '鼠鼠用小嘴认真梳毛，顺便轻轻磨了磨牙，磨牙+' + chewGain;
+    let msg = '鼠鼠用小嘴认真梳毛，顺便轻轻磨了磨牙，磨牙+' + chewGain + '（今日梳毛收益' + state.dayGroomSelfCount + '/' + DAILY_GROOM_SELF_LIMIT + '）';
     if (state.ownerHome && state.love < 100 && state.loveLeft > 0 && passesChance(0.16, trait.loveGain * getOwnerTrustInfo().petGain, 0.30)) {
       const loveGain = randomGain(5, 10, trait.loveGain * getOwnerTrustInfo().petGain);
       const actualLoveGain = addLoveWhenOwnerHome(loveGain);
@@ -15119,11 +15264,11 @@
       kitchenDiscoveryAction: '舔水珠',
       kitchenDiscoveryReason: '厨房台面有小爪印'
     })) return;
-    const poopLoss = randomGain(8, 16, getRatTrait().toiletGain);
+    const poopGain = randomGain(2, 6, getRatTrait().poopRate);
     const playGain = randomGain(5, 11, getRatTrait().playGain);
-    state.poop = Math.max(0, state.poop - poopLoss);
+    state.poop = Math.min(100, state.poop + poopGain);
     state.play = Math.min(100, state.play + playGain);
-    logRat('舔到一点凉凉水珠，出恭-' + poopLoss + '，闲游+' + playGain);
+    logRat('舔到一点凉凉水珠，出恭+' + poopGain + '，闲游+' + playGain);
     const discovered = maybeKitchenDiscovery('舔水珠', '厨房台面有小爪印');
     finishAction({ warn: !discovered, skipTimeCapsuleDrop: discovered });
   }
@@ -16336,17 +16481,17 @@
         state.food = Math.min(100, state.food + foodGain);
         effectLine = createSnackEffectLine(['磨牙+' + chewGain, '饱腹+' + foodGain]);
       } else if (food.category === '甜点零食类') {
-        const playGain = randomGain(14, 30, trait.snackGoodGain * trait.playGain);
-        const foodGain = randomGain(5, 14, trait.snackGoodGain * trait.eatGain);
+        const foodGain = randomGain(8, 20, trait.snackGoodGain * trait.eatGain);
+        const playGain = randomGain(4, 10, trait.snackGoodGain * trait.playGain);
         state.play = Math.min(100, state.play + playGain);
         state.food = Math.min(100, state.food + foodGain);
         const poopRisk = Math.random() < 0.55;
         if (poopRisk) {
           const poopGain = randomGain(5, 16, trait.snackBadLoss);
           state.poop = Math.min(100, state.poop + poopGain);
-          effectLine = createSnackEffectLine(['闲游+' + playGain, '饱腹+' + foodGain, '出恭+' + poopGain]);
+          effectLine = createSnackEffectLine(['饱腹+' + foodGain, '闲游+' + playGain, '出恭+' + poopGain]);
         } else {
-          effectLine = createSnackEffectLine(['闲游+' + playGain, '饱腹+' + foodGain]);
+          effectLine = createSnackEffectLine(['饱腹+' + foodGain, '闲游+' + playGain]);
         }
       } else {
         const foodGain = randomGain(10, 22, trait.snackGoodGain * trait.eatGain);
@@ -16415,7 +16560,7 @@
       hour:6, daysSurvived:0, ownerHome:true, location:'cage', inCage:true, escapedHome:false, gameOver:false,
       food:50, chew:50, play:50, love:50, poop:10,
       foodStock:BASE_DAILY_STOCK, ownerTrust:80, wellBehavedDays:0,
-      dayEscape:0, dayEscapedHome:0, dayPetCount:0, dayOwnerDiscoveries:0, groundedHours:0, dayInjuries:0, dayTidyNestCount:0,
+      dayEscape:0, dayEscapedHome:0, dayPetCount:0, dayOwnerDiscoveries:0, groundedHours:0, dayInjuries:0, dayTidyNestCount:0, dayGroomSelfCount:0,
       timeCapsules:0,
       dangerMemory:createDangerMemory(),
       foodLeft:DAILY_LIMITS.food, chewLeft:DAILY_LIMITS.chew, playLeft:DAILY_LIMITS.play, loveLeft:DAILY_LIMITS.love,
@@ -16507,7 +16652,7 @@
   $('#homeMapOverlay').onclick = function(e) {
     if (e.target === $('#homeMapOverlay')) closeHomeMap();
   };
-  document.querySelectorAll('[data-map-location]').forEach(function(room) {
+  HOME_MAP_ROOMS.forEach(function(room) {
     room.onclick = function() {
       const target = room.dataset.mapLocation;
       const current = getLocationKey();
