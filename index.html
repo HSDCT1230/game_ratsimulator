@@ -11721,7 +11721,6 @@
   }
 
   const DAILY_LIMITS = {
-    food: 11,
     chew: 6,
     play: 13,
     love: 11,
@@ -12183,7 +12182,6 @@
     neighborRatLastUpdate: null, // 上次邻居鼠故事更新时间（游戏小时）
     canRevive: false, // 是否可以心肺复苏（电死时存活天数>=1）
     reviveAttempted: false, // 是否已尝试过心肺复苏
-    foodLeft: DAILY_LIMITS.food,        // 今日剩余吃饭次数
     chewLeft: DAILY_LIMITS.chew,        // 今日剩余磨牙次数
     playLeft: DAILY_LIMITS.play,        // 今日剩余闲游次数
     loveLeft: DAILY_LIMITS.love,        // 今日剩余抚摸次数
@@ -12471,7 +12469,7 @@
     $('#poop').style.width = state.poop + '%'; // 便便进度条长度
     updateClock();
 
-    $('#foodLimit').textContent = '每日剩余：' + state.foodLeft; // 显示吃饭每日剩余
+    $('#foodLimit').textContent = '每次消耗：' + FOOD_PORTION_COST; // 吃饭只受食物储备限制
     $('#chewLimit').textContent = '每日剩余：' + state.chewLeft; // 磨牙
     $('#playLimit').textContent = '每日剩余：' + state.playLeft; // 闲游
     $('#loveLimit').textContent = '每日剩余：' + state.loveLeft; // 抚摸
@@ -12485,7 +12483,7 @@
     });
     updateLocationActionLabels();
 
-    $('#eat').disabled = disabledByGameOver || (location === 'cage' ? state.foodLeft <= 0 : state.playLeft <= 0);
+    $('#eat').disabled = disabledByGameOver || (location === 'cage' ? state.foodStock < FOOD_PORTION_COST : state.playLeft <= 0);
     $('#toilet').disabled = disabledByGameOver || (location !== 'cage' && state.playLeft <= 0);
     $('#wire').disabled = disabledByGameOver || (location === 'living' ? state.chewLeft <= 0 : (location !== 'cage' && state.playLeft <= 0));
     $('#trash').disabled = disabledByGameOver || (location !== 'cage' && state.playLeft <= 0);
@@ -14575,7 +14573,6 @@
     state.dayGroomSelfCount = 0;
     state.dangerMemory = createDangerMemory();
     state.neighborRatRepliesToday = 0;
-    state.foodLeft = DAILY_LIMITS.food;
     state.chewLeft = DAILY_LIMITS.chew;
     state.playLeft = DAILY_LIMITS.play;
     state.phoneLeft = DAILY_LIMITS.phone;
@@ -14735,7 +14732,6 @@
       state.dayGroomSelfCount = 0;
       state.dangerMemory = createDangerMemory();
       state.neighborRatRepliesToday = 0;
-      state.foodLeft = DAILY_LIMITS.food;
       state.chewLeft = DAILY_LIMITS.chew;
       state.playLeft = DAILY_LIMITS.play;
       state.phoneLeft = DAILY_LIMITS.phone;
@@ -15850,10 +15846,6 @@
     if (location === 'outside') { outsideFindFood(); return; }
     if (location !== 'cage') return;
     const trait = getRatTrait();
-    if (state.foodLeft <= 0) {
-      showLimitAlert('吃饭');
-      return;
-    }
     if (state.foodStock < FOOD_PORTION_COST) { logRat('食物不够了'); return; } // 食物不足
     playClickSound();
 
@@ -15876,7 +15868,6 @@
       if (!survivedChoke) return;
       state.consecutiveEatCount = trait.chokeLimit;
       state.foodStock -= FOOD_PORTION_COST;
-      state.foodLeft -= 1;
       state.totalEat += 1;
       recordLifeAction('吃饭');
       recordLifeFood('笼中饭饭', '吃太急，没吃踏实');
@@ -15888,7 +15879,6 @@
     const foodGain = randomGain(12, 16, trait.eatGain);
     state.food = Math.min(100, state.food + foodGain); // 增加食物值
     state.foodStock -= FOOD_PORTION_COST; // 消耗虚拟储备
-    state.foodLeft -= 1;  // 今日剩余次数减少
     state.totalEat += 1;  // 累计吃饭次数+1
     recordLifeAction('吃饭');
     recordLifeFood('笼中饭饭', '饱腹+' + foodGain);
@@ -16563,7 +16553,7 @@
       dayEscape:0, dayEscapedHome:0, dayPetCount:0, dayOwnerDiscoveries:0, groundedHours:0, dayInjuries:0, dayTidyNestCount:0, dayGroomSelfCount:0,
       timeCapsules:0,
       dangerMemory:createDangerMemory(),
-      foodLeft:DAILY_LIMITS.food, chewLeft:DAILY_LIMITS.chew, playLeft:DAILY_LIMITS.play, loveLeft:DAILY_LIMITS.love,
+      chewLeft:DAILY_LIMITS.chew, playLeft:DAILY_LIMITS.play, loveLeft:DAILY_LIMITS.love,
       phoneLeft:DAILY_LIMITS.phone, ownerCalledHome:false, bossCaught:false,
       firstBubbleShown: false, foodEatenToday: false, diaryStoryIndex: randomDiaryStoryIndex(),
       neighborRatRepliesToday: 0, neighborRatSqueakUsed: false, neighborRatReplyReceived: false, neighborRatLastUpdate: null,
