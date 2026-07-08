@@ -1120,28 +1120,46 @@
       margin: 0 auto 14px;
     }
     .basket-queue-item {
+      border: none;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       max-width: 136px;
       padding: 5px 9px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.48);
       color: #6d5840;
+      font-family: inherit;
       font-size: 11px;
       font-weight: 800;
       line-height: 1.15;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      cursor: pointer;
       box-shadow: inset 0 0 0 1px rgba(164, 128, 78, 0.10);
+    }
+    .basket-queue-item:hover {
+      background: rgba(255, 242, 209, 0.72);
+      transform: translateY(-1px);
     }
     .basket-queue-item.current {
       background: rgba(255, 217, 146, 0.62);
       color: #5d4326;
+      box-shadow:
+        inset 0 0 0 1px rgba(196, 128, 54, 0.22),
+        0 4px 10px rgba(180, 124, 62, 0.12);
     }
     .basket-queue-item.empty {
       max-width: none;
       color: rgba(92, 80, 65, 0.68);
+    }
+    .basket-queue-more {
+      cursor: default;
+    }
+    .basket-queue-more:hover {
+      background: rgba(255, 255, 255, 0.48);
+      transform: none;
     }
     /* 零食清单弹窗样式 */
     .snack-list-overlay {
@@ -14205,6 +14223,7 @@
   // 今日零食状态（每天刷新）
   let todayFood = null;
   let todayFoodKey = null;
+  let selectedSnackBasketIndex = 0;
   let snackDex = loadSnackDex();
 
   const SNACK_CATEGORY_RULES = {
@@ -17247,6 +17266,8 @@
     '垃圾桶小零食': '垃圾桶'
   };
 
+  const OUTSIDE_SNACK_SOURCES = new Set(['门外闲逛', '门外小碎碎', '街边小宝藏']);
+
   function findSnackFood(food) {
     if (!food || !food.name) return null;
     return FOOD_POOL.find(function(poolFood) {
@@ -17258,6 +17279,15 @@
     const sourceText = typeof source === 'string' ? source : '';
     if (!sourceText) return '捡到';
     return SNACK_SOURCE_SHORT_LABELS[sourceText] || sourceText.replace(/小零食|小碎碎|小角角/g, '').slice(0, 4) || '捡到';
+  }
+
+  function getSnackSourceRegion(item) {
+    const source = item && typeof item.source === 'string' ? item.source : '';
+    return OUTSIDE_SNACK_SOURCES.has(source) || source.includes('门外') || source.includes('街边') ? '门外' : '门内';
+  }
+
+  function getSnackBasketChoiceLabel(item) {
+    return getSnackSourceRegion(item) + ' · ' + getSnackSourceShortLabel(item && item.source) + ' · ' + getSnackDisplayName(item);
   }
 
   function getSnackDisplayName(item) {
@@ -17285,6 +17315,7 @@
     todayFoodKey = getTodayKey();
     state.foodEatenToday = false;
     state.snackBasket = [createSnackBasketItem(todayFood, '今日零食', { dailyKey: todayFoodKey })];
+    selectedSnackBasketIndex = 0;
   }
 
   // 获取今日零食（每局每天刷新）- 每种食物概率相等
@@ -17312,21 +17343,27 @@
     if (!state.foodEatenToday && todayFood && !hasDailySnack) {
       state.snackBasket.unshift(createSnackBasketItem(todayFood, '今日零食', { dailyKey: todayKey }));
     }
+    if (!state.snackBasket.length) {
+      selectedSnackBasketIndex = 0;
+    } else {
+      selectedSnackBasketIndex = Math.max(0, Math.min(selectedSnackBasketIndex, state.snackBasket.length - 1));
+    }
     return state.snackBasket;
   }
 
   function getCurrentSnackBasketItem() {
     const basket = ensureSnackBasket();
-    return basket.length > 0 ? basket[0] : null;
+    return basket.length > 0 ? basket[selectedSnackBasketIndex] : null;
   }
 
   function takeCurrentSnackBasketItem() {
     const basket = ensureSnackBasket();
     if (!basket.length) return null;
-    const item = basket.shift();
+    const item = basket.splice(selectedSnackBasketIndex, 1)[0];
     if (item && item.dailyKey === getTodayKey()) {
       state.foodEatenToday = true;
     }
+    selectedSnackBasketIndex = Math.max(0, Math.min(selectedSnackBasketIndex, basket.length - 1));
     return item;
   }
 
@@ -17377,15 +17414,22 @@
     }
     queue.hidden = false;
     basket.slice(0, 8).forEach(function(item, index) {
-      const chip = document.createElement('span');
-      chip.className = 'basket-queue-item' + (index === 0 ? ' current' : '');
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'basket-queue-item' + (index === selectedSnackBasketIndex ? ' current' : '');
       chip.title = (item.source || '今日零食') + '：' + item.name;
-      chip.textContent = getSnackSourceShortLabel(item.source) + ' · ' + getSnackDisplayName(item);
+      chip.textContent = getSnackBasketChoiceLabel(item);
+      chip.setAttribute('aria-pressed', index === selectedSnackBasketIndex ? 'true' : 'false');
+      chip.onclick = function(event) {
+        event.stopPropagation();
+        selectedSnackBasketIndex = index;
+        showBasket();
+      };
       queue.appendChild(chip);
     });
     if (basket.length > 8) {
       const more = document.createElement('span');
-      more.className = 'basket-queue-item';
+      more.className = 'basket-queue-item basket-queue-more';
       more.textContent = '+' + (basket.length - 8);
       queue.appendChild(more);
     }
@@ -17429,8 +17473,8 @@
     $('#basketRiskNote').textContent = getSnackRiskText(food);
     const effectNote = $('#basketEffectNote');
     const effectParts = [
-      '来源：' + getSnackSourceShortLabel(food.source),
-      '第1/' + basket.length + '份',
+      '来源：' + getSnackSourceRegion(food) + ' · ' + getSnackSourceShortLabel(food.source),
+      '第' + (selectedSnackBasketIndex + 1) + '/' + basket.length + '份',
       '6点清空'
     ];
     const effectHint = getSnackEffectHint(food);
