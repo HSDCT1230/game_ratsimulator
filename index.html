@@ -1122,7 +1122,7 @@
     .basket-queue-item {
       display: inline-flex;
       align-items: center;
-      max-width: 120px;
+      max-width: 136px;
       padding: 5px 9px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.48);
@@ -10916,7 +10916,7 @@
 <!-- 今日零食弹窗 -->
 <div class="basket-overlay hide" id="basketOverlay">
   <div class="basket-modal" onclick="event.stopPropagation()">
-    <div class="basket-title">今日零食</div>
+    <div class="basket-title" id="basketTitle">今日零食</div>
     <div class="basket-food" id="basketFood" title="点击查看零食图鉴"></div>
     <div class="basket-risk-note" id="basketRiskNote"></div>
     <div class="basket-effect-note" id="basketEffectNote"></div>
@@ -15231,8 +15231,8 @@
     state.chew = Math.min(100, state.chew + chewGain);
     let msg = '把窝窝扒拉平整了，磨牙+' + chewGain + '（今日整理收益' + state.dayTidyNestCount + '/' + DAILY_TIDY_NEST_LIMIT + '）';
     if (passesChance(0.18, trait.trashSnackChance, 0.30)) {
-      addFoundSnackToBasket('窝角小零食');
-      msg += '，还翻出窝角小零食，放进零食筐';
+      const snack = addFoundSnackToBasket('窝角小零食', { log: false });
+      msg += '，还翻出' + getSnackDisplayName(snack) + '，放进零食筐';
     }
     logRat(msg);
     finishAction({ warn: false });
@@ -15366,8 +15366,8 @@
     } else {
       const playGain = randomGain(5, 11, trait.playGain);
       state.play = Math.min(100, state.play + playGain);
-      addFoundSnackToBasket('客厅小零食');
-      logRat('偷到一点小零食，放进零食筐，闲游+' + playGain);
+      const snack = addFoundSnackToBasket('客厅小零食', { log: false });
+      logRat('偷到' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
     }
     finishAction({ checkOwner: true });
   }
@@ -15538,8 +15538,8 @@
     } else {
       const playGain = randomGain(6, 12, trait.playGain);
       state.play = Math.min(100, state.play + playGain);
-      addFoundSnackToBasket('厨余小角角');
-      logRat('翻到能带走的小角角，放进零食筐，闲游+' + playGain);
+      const snack = addFoundSnackToBasket('厨余小角角', { log: false });
+      logRat('翻到能带走的' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
     }
     state.totalTrash += 1;
     const discovered = maybeKitchenDiscovery('翻厨余', '翻厨余被发现');
@@ -15603,8 +15603,8 @@
       kitchenDiscoveryAction: '叼走小零食',
       kitchenDiscoveryReason: '小零食包装响，被主人注意到'
     })) return;
-    addFoundSnackToBasket('厨房小零食');
-    logRat('叼走一小块藏起来，放进零食筐');
+    const snack = addFoundSnackToBasket('厨房小零食', { log: false });
+    logRat('叼走' + getSnackDisplayName(snack) + '藏起来，放进零食筐');
     const discovered = maybeKitchenDiscovery('叼走小零食', '小零食少了一角');
     finishAction({ warn: !discovered, skipTimeCapsuleDrop: discovered });
   }
@@ -15826,8 +15826,8 @@
     } else {
       const playGain = randomGain(7, 14, trait.playGain);
       state.play = Math.min(100, state.play + playGain);
-      addFoundSnackToBasket('门外小碎碎');
-      logRat('在门外找到小碎碎，放进零食筐，闲游+' + playGain);
+      const snack = addFoundSnackToBasket('门外小碎碎', { log: false });
+      logRat('在门外找到' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
     }
     state.totalWander += 1;
     finishAction({ checkOwner: true });
@@ -15948,8 +15948,8 @@
     } else {
       const playGain = randomGain(9, 18, trait.playGain);
       state.play = Math.min(100, state.play + playGain);
-      addFoundSnackToBasket('街边小宝藏');
-      logRat('翻到街边小宝藏，放进零食筐，闲游+' + playGain);
+      const snack = addFoundSnackToBasket('街边小宝藏', { log: false });
+      logRat('翻到街边' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
     }
     state.totalTrash += 1;
     finishAction({ checkOwner: true });
@@ -16300,6 +16300,7 @@
     state.lastActionName = '翻垃圾';
     state.playLeft -= 1; // 行动开始即消耗次数，危险分支也不白嫖
     state.consecutiveEatCount = 0;  // 重置连续吃饭计数
+    let showTrashHappyLog = true;
 
     const rand = Math.random();
     const fatalPoisonChance = scaledChance(0.048, trait.trashPoisonRisk, 0.15);
@@ -16333,8 +16334,9 @@
       // 基础16%概率找到好吃的小零食
       const chewGain = randomGain(8, 14, trait.chewGain);
       state.chew = Math.min(100, state.chew + chewGain);
-      addFoundSnackToBasket('垃圾桶小零食');
-      logEvent('翻垃圾找到小零食，放进零食筐，磨牙+' + chewGain);
+      const snack = addFoundSnackToBasket('垃圾桶小零食', { log: false });
+      logEvent('翻垃圾找到' + getSnackDisplayName(snack) + '，放进零食筐，磨牙+' + chewGain);
+      showTrashHappyLog = false;
     } else {
       // 未触发风险时正常翻垃圾
       const playGain = randomGain(15, 23, trait.playGain);
@@ -16343,7 +16345,7 @@
     }
 
     state.totalTrash += 1;  // 累计翻垃圾次数+1
-    logRat('翻垃圾超开心');
+    if (showTrashHappyLog) logRat('翻垃圾超开心');
     finishAction({ checkOwner: true });
   }
 
@@ -16620,13 +16622,45 @@
     return currentGameId + '-' + state.daysSurvived;
   }
 
+  const SNACK_SOURCE_SHORT_LABELS = {
+    '今日零食': '今日',
+    '门外闲逛': '门外',
+    '窝角小零食': '窝角',
+    '客厅小零食': '客厅',
+    '厨余小角角': '厨余',
+    '厨房小零食': '厨房',
+    '门外小碎碎': '门外',
+    '街边小宝藏': '街边',
+    '垃圾桶小零食': '垃圾桶'
+  };
+
+  function findSnackFood(food) {
+    if (!food || !food.name) return null;
+    return FOOD_POOL.find(function(poolFood) {
+      return poolFood.name === food.name;
+    }) || null;
+  }
+
+  function getSnackSourceShortLabel(source) {
+    const sourceText = typeof source === 'string' ? source : '';
+    if (!sourceText) return '捡到';
+    return SNACK_SOURCE_SHORT_LABELS[sourceText] || sourceText.replace(/小零食|小碎碎|小角角/g, '').slice(0, 4) || '捡到';
+  }
+
+  function getSnackDisplayName(item) {
+    if (!item) return '小零食';
+    return (item.emoji || '🍪') + item.name;
+  }
+
   function createSnackBasketItem(food, source, options = {}) {
+    const poolFood = findSnackFood(food);
+    if (!poolFood) return null;
     return {
-      name: food.name,
-      emoji: food.emoji,
-      bad: !!food.bad,
-      category: food.category,
-      source: source || '今日零食',
+      name: poolFood.name,
+      emoji: poolFood.emoji,
+      bad: !!poolFood.bad,
+      category: poolFood.category,
+      source: typeof source === 'string' && source ? source : '今日零食',
       dailyKey: options.dailyKey || ''
     };
   }
@@ -16655,6 +16689,10 @@
       refreshTodayFood();
     }
     if (!Array.isArray(state.snackBasket)) state.snackBasket = [];
+    state.snackBasket = state.snackBasket.map(function(item) {
+      const food = findSnackFood(item);
+      return food ? createSnackBasketItem(food, item.source, { dailyKey: item.dailyKey }) : null;
+    }).filter(Boolean);
     const hasDailySnack = state.snackBasket.some(function(item) {
       return item && item.dailyKey === todayKey;
     });
@@ -16679,12 +16717,16 @@
     return item;
   }
 
-  function addFoundSnackToBasket(sourceLabel) {
+  function addFoundSnackToBasket(sourceLabel, options = {}) {
     const food = FOOD_POOL[randomIndex(FOOD_POOL.length)];
     const item = createSnackBasketItem(food, sourceLabel || '捡到的小零食');
+    if (!item) return null;
     ensureSnackBasket().push(item);
-    logEvent('🧺 捡到' + food.emoji + food.name + '，已放进零食筐');
-    showGameNotice('捡到' + food.name + '，放进零食筐啦', food.emoji || '🧺');
+    if (options.log !== false) {
+      const extra = options.extra ? '，' + options.extra : '';
+      logEvent('🧺 ' + (item.source || '捡到的小零食') + '：捡到' + getSnackDisplayName(item) + '，已放进零食筐' + extra);
+    }
+    showGameNotice('捡到' + item.name + '，放进零食筐啦', item.emoji || '🧺');
     const overlay = $('#basketOverlay');
     if (overlay && !overlay.classList.contains('hide')) showBasket();
     return item;
@@ -16727,7 +16769,7 @@
       const chip = document.createElement('span');
       chip.className = 'basket-queue-item' + (index === 0 ? ' current' : '');
       chip.title = (item.source || '今日零食') + '：' + item.name;
-      chip.textContent = (item.emoji || '🍪') + item.name;
+      chip.textContent = getSnackSourceShortLabel(item.source) + ' · ' + getSnackDisplayName(item);
       queue.appendChild(chip);
     });
     if (basket.length > 8) {
@@ -16738,11 +16780,18 @@
     }
   }
 
+  function renderSnackBasketTitle(count) {
+    const title = $('#basketTitle');
+    if (!title) return;
+    title.textContent = count > 0 ? '今日零食（' + count + '份）' : '今日零食';
+  }
+
   // 显示今日零食弹窗
   function showBasket() {
     if (state.gameOver) return;
     const food = getCurrentSnackBasketItem();
     const basket = ensureSnackBasket();
+    renderSnackBasketTitle(basket.length);
     const basketFood = $('#basketFood');
     basketFood.textContent = '';
 
@@ -16769,8 +16818,9 @@
     $('#basketRiskNote').textContent = getSnackRiskText(food);
     const effectNote = $('#basketEffectNote');
     const effectParts = [
-      '来源：' + (food.source || '今日零食'),
-      '筐里' + basket.length + '份，明天6点清空'
+      '来源：' + getSnackSourceShortLabel(food.source),
+      '第1/' + basket.length + '份',
+      '6点清空'
     ];
     const effectHint = getSnackEffectHint(food);
     if (effectHint) effectParts.push(effectHint);
