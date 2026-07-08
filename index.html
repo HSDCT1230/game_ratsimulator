@@ -11692,6 +11692,264 @@
     }
   };
 
+  const LIFE_SUMMARY_TRAIT_VOICES = {
+    default: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}把普通鼠生过成了一小段电影。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{personality}}的{{name}}认真营业到最后一格。'
+      ],
+      intro: [
+        '{{name}}是一只{{personality}}鼠，爱好是{{hobby}}，最惦记的食物是{{favoriteFood}}。',
+        '{{traitTag}}的标签贴在{{name}}身上刚刚好，小爪子写满了“我来过”。'
+      ],
+      foodIntro: [
+        '吃播风格：不一定豪华，但每一口都很有鼠鼠态度。',
+        '{{favoriteFood}}是心头好，其他能入口的也会被认真登记。'
+      ],
+      emptyFood: [
+        '本鼠此生没有认真吃过零食，主要靠空气、胆量和一点点幻想续命。',
+        '{{name}}这局几乎没有吃播素材，腮帮子表示档期太空。'
+      ],
+      actionIntro: [
+        '行动风格：{{personality}}写在步伐里，爪印也有自己的节奏。',
+        '以下是{{name}}的鼠生足迹，轻重缓急都很有{{traitTag}}的味道。'
+      ],
+      emptyAction: [
+        '本鼠此生主打一个静止艺术，动得很少，但气质很足。',
+        '{{name}}这局行动记录很薄，像一本还没翻开的迷你日记。'
+      ],
+      neighborIntro: [
+        '邻居鼠听到的是{{personality}}版本的吱吱声，翻译起来略有难度。',
+        '{{name}}的社交电波很有{{traitTag}}特色，墙那边不一定完全接收。'
+      ],
+      ownerIntro: [
+        '主人观察：{{name}}的信用评分和闯祸记录一起摆在桌上。',
+        '主人视角：这只{{personality}}鼠有自己的逻辑，也有自己的小麻烦。'
+      ],
+      ending: [
+        '鼠生评价：短短一局，满满鼠味。下辈子建议先看路，再伸头。',
+        '鼠生评价：{{name}}没有白来，至少留下了{{actions}}次行动和{{foods}}条吃播痕迹。'
+      ]
+    },
+    runner: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}像一阵小风，刹车偶尔缺勤。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。跑酷鼠的片尾，连字幕都想冲刺。'
+      ],
+      intro: [
+        '{{name}}的脚脚一直有计划，计划内容大概是：先跑再说。',
+        '作为{{traitTag}}，{{name}}把世界看成一张巨大的跑轮地图。'
+      ],
+      actionIntro: ['行动记录像一串小脚印，速度感比说明书更强。'],
+      ownerIntro: ['主人观察：{{name}}不是故意难抓，只是移动速度很有主见。'],
+      ending: ['鼠生评价：跑过、绕过、冲过，{{name}}把一局活成了短跑比赛。']
+    },
+    cuddle: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}的鼠生关键词是贴贴和一点点委屈。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。贴贴鼠谢幕时，毛毛还在等摸摸。'
+      ],
+      intro: [
+        '{{name}}是{{personality}}的软乎鼠，爱好{{hobby}}，理想是被认真抱住。',
+        '作为{{traitTag}}，{{name}}的战斗力主要来自摸摸补给。'
+      ],
+      foodIntro: ['吃饭可以等等，贴贴最好不要等等，这是{{name}}的生活哲学。'],
+      ownerIntro: ['主人观察：{{name}}的毛毛营业记录很重要，少一次摸摸都像少一块拼图。'],
+      ending: ['鼠生评价：{{name}}努力把世界变软，虽然世界偶尔没有接住。']
+    },
+    foodie: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}的鼠生像一档紧张吃播。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。干饭鼠的片尾，腮帮子仍在回放菜单。'
+      ],
+      intro: [
+        '{{name}}是{{personality}}鼠，最爱{{favoriteFood}}，鼠生信条是先吃一口再判断危险。',
+        '作为{{traitTag}}，{{name}}看世界的方式很直接：能不能吃，吃了亏不亏。'
+      ],
+      foodIntro: ['吃播记录是本片重点，腮帮子提供独家旁白。'],
+      emptyFood: ['这局没有像样吃播，对{{name}}来说属于重大素材事故。'],
+      ending: ['鼠生评价：{{name}}不是贪吃，是在用嘴巴研究世界。']
+    },
+    curious: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}把“那是什么”问到了最后。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。探险鼠的结尾，通常发生在下一步之前。'
+      ],
+      intro: [
+        '{{name}}的{{personality}}写在眼睛里，任何角落都像未解锁关卡。',
+        '作为{{traitTag}}，{{name}}相信不探一下就不算真正活过。'
+      ],
+      actionIntro: ['行动记录像探险地图，旁边写着：这里也想去，那里也想看。'],
+      ownerIntro: ['主人观察：{{name}}的问题不是胆子太大，是问号太多。'],
+      ending: ['鼠生评价：{{name}}用好奇心点亮地图，也用好奇心踩中了结尾。']
+    },
+    lazy: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}慢慢地来，也慢慢地谢幕。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。佛系鼠的片尾很轻，像打盹前的一口气。'
+      ],
+      intro: [
+        '{{name}}是{{personality}}鼠，爱好{{hobby}}，人生目标是不把自己过得太累。',
+        '作为{{traitTag}}，{{name}}擅长把紧张局面处理成“先躺一下”。'
+      ],
+      actionIntro: ['行动记录不追求数量，主打慢节奏和省电模式。'],
+      ownerIntro: ['主人观察：{{name}}多数时候不闹，只是在和地板建立长期关系。'],
+      ending: ['鼠生评价：{{name}}证明了，慢也可以很有存在感。']
+    },
+    timid: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}小声走完了这一局。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。躲躲鼠的片尾，连掌声都放轻了。'
+      ],
+      intro: [
+        '{{name}}是{{personality}}鼠，谨慎不是退缩，是小爪子的风险管理。',
+        '作为{{traitTag}}，{{name}}每一步都像先探温度再落脚。'
+      ],
+      actionIntro: ['行动记录不一定张扬，但每一条都经过内心开会。'],
+      ownerIntro: ['主人观察：{{name}}很会降低存在感，只是世界偶尔还是太响。'],
+      ending: ['鼠生评价：{{name}}已经很勇敢了，勇敢不一定要大声。']
+    },
+    clever: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}的聪明小脑袋也有算漏的时候。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。机灵鼠的片尾，像一道没写完的解题步骤。'
+      ],
+      intro: [
+        '{{name}}是{{personality}}鼠，爱好{{hobby}}，路线规划通常比胆子先到。',
+        '作为{{traitTag}}，{{name}}很会研究机关，也很会把机关研究急眼。'
+      ],
+      actionIntro: ['行动记录像实验日志，成功和事故都很有参考价值。'],
+      ownerIntro: ['主人观察：{{name}}不只是调皮，它是真的在分析这个家。'],
+      ending: ['鼠生评价：{{name}}算对了很多步，只是最后一步没有验算。']
+    },
+    clean: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}谢幕前，毛毛应该还是整齐的。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。洁净鼠的片尾，连灰尘都显得不太礼貌。'
+      ],
+      intro: [
+        '{{name}}是{{personality}}鼠，爱好{{hobby}}，对脏脏东西有明确边界感。',
+        '作为{{traitTag}}，{{name}}把优雅带进了每一次梳毛和犹豫。'
+      ],
+      foodIntro: ['吃播记录需要干净体面，至少{{name}}心里是这么要求的。'],
+      actionIntro: ['行动记录里若有翻找项目，请理解为一次不得已的现场调查。'],
+      ownerIntro: ['主人观察：{{name}}的卫生标准比主人想象中更高。'],
+      ending: ['鼠生评价：{{name}}把毛毛打理好了，也把尊严留在了片尾。']
+    },
+    naughty: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}把片尾都弄得有点乱。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。捣蛋鼠落幕，现场疑似需要收拾。'
+      ],
+      intro: [
+        '{{name}}是{{personality}}鼠，爱好{{hobby}}，原则是能碰一下就不只看一眼。',
+        '作为{{traitTag}}，{{name}}把“不要动”理解成“可以研究”。'
+      ],
+      actionIntro: ['行动记录里每一条都像案发现场的小脚印。'],
+      ownerIntro: ['主人观察：{{name}}不是没有规矩，是规矩在它面前经常失效。'],
+      ending: ['鼠生评价：{{name}}让世界多了很多小破坏，也多了很多小故事。']
+    },
+    scavenger: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}的鼻子可能比地图更可靠。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。翻找鼠的片尾，像从袋子里翻出的最后一张票。'
+      ],
+      intro: [
+        '{{name}}是{{personality}}鼠，爱好{{hobby}}，擅长把普通角落翻成藏宝点。',
+        '作为{{traitTag}}，{{name}}相信世界没有废物，只有没闻仔细的线索。'
+      ],
+      foodIntro: ['吃播记录里可能有惊喜，也可能有“下次别吃这个”。'],
+      actionIntro: ['行动记录带着一点翻找味，像小爪子整理过的线索袋。'],
+      ownerIntro: ['主人观察：{{name}}的搜索范围经常超出家庭清洁计划。'],
+      ending: ['鼠生评价：{{name}}用鼻子找到了很多东西，也找到了这一局的句号。']
+    },
+    calm: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}稳稳地走到片尾。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。稳稳鼠的结尾，不吵，但有分量。'
+      ],
+      intro: [
+        '{{name}}是{{personality}}鼠，爱好{{hobby}}，做事讲究先观察再伸爪。',
+        '作为{{traitTag}}，{{name}}把谨慎和从容揣在同一个小口袋里。'
+      ],
+      actionIntro: ['行动记录不浮夸，但每一步都像经过小脑袋审批。'],
+      ownerIntro: ['主人观察：{{name}}多数时候很稳，稳到闯祸也显得有计划。'],
+      ending: ['鼠生评价：{{name}}不是没冒险，是把冒险压低了音量。']
+    },
+    mellow: {
+      subtitle: [
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。{{name}}呆呆地可爱，也呆呆地认真。',
+        '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。呆萌鼠的片尾，像发呆时漏掉的一秒。'
+      ],
+      intro: [
+        '{{name}}是{{personality}}鼠，爱好{{hobby}}，有时忘记目标，但不会忘记可爱。',
+        '作为{{traitTag}}，{{name}}的路线可能绕，但表情一直很无辜。'
+      ],
+      actionIntro: ['行动记录里有些选择很神秘，可能是发呆后的灵感。'],
+      ownerIntro: ['主人观察：{{name}}很容易让人心软，也很容易让人疑惑它刚刚在想什么。'],
+      ending: ['鼠生评价：{{name}}迷糊得很真诚，可爱得很稳定。']
+    }
+  };
+
+  function getLifeSummaryVoice(data) {
+    return Object.assign({}, LIFE_SUMMARY_TRAIT_VOICES.default, LIFE_SUMMARY_TRAIT_VOICES[data.traitKey] || {});
+  }
+
+  function getLifeSummarySeed(data, salt) {
+    const totals = data.totals || {};
+    const raw = [
+      data.ratName,
+      data.traitKey,
+      data.days,
+      data.hour,
+      data.deathType,
+      totals.actions || 0,
+      totals.foods || 0,
+      salt
+    ].join('|');
+    let hash = 0;
+    for (let i = 0; i < raw.length; i++) {
+      hash = ((hash << 5) - hash + raw.charCodeAt(i)) | 0;
+    }
+    return Math.abs(hash);
+  }
+
+  function fillLifeSummaryTemplate(template, data) {
+    const totals = data.totals || {};
+    const values = {
+      name: data.ratName || '鼠鼠',
+      traitTag: data.traitTag || '普通鼠',
+      personality: data.personality || data.traitTag || '普通',
+      favoriteFood: data.favoriteFood || '零食',
+      hobby: data.hobby || '发呆',
+      days: data.days ?? 0,
+      hour: data.hour ?? 0,
+      location: data.location || '某个角落',
+      ownerTrust: data.ownerTrust ?? 0,
+      ownerTrustLabel: data.ownerTrustLabel || '未知',
+      actions: totals.actions || 0,
+      foods: totals.foods || 0,
+      injuries: totals.injuries || 0,
+      discoveries: totals.discoveries || 0,
+      escapes: totals.escapes || 0,
+      outside: totals.outside || 0,
+      ownerPets: totals.ownerPets || 0,
+      strangerPets: totals.strangerPets || 0,
+      deathMsg: data.deathMsg || ''
+    };
+    return String(template || '').replace(/\{\{(\w+)\}\}/g, function(match, key) {
+      return values[key] !== undefined ? values[key] : match;
+    });
+  }
+
+  function getLifeSummaryLine(data, key, salt) {
+    const voice = getLifeSummaryVoice(data);
+    const lines = voice[key] || LIFE_SUMMARY_TRAIT_VOICES.default[key] || [];
+    if (!lines.length) return '';
+    const template = lines[getLifeSummarySeed(data, key + ':' + (salt || '')) % lines.length];
+    return fillLifeSummaryTemplate(template, data);
+  }
+
   function getCurrentRat() {
     return RAT_PROFILES[currentRatIndex] || RAT_PROFILES[0];
   }
@@ -12275,13 +12533,13 @@
     });
   }
 
-  function formatFoodList(stats) {
+  function formatFoodList(stats, summaryData = stats) {
     const foods = stats.foods || {};
     const entries = Object.keys(foods).sort(function(a, b) {
       return foods[b].count - foods[a].count || a.localeCompare(b, 'zh-Hans-CN');
     });
     if (!entries.length) {
-      return ['本鼠此生没有认真吃过零食，主要靠空气、胆量和一点点幻想续命。'];
+      return [getLifeSummaryLine(summaryData, 'emptyFood', 'emptyFood') || '本鼠此生没有认真吃过零食，主要靠空气、胆量和一点点幻想续命。'];
     }
     return entries.slice(0, 8).map(function(name) {
       const item = foods[name];
@@ -12303,7 +12561,12 @@
     return {
       ratName: rat.name,
       ratEmoji: rat.photo,
+      traitKey: rat.traitKey || 'default',
       traitTag: trait.tag || rat.personality,
+      personality: rat.personality,
+      favoriteFood: rat.food,
+      hobby: rat.hobby,
+      traitEffect: trait.effect || '',
       deathMsg: deathMsg || '鼠鼠谢幕，但姿势很有精神',
       deathType: deathType || 'unknown',
       days: state.daysSurvived,
@@ -12376,8 +12639,13 @@
     if (!reel) return;
     reel.innerHTML = '';
 
+    data.traitKey = data.traitKey || 'default';
+    data.personality = data.personality || data.traitTag || '普通';
+    data.favoriteFood = data.favoriteFood || '零食';
+    data.hobby = data.hobby || '发呆';
+
     $('#lifeSummaryTitle').textContent = data.ratEmoji + ' ' + data.ratName + '的鼠生备忘录';
-    $('#lifeSummarySubtitle').textContent = '存活 ' + data.days + ' 天，谢幕于 ' + data.hour + ':00 的' + data.location + '。鼠鼠我呀，电影放完但瓜子没嗑完。';
+    $('#lifeSummarySubtitle').textContent = getLifeSummaryLine(data, 'subtitle', 'subtitle') || ('存活 ' + data.days + ' 天，谢幕于 ' + data.hour + ':00 的' + data.location + '。鼠鼠我呀，电影放完但瓜子没嗑完。');
 
     const finalLine = [
       '饱腹 ' + data.finalStats.food,
@@ -12387,32 +12655,41 @@
       '出恭 ' + data.finalStats.poop
     ].join(' / ');
 
-    const actionLines = formatCountList(data.actions, '本鼠此生主打一个静止艺术，动得很少，但气质很足。', 9);
-    const foodLines = formatFoodList(data);
+    const actionLines = [
+      getLifeSummaryLine(data, 'actionIntro', 'actionIntro'),
+      ...formatCountList(data.actions, getLifeSummaryLine(data, 'emptyAction', 'emptyAction') || '本鼠此生主打一个静止艺术，动得很少，但气质很足。', 8)
+    ].filter(Boolean);
+    const foodLines = [
+      getLifeSummaryLine(data, 'foodIntro', 'foodIntro'),
+      ...formatFoodList(data, data)
+    ].filter(Boolean);
     const neighbor = data.neighbor || {};
     const neighborLines = [
+      getLifeSummaryLine(data, 'neighborIntro', 'neighborIntro'),
       '对墙吱吱 ' + (neighbor.squeaks || 0) + ' 次，社交努力程度：小爪子盖章。',
       '收到回信 ' + (neighbor.replies || 0) + ' 次，落空 ' + (neighbor.misses || 0) + ' 次。',
       neighbor.lastReply ? '最后一封回音：' + neighbor.lastReply : '最后一封回音：隔壁可能在睡，或者在认真装没听见。'
-    ];
+    ].filter(Boolean);
     const ownerLines = [
+      getLifeSummaryLine(data, 'ownerIntro', 'ownerIntro'),
       '主人信任 ' + data.ownerTrust + '（' + data.ownerTrustLabel + '），鼠鼠信用评分还算能看。',
       '本局被发现 ' + data.totals.discoveries + ' 次，轻伤/逃过一劫 ' + data.totals.injuries + ' 次。',
       '溜进客厅 ' + data.totals.escapes + ' 次，出家门 ' + data.totals.outside + ' 次，胆子有，刹车不多。',
       '主人摸摸 ' + data.totals.ownerPets + ' 次，好心人摸摸 ' + data.totals.strangerPets + ' 次，毛毛营业记录已归档。'
-    ];
+    ].filter(Boolean);
     const endingLines = [
       '死因播报：' + data.deathMsg,
       '本局行动合计 ' + data.totals.actions + ' 次，进食记录 ' + data.totals.foods + ' 条。',
-      '鼠生评价：短短一局，满满鼠味。下辈子建议先看路，再伸头。'
-    ];
+      getLifeSummaryLine(data, 'ending', 'ending') || '鼠生评价：短短一局，满满鼠味。下辈子建议先看路，再伸头。'
+    ].filter(Boolean);
 
     [
       createLifeFrame('🎞️', '片头：本鼠登场', [
         data.ratName + '，' + data.traitTag + '，以小小身躯挑战大大世界。',
+        getLifeSummaryLine(data, 'intro', 'intro'),
         '存活天数：' + data.days + ' 天；谢幕时间：' + data.hour + ':00。',
         '终局状态：' + finalLine
-      ]),
+      ].filter(Boolean)),
       createLifeFrame('🍽️', '吃播记录', foodLines),
       createLifeFrame('🐾', '干过的事', actionLines),
       createLifeFrame('📻', '邻居鼠通讯录', neighborLines),
