@@ -370,7 +370,7 @@
 - 每小时额外随机出现 `1-4` 次气泡，每次延迟 `0-30` 秒。
 - 点击中央鼠鼠只算自己挠痒，增加累计挠挠次数，不增加抚触。
 
-## 16. 死亡后鼠生总结
+## 16. 死亡与通关结算
 
 - 死亡时调用 `die(msg, deathType)`，会在设置 `gameOver=true` 后立刻生成 `lifeSummarySnapshot`。快照冻结当时的鼠鼠身份、死亡原因、存活天数、死亡时间、地点、最终五项属性、主人信任、食物记录、行动记录和邻居鼠互动记录。
 - 死亡弹窗保留主按钮“我还要再活五年！”，点击后直接 `restart()` 开新局；旁边新增“鼠生总结”按钮，只打开本局备忘录，不自动重开。
@@ -378,6 +378,8 @@
 - 鼠生总结会按鼠鼠 `traitKey` 选择性格话术池，片头、副标题、吃播引子、行动引子、邻居通讯录、主人观察和结语都会带当前性格的语气；同一局总结使用快照字段稳定渲染，不会每次打开随机变字。
 - 胶片底部“先收起来”只关闭总结；“鼠生再来”先关闭总结，再调用 `restart()` 进入下一轮。
 - 若电死触发“心肺复鼠”，死亡时仍会生成临时总结；如果救活成功，`continueGame()` 会清空 `lifeSummarySnapshot`，本局继续记录；如果直接重开，`restart()` 会清空上一局统计。
+- 通关时 `checkVictory()` 会写入通关日志，生成 `resultType='victory'` 的 `lifeSummarySnapshot`，再渲染胜利结算层。胜利层直接展示鼠鼠性格、高光记录、最近日志和核心统计。
+- 胜利层的“通关胶片”复用 `lifeSummaryOverlay`，但会按胜利态改成通关播报和通关结语，不再显示死亡措辞。
 
 ### 16.1 `lifeStats` 字段
 
@@ -396,6 +398,7 @@
 | `outsideEscapes` | 本局出家门总次数 | 移动到门外时记录 |
 | `ownerPets` | 主人摸摸次数 | 只有主人在家、自动抚触真实发生时记录 |
 | `strangerPets` | 门外好心人摸摸次数 | 门外好心人摸摸事件触发时记录；陌生人的摸摸可直接增加抚触，不受主人在家状态限制 |
+| `recentLogs` | 最近最多 `16` 条本局日志快照 | `log()` 写入 UI 后同步记录，通关结算展示最近 `4` 条 |
 
 ### 16.2 统计函数
 
@@ -405,10 +408,13 @@
 | `ensureLifeStats()` | 防止旧存档或重开边界缺少统计对象 |
 | `recordLifeAction(actionName, amount)` | 给行动计数；`amount` 默认为 `1` |
 | `recordLifeFood(foodName, detail)` | 记录食物名称、次数和最多 `3` 条效果说明 |
+| `recordLifeLog(msg, type)` | 记录本局最近日志，用于通关结算 |
 | `recordLifeMetric(metricName, amount)` | 记录本局累计指标，如轻伤、出门、摸摸 |
 | `recordNeighborLife(kind, text)` | 统一记录邻居鼠吱吱、回信和落空 |
-| `createLifeSummarySnapshot(deathMsg, deathType)` | 死亡瞬间把可变状态整理成不可变快照 |
-| `renderLifeSummary(snapshot)` | 根据快照生成胶片分帧 UI |
+| `createLifeSummarySnapshot(deathMsg, deathType)` | 死亡或通关瞬间把可变状态整理成不可变快照 |
+| `createVictorySummarySnapshot()` | 生成通关态快照，标记 `resultType='victory'` |
+| `renderLifeSummary(snapshot)` | 根据快照生成胶片分帧 UI；胜利态会使用通关文案 |
+| `renderVictorySummary(snapshot)` | 根据通关快照生成胜利结算 UI |
 
 ### 16.3 统计口径
 

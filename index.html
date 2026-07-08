@@ -10627,6 +10627,352 @@
         font-size: 16px !important;
       }
     }
+
+    /* ===== Victory settlement refresh ===== */
+    .victory-overlay {
+      padding: max(14px, env(safe-area-inset-top)) 12px max(14px, env(safe-area-inset-bottom)) !important;
+      z-index: 590;
+      background:
+        linear-gradient(135deg, rgba(74, 45, 38, 0.58), rgba(36, 58, 67, 0.44)),
+        rgba(31, 24, 22, 0.48) !important;
+      backdrop-filter: blur(14px) saturate(132%);
+      -webkit-backdrop-filter: blur(14px) saturate(132%);
+    }
+
+    .victory-overlay.hide {
+      display: none !important;
+    }
+
+    .victory-overlay .victory-box {
+      position: relative;
+      width: min(92vw, 520px) !important;
+      max-width: min(92vw, 520px) !important;
+      max-height: min(88vh, 720px) !important;
+      overflow-y: auto !important;
+      overscroll-behavior: contain;
+      padding: 20px 20px 18px !important;
+      text-align: left;
+      color: #442a21;
+      border: 2px solid rgba(255, 244, 203, 0.92) !important;
+      border-radius: 26px !important;
+      background:
+        linear-gradient(90deg, rgba(183, 59, 55, 0.13), transparent 17%, transparent 83%, rgba(67, 150, 129, 0.12)),
+        linear-gradient(180deg, #fff8dc 0%, #ffe7b6 49%, #ffd07f 100%) !important;
+      box-shadow:
+        0 24px 60px rgba(54, 35, 24, 0.34),
+        inset 0 0 0 6px rgba(255, 255, 255, 0.26),
+        inset 0 -18px 34px rgba(151, 74, 39, 0.08) !important;
+      font-family: "M PLUS Rounded 1c", "Nunito", "PingFang SC", "Microsoft YaHei", sans-serif;
+      scrollbar-width: thin;
+    }
+
+    .victory-confetti {
+      position: absolute;
+      inset: 9px 12px auto;
+      height: 22px;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .victory-confetti span {
+      position: absolute;
+      top: 4px;
+      width: 10px;
+      height: 15px;
+      border-radius: 3px;
+      background: #e6534f;
+      transform: rotate(-18deg);
+      opacity: 0.9;
+    }
+
+    .victory-confetti span:nth-child(1) { left: 8%; background: #e6534f; }
+    .victory-confetti span:nth-child(2) { left: 26%; background: #ffbf4b; transform: rotate(14deg); }
+    .victory-confetti span:nth-child(3) { left: 50%; background: #5eb99f; transform: rotate(-8deg); }
+    .victory-confetti span:nth-child(4) { left: 70%; background: #f27f65; transform: rotate(19deg); }
+    .victory-confetti span:nth-child(5) { left: 87%; background: #7cb8d6; transform: rotate(-14deg); }
+
+    .victory-kicker {
+      margin: 16px 0 10px;
+      color: #9b4f34;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .victory-hero {
+      display: grid;
+      grid-template-columns: 78px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .victory-badge {
+      width: 76px;
+      height: 76px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 229, 164, 0.76));
+      border: 1px solid rgba(150, 82, 44, 0.22);
+      box-shadow:
+        0 12px 22px rgba(138, 81, 43, 0.16),
+        inset 0 2px 0 rgba(255, 255, 255, 0.86);
+      font-size: 43px;
+      line-height: 1;
+    }
+
+    .victory-heading {
+      min-width: 0;
+    }
+
+    .victory-day {
+      color: #7a5941;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .victory-title {
+      margin-top: 3px;
+      color: #59311f;
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.08;
+      overflow-wrap: anywhere;
+    }
+
+    .victory-subtitle {
+      margin-top: 12px;
+      padding: 11px 12px;
+      color: #684931;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.42;
+      background: rgba(255, 255, 255, 0.42);
+      border: 1px solid rgba(126, 80, 43, 0.12);
+      border-radius: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    .victory-trait-pill {
+      margin-top: 10px;
+      display: inline-flex;
+      max-width: 100%;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #4e3a2d;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.25;
+      background: linear-gradient(180deg, rgba(238, 255, 244, 0.88), rgba(202, 238, 224, 0.72));
+      border: 1px solid rgba(85, 143, 124, 0.22);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+      overflow-wrap: anywhere;
+    }
+
+    .victory-stats {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .victory-stat {
+      min-width: 0;
+      padding: 9px 7px;
+      border-radius: 16px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.46);
+      border: 1px solid rgba(126, 80, 43, 0.10);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    }
+
+    .victory-stat span {
+      display: block;
+      color: #8a6144;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .victory-stat strong {
+      display: block;
+      margin-top: 3px;
+      color: #4e2f21;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+    }
+
+    .victory-section {
+      margin-top: 13px;
+    }
+
+    .victory-section-title {
+      margin-bottom: 7px;
+      color: #7a422e;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .victory-highlights,
+    .victory-log-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .victory-highlight,
+    .victory-log-item {
+      padding: 8px 10px;
+      border-radius: 14px;
+      color: #4f3a2b;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.36;
+      background: rgba(255, 255, 255, 0.46);
+      border: 1px solid rgba(126, 80, 43, 0.10);
+      overflow-wrap: anywhere;
+    }
+
+    .victory-log-item {
+      display: grid;
+      gap: 3px;
+      background: rgba(255, 250, 232, 0.58);
+    }
+
+    .victory-log-meta {
+      color: #9a6540;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .victory-actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .victory-overlay .victory-summary-btn,
+    .victory-overlay .victory-medal-btn,
+    .victory-overlay .victory-restart-btn {
+      min-width: 0 !important;
+      min-height: 44px !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 10px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border: 0 !important;
+      border-radius: 999px !important;
+      color: #51311f !important;
+      font-family: inherit;
+      font-size: 13px !important;
+      font-weight: 900;
+      line-height: 1.12 !important;
+      text-align: center;
+      cursor: pointer;
+      white-space: normal;
+      word-break: keep-all;
+      box-shadow:
+        0 8px 18px rgba(126, 72, 38, 0.14),
+        inset 0 2px 0 rgba(255, 255, 255, 0.62) !important;
+      transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .victory-overlay .victory-summary-btn {
+      background: linear-gradient(180deg, #eaf8ec, #b8dfcb) !important;
+    }
+
+    .victory-overlay .victory-medal-btn {
+      background: linear-gradient(180deg, #fff1ad, #f3b64f) !important;
+    }
+
+    .victory-overlay .victory-restart-btn {
+      background: linear-gradient(180deg, #ffe0d4, #f68a74) !important;
+    }
+
+    .victory-overlay .victory-summary-btn:hover,
+    .victory-overlay .victory-medal-btn:hover,
+    .victory-overlay .victory-restart-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+
+    .victory-overlay .victory-summary-btn:active,
+    .victory-overlay .victory-medal-btn:active,
+    .victory-overlay .victory-restart-btn:active {
+      transform: translateY(2px);
+      box-shadow:
+        0 5px 12px rgba(126, 72, 38, 0.12),
+        inset 0 2px 0 rgba(255, 255, 255, 0.54) !important;
+    }
+
+    @media (max-width: 520px) {
+      .victory-overlay {
+        padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom)) !important;
+      }
+
+      .victory-overlay .victory-box {
+        width: min(100%, 430px) !important;
+        max-width: min(100%, 430px) !important;
+        max-height: calc(100dvh - 16px) !important;
+        padding: 17px 14px 14px !important;
+        border-radius: 22px !important;
+      }
+
+      .victory-kicker {
+        margin-top: 12px;
+      }
+
+      .victory-hero {
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .victory-badge {
+        width: 62px;
+        height: 62px;
+        border-radius: 20px;
+        font-size: 35px;
+      }
+
+      .victory-title {
+        font-size: 23px;
+      }
+
+      .victory-subtitle {
+        font-size: 13px;
+      }
+
+      .victory-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .victory-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-height: 700px) {
+      .victory-overlay .victory-box {
+        max-height: calc(100dvh - 12px) !important;
+      }
+
+      .victory-highlight,
+      .victory-log-item {
+        padding-top: 7px;
+        padding-bottom: 7px;
+      }
+    }
 </style>
 </head>
 <body>
@@ -11067,9 +11413,39 @@
 
 <!-- 通关胜利弹窗 -->
 <div class="victory-overlay hide" id="victoryOverlay">
-  <div class="victory-box">
-    <div class="victory-text">恭喜！你已经是合格的超级老鼠了！称霸地球吧！</div>
-    <button class="victory-medal-btn" id="victoryMedalBtn">鼠の战绩</button>
+  <div class="victory-box" onclick="event.stopPropagation()">
+    <div class="victory-confetti" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="victory-kicker">SURVIVAL CLEAR</div>
+    <div class="victory-hero">
+      <div class="victory-badge" id="victoryBadge">🐭</div>
+      <div class="victory-heading">
+        <div class="victory-day" id="victoryKicker">第4天 06:00 生还通关</div>
+        <div class="victory-title" id="victoryTitle">鼠鼠通关啦！</div>
+      </div>
+    </div>
+    <div class="victory-subtitle" id="victorySubtitle"></div>
+    <div class="victory-trait-pill" id="victoryTrait"></div>
+    <div class="victory-stats" aria-label="通关统计">
+      <div class="victory-stat"><span>存活</span><strong id="victoryDays">4天</strong></div>
+      <div class="victory-stat"><span>行动</span><strong id="victoryActions">0</strong></div>
+      <div class="victory-stat"><span>吃播</span><strong id="victoryFoods">0</strong></div>
+      <div class="victory-stat"><span>信任</span><strong id="victoryTrust">0</strong></div>
+    </div>
+    <div class="victory-section">
+      <div class="victory-section-title">高光记录</div>
+      <div class="victory-highlights" id="victoryHighlights"></div>
+    </div>
+    <div class="victory-section">
+      <div class="victory-section-title">最后日志</div>
+      <div class="victory-log-list" id="victoryLogList"></div>
+    </div>
+    <div class="victory-actions">
+      <button class="victory-summary-btn" id="victorySummaryBtn" type="button">通关胶片</button>
+      <button class="victory-medal-btn" id="victoryMedalBtn" type="button">鼠の战绩</button>
+      <button class="victory-restart-btn" id="victoryRestartBtn" type="button">再养一局</button>
+    </div>
   </div>
 </div>
 
@@ -11251,7 +11627,8 @@
       escapes: 0,
       outsideEscapes: 0,
       ownerPets: 0,
-      strangerPets: 0
+      strangerPets: 0,
+      recentLogs: []
     };
   }
 
@@ -11924,6 +12301,84 @@
     }
   };
 
+  const VICTORY_TRAIT_VOICES = {
+    default: {
+      title: ['{{name}}通关啦！', '{{traitTag}}安全收工！'],
+      subtitle: [
+        '{{personality}}的{{name}}把第{{days}}天也稳稳抱回窝里，今日结算：小爪有功，腮帮有奖。',
+        '{{name}}带着{{traitTag}}的节奏熬到通关，最后一页日志已经盖上胜利小爪印。'
+      ],
+      highlight: [
+        '{{name}}的通关方式很有{{traitTag}}味道：不一定最规矩，但很会活。',
+        '{{traitTag}}没有白贴，{{name}}把性格写进了每一步选择。'
+      ],
+      ending: [
+        '通关评价：{{name}}存活{{days}}天，行动{{actions}}次，吃播{{foods}}条，是合格的笼中小冠军。',
+        '通关评价：世界很大，{{name}}很小，但这局赢得很像样。'
+      ]
+    },
+    runner: {
+      title: ['跑酷鼠冲线成功！'],
+      subtitle: ['{{name}}把第{{days}}天跑成终点线，脚脚一路加速，终于把胜利带回窝。'],
+      highlight: ['高光归因：{{name}}靠速度和胆量活到了最后，跑酷鼠名副其实。']
+    },
+    cuddle: {
+      title: ['贴贴鼠被胜利抱住！'],
+      subtitle: ['{{name}}带着{{personality}}的小软劲通关，摸摸额度和安全感一起结算。'],
+      highlight: ['高光归因：{{name}}会撒娇，也会活命，贴贴鼠今天双赢。']
+    },
+    foodie: {
+      title: ['干饭鼠吃到通关！'],
+      subtitle: ['{{name}}一路把风险闻成菜单，把第{{days}}天吃成庆功宴。'],
+      highlight: ['高光归因：{{name}}的腮帮子不是负担，是通关资料库。']
+    },
+    curious: {
+      title: ['探险鼠解锁终点！'],
+      subtitle: ['{{name}}把“那是什么”问到最后，居然真的问出一张通关奖状。'],
+      highlight: ['高光归因：{{name}}的好奇心很忙，也很争气。']
+    },
+    lazy: {
+      title: ['佛系鼠慢慢赢了！'],
+      subtitle: ['{{name}}不慌不忙熬到第{{days}}天，慢节奏也能把胜利盘圆。'],
+      highlight: ['高光归因：{{name}}用省电模式证明，稳住就是一种本事。']
+    },
+    timid: {
+      title: ['躲躲鼠安静通关！'],
+      subtitle: ['{{name}}小声走完这一局，连庆祝都轻轻的，但奖杯很真实。'],
+      highlight: ['高光归因：{{name}}把谨慎用对了地方，躲躲鼠也能站上终点。']
+    },
+    clever: {
+      title: ['机灵鼠验算成功！'],
+      subtitle: ['{{name}}把路线、风险和小聪明都算进第{{days}}天，答案是通关。'],
+      highlight: ['高光归因：{{name}}这局脑袋瓜在线，小爪子执行也在线。']
+    },
+    clean: {
+      title: ['洁净鼠优雅获胜！'],
+      subtitle: ['{{name}}带着整齐毛毛抵达终点，通关也要体面收尾。'],
+      highlight: ['高光归因：{{name}}把卫生标准和求生标准一起守住了。']
+    },
+    naughty: {
+      title: ['捣蛋鼠闹到通关！'],
+      subtitle: ['{{name}}一路有点乱，但乱得很有效，最后把胜利也拆回窝里。'],
+      highlight: ['高光归因：{{name}}不是只会闯祸，也很会把闯祸变成故事。']
+    },
+    scavenger: {
+      title: ['翻找鼠翻到奖杯！'],
+      subtitle: ['{{name}}把角落翻成线索，把线索翻成第{{days}}天的庆功单。'],
+      highlight: ['高光归因：{{name}}的鼻子一路加班，终于闻到了胜利。']
+    },
+    calm: {
+      title: ['稳稳鼠稳稳通关！'],
+      subtitle: ['{{name}}不吵不抢，把第{{days}}天稳稳放进结算框。'],
+      highlight: ['高光归因：{{name}}的稳定不是背景板，是这局的主线。']
+    },
+    mellow: {
+      title: ['呆萌鼠糊涂但赢！'],
+      subtitle: ['{{name}}偶尔忘记目标，但没有忘记活到最后，呆萌也有冠军相。'],
+      highlight: ['高光归因：{{name}}靠真诚和一点迷糊，把结局走成喜剧。']
+    }
+  };
+
   function getLifeSummaryVoice(data) {
     return Object.assign({}, LIFE_SUMMARY_TRAIT_VOICES.default, LIFE_SUMMARY_TRAIT_VOICES[data.traitKey] || {});
   }
@@ -11968,7 +12423,8 @@
       outside: totals.outside || 0,
       ownerPets: totals.ownerPets || 0,
       strangerPets: totals.strangerPets || 0,
-      deathMsg: data.deathMsg || ''
+      deathMsg: data.deathMsg || '',
+      resultMsg: data.resultMsg || data.deathMsg || ''
     };
     return String(template || '').replace(/\{\{(\w+)\}\}/g, function(match, key) {
       return values[key] !== undefined ? values[key] : match;
@@ -11980,6 +12436,18 @@
     const lines = voice[key] || LIFE_SUMMARY_TRAIT_VOICES.default[key] || [];
     if (!lines.length) return '';
     const template = lines[getLifeSummarySeed(data, key + ':' + (salt || '')) % lines.length];
+    return fillLifeSummaryTemplate(template, data);
+  }
+
+  function getVictorySummaryVoice(data) {
+    return Object.assign({}, VICTORY_TRAIT_VOICES.default, VICTORY_TRAIT_VOICES[data.traitKey] || {});
+  }
+
+  function getVictorySummaryLine(data, key, salt) {
+    const voice = getVictorySummaryVoice(data);
+    const lines = voice[key] || VICTORY_TRAIT_VOICES.default[key] || [];
+    if (!lines.length) return '';
+    const template = lines[getLifeSummarySeed(data, 'victory:' + key + ':' + (salt || '')) % lines.length];
     return fillLifeSummaryTemplate(template, data);
   }
 
@@ -12547,6 +13015,19 @@
     if (stats.foodTimeline.length > 24) stats.foodTimeline.shift();
   }
 
+  function recordLifeLog(msg, type) {
+    if (!msg) return;
+    const stats = ensureLifeStats();
+    if (!Array.isArray(stats.recentLogs)) stats.recentLogs = [];
+    stats.recentLogs.unshift({
+      text: String(msg),
+      type: type || 'rat',
+      day: state.gameOver && state.daysSurvived > 0 ? state.daysSurvived : (state.daysSurvived || 0) + 1,
+      hour: state.hour || 0
+    });
+    if (stats.recentLogs.length > 16) stats.recentLogs.length = 16;
+  }
+
   function recordNeighborLife(kind, text) {
     const stats = ensureLifeStats();
     if (kind === 'squeak') stats.neighborSqueaks += 1;
@@ -12586,6 +13067,8 @@
     const stats = ensureLifeStats();
     const rat = getCurrentRat();
     const trait = getRatTrait(rat);
+    const resultMsg = deathMsg || '鼠鼠谢幕，但姿势很有精神';
+    const resultType = deathType || 'unknown';
     const totalActions = Object.values(stats.actions || {}).reduce(function(sum, count) {
       return sum + count;
     }, 0);
@@ -12601,8 +13084,11 @@
       favoriteFood: rat.food,
       hobby: rat.hobby,
       traitEffect: trait.effect || '',
-      deathMsg: deathMsg || '鼠鼠谢幕，但姿势很有精神',
-      deathType: deathType || 'unknown',
+      deathMsg: resultMsg,
+      deathType: resultType,
+      resultMsg: resultMsg,
+      resultType: resultType,
+      isVictory: resultType === 'victory',
       days: state.daysSurvived,
       hour: state.hour,
       location: getLocationInfo().label,
@@ -12618,6 +13104,7 @@
       actions: Object.assign({}, stats.actions),
       foods: JSON.parse(JSON.stringify(stats.foods || {})),
       foodTimeline: (stats.foodTimeline || []).slice(),
+      recentLogs: (stats.recentLogs || []).slice(0, 16),
       neighbor: {
         squeaks: stats.neighborSqueaks || 0,
         replies: stats.neighborReplies || 0,
@@ -12677,9 +13164,12 @@
     data.personality = data.personality || data.traitTag || '普通';
     data.favoriteFood = data.favoriteFood || '零食';
     data.hobby = data.hobby || '发呆';
+    const isVictory = data.isVictory || data.resultType === 'victory' || data.deathType === 'victory';
 
-    $('#lifeSummaryTitle').textContent = data.ratEmoji + ' ' + data.ratName + '的鼠生备忘录';
-    $('#lifeSummarySubtitle').textContent = getLifeSummaryLine(data, 'subtitle', 'subtitle') || ('存活 ' + data.days + ' 天，谢幕于 ' + data.hour + ':00 的' + data.location + '。鼠鼠我呀，电影放完但瓜子没嗑完。');
+    $('#lifeSummaryTitle').textContent = data.ratEmoji + ' ' + data.ratName + (isVictory ? '的通关胶片' : '的鼠生备忘录');
+    $('#lifeSummarySubtitle').textContent = isVictory
+      ? (getVictorySummaryLine(data, 'subtitle', 'lifeSubtitle') || ('存活 ' + data.days + ' 天，通关于 ' + data.hour + ':00 的' + data.location + '。鼠鼠我呀，把结局啃成了奖杯。'))
+      : (getLifeSummaryLine(data, 'subtitle', 'subtitle') || ('存活 ' + data.days + ' 天，谢幕于 ' + data.hour + ':00 的' + data.location + '。鼠鼠我呀，电影放完但瓜子没嗑完。'));
 
     const finalLine = [
       '饱腹 ' + data.finalStats.food,
@@ -12711,24 +13201,30 @@
       '溜进客厅 ' + data.totals.escapes + ' 次，出家门 ' + data.totals.outside + ' 次，胆子有，刹车不多。',
       '主人摸摸 ' + data.totals.ownerPets + ' 次，好心人摸摸 ' + data.totals.strangerPets + ' 次，毛毛营业记录已归档。'
     ].filter(Boolean);
-    const endingLines = [
+    const endingLines = isVictory ? [
+      '通关播报：' + (data.resultMsg || data.deathMsg || '鼠鼠把日子过成了奖杯。'),
+      '本局行动合计 ' + data.totals.actions + ' 次，进食记录 ' + data.totals.foods + ' 条。',
+      getVictorySummaryLine(data, 'ending', 'ending') || '通关评价：世界很大，鼠鼠很小，但这局赢得很像样。'
+    ].filter(Boolean) : [
       '死因播报：' + data.deathMsg,
       '本局行动合计 ' + data.totals.actions + ' 次，进食记录 ' + data.totals.foods + ' 条。',
       getLifeSummaryLine(data, 'ending', 'ending') || '鼠生评价：短短一局，满满鼠味。下辈子建议先看路，再伸头。'
     ].filter(Boolean);
 
     [
-      createLifeFrame('🎞️', '片头：本鼠登场', [
+      createLifeFrame('🎞️', isVictory ? '片头：冠军登场' : '片头：本鼠登场', [
         data.ratName + '，' + data.traitTag + '，以小小身躯挑战大大世界。',
         getLifeSummaryLine(data, 'intro', 'intro'),
-        '存活天数：' + data.days + ' 天；谢幕时间：' + data.hour + ':00。',
+        isVictory
+          ? '存活天数：' + data.days + ' 天；通关时间：' + data.hour + ':00。'
+          : '存活天数：' + data.days + ' 天；谢幕时间：' + data.hour + ':00。',
         '终局状态：' + finalLine
       ].filter(Boolean)),
       createLifeFrame('🍽️', '吃播记录', foodLines),
       createLifeFrame('🐾', '干过的事', actionLines),
       createLifeFrame('📻', '邻居鼠通讯录', neighborLines),
       createLifeFrame('👤', '主人观察报告', ownerLines),
-      createLifeFrame('📝', '鼠生结语', endingLines)
+      createLifeFrame('📝', isVictory ? '通关结语' : '鼠生结语', endingLines)
     ].forEach(function(frame) {
       reel.appendChild(frame);
     });
@@ -12748,6 +13244,118 @@
   function closeLifeSummary() {
     const overlay = $('#lifeSummaryOverlay');
     if (overlay) overlay.classList.add('hide');
+  }
+
+  function createVictorySummarySnapshot() {
+    return createLifeSummarySnapshot('通关成功，鼠鼠把日子过成了奖杯。', 'victory');
+  }
+
+  function getSortedActionEntries(data) {
+    return Object.entries(data.actions || {}).sort(function(a, b) {
+      return b[1] - a[1] || a[0].localeCompare(b[0], 'zh-Hans-CN');
+    });
+  }
+
+  function getSortedFoodEntries(data) {
+    const foods = data.foods || {};
+    return Object.keys(foods).sort(function(a, b) {
+      return foods[b].count - foods[a].count || a.localeCompare(b, 'zh-Hans-CN');
+    }).map(function(name) {
+      return [name, foods[name]];
+    });
+  }
+
+  function appendVictoryTextItem(container, text, className) {
+    if (!container || !text) return;
+    const item = document.createElement('div');
+    item.className = className;
+    item.textContent = text;
+    container.appendChild(item);
+  }
+
+  function getVictoryHighlights(data) {
+    const totals = data.totals || {};
+    const actionEntries = getSortedActionEntries(data);
+    const foodEntries = getSortedFoodEntries(data);
+    const lines = [
+      getVictorySummaryLine(data, 'highlight', 'highlight')
+    ];
+
+    if (actionEntries.length) {
+      lines.push('最常做的事：' + actionEntries[0][0] + ' x' + actionEntries[0][1] + '，这就是本局鼠鼠主线。');
+    } else {
+      lines.push('行动记录很克制，鼠鼠主打一个少动但稳。');
+    }
+
+    if (foodEntries.length) {
+      const topFood = foodEntries[0];
+      const detail = topFood[1].details && topFood[1].details[0] ? '（' + topFood[1].details[0] + '）' : '';
+      lines.push('吃播代表作：' + topFood[0] + ' x' + topFood[1].count + detail + '。');
+    } else {
+      lines.push('吃播素材偏少，但鼠鼠还是把日子嚼到了终点。');
+    }
+
+    lines.push('主人信任 ' + data.ownerTrust + '（' + data.ownerTrustLabel + '），被发现 ' + (totals.discoveries || 0) + ' 次，结算依然漂亮。');
+    return lines.filter(Boolean).slice(0, 4);
+  }
+
+  function getVictoryLogTypeLabel(type) {
+    if (type === 'owner') return '主人';
+    if (type === 'event') return '事件';
+    return '鼠鼠';
+  }
+
+  function renderVictoryLogs(data) {
+    const list = $('#victoryLogList');
+    if (!list) return;
+    list.textContent = '';
+    const logs = Array.isArray(data.recentLogs) ? data.recentLogs.slice(0, 4) : [];
+    if (!logs.length) {
+      appendVictoryTextItem(list, '最后几小时很安静，鼠鼠稳稳把胜利抱回窝。', 'victory-log-item');
+      return;
+    }
+    logs.forEach(function(entry) {
+      const item = document.createElement('div');
+      item.className = 'victory-log-item';
+      const meta = document.createElement('div');
+      meta.className = 'victory-log-meta';
+      meta.textContent = '第' + (entry.day || data.days || 0) + '天 ' + (entry.hour ?? data.hour ?? 0) + ':00 · ' + getVictoryLogTypeLabel(entry.type);
+      const text = document.createElement('div');
+      text.textContent = entry.text || '';
+      item.appendChild(meta);
+      item.appendChild(text);
+      list.appendChild(item);
+    });
+  }
+
+  function renderVictorySummary(snapshot) {
+    const data = snapshot || lifeSummarySnapshot || createVictorySummarySnapshot();
+    data.traitKey = data.traitKey || 'default';
+    data.personality = data.personality || data.traitTag || '普通';
+    data.favoriteFood = data.favoriteFood || '零食';
+    data.hobby = data.hobby || '发呆';
+    data.totals = data.totals || {};
+    data.finalStats = data.finalStats || { food: 0, chew: 0, play: 0, love: 0, poop: 0 };
+
+    $('#victoryBadge').textContent = data.ratEmoji || '🐭';
+    $('#victoryKicker').textContent = '第' + data.days + '天 ' + data.hour + ':00 生还通关';
+    $('#victoryTitle').textContent = getVictorySummaryLine(data, 'title', 'title') || ((data.ratName || '鼠鼠') + '通关啦！');
+    $('#victorySubtitle').textContent = getVictorySummaryLine(data, 'subtitle', 'subtitle') || ((data.ratName || '鼠鼠') + '把这一局稳稳过完，胜利小爪印已经按好。');
+    $('#victoryTrait').textContent = data.traitTag + ' · ' + data.personality + ' · ' + (data.traitEffect || '属性变化均衡');
+    $('#victoryDays').textContent = data.days + '天';
+    $('#victoryActions').textContent = data.totals.actions || 0;
+    $('#victoryFoods').textContent = data.totals.foods || 0;
+    $('#victoryTrust').textContent = data.ownerTrust + ' ' + data.ownerTrustLabel;
+
+    const highlights = $('#victoryHighlights');
+    if (highlights) {
+      highlights.textContent = '';
+      getVictoryHighlights(data).forEach(function(line) {
+        appendVictoryTextItem(highlights, line, 'victory-highlight');
+      });
+    }
+
+    renderVictoryLogs(data);
   }
 
   function getOwnerCallBlockedReason() {
@@ -13847,6 +14455,11 @@
     logEl.prepend(entry);
     while (logEl.children.length > MAX_LOG_ENTRIES) {
       logEl.removeChild(logEl.lastElementChild);
+    }
+    try {
+      recordLifeLog(msg, type);
+    } catch (err) {
+      // 开局极早期日志不应阻断界面渲染。
     }
   }
   function logOwner(msg) { 
@@ -17244,6 +17857,8 @@
 
   // 战绩相关事件绑定
   $('#victoryMedalBtn').onclick = showStats;
+  $('#victorySummaryBtn').onclick = showLifeSummary;
+  $('#victoryRestartBtn').onclick = restart;
   $('#statsClose').onclick = closeStats;
   $('#statsNextBtn').onclick = nextStatsPage;
   $('#statsRestartBtn').onclick = function() {
@@ -17307,6 +17922,12 @@
 
   // 通关胜利弹窗函数
   function showVictory() {
+    if (!lifeSummarySnapshot || lifeSummarySnapshot.resultType !== 'victory') {
+      lifeSummarySnapshot = createVictorySummarySnapshot();
+    }
+    renderVictorySummary(lifeSummarySnapshot);
+    const box = document.querySelector('#victoryOverlay .victory-box');
+    if (box) box.scrollTop = 0;
     $('#victoryOverlay').classList.remove('hide');
   }
 
@@ -17318,6 +17939,9 @@
         clearInterval(timeInterval);
         timeInterval = null;
       }
+      logEvent('通关成功！' + getCurrentRat().name + '把第' + state.daysSurvived + '天稳稳熬过去了。');
+      lifeSummarySnapshot = createVictorySummarySnapshot();
+      hideTransientGamePopups();
       updateUI();
       showVictory();
       return true;
@@ -17346,7 +17970,6 @@
     $('#statsRestartBtn').classList.add('hide');
 
     $('#statsOverlay').classList.remove('hide');
-    $('#victoryOverlay').classList.add('hide');
   }
 
   // 关闭战绩弹窗
