@@ -11733,6 +11733,7 @@
   const FOOD_PORTION_COST = 6;
   const FOOD_STOCK_CAP = 180;
   const BASE_DAILY_STOCK = 150;
+  const OUTSIDE_FOOD_DECAY_MULTIPLIER = 1.6;
 
   const DANGER_MEMORY_KEYS = [
     'wire', 'sewer', 'cat', 'slipper', 'stuck', 'wheelStuck', 'choke', 'freeze',
@@ -11761,7 +11762,7 @@
     living: '客厅是家里的中转站，去厨房、阳台、门外都要先经过这里。',
     kitchen: '厨房食物多，但台面、橱柜和厨余都更危险，主人在家时也更容易被发现。',
     balcony: '阳台能晒太阳和探索高处，但要小心风、花盆和晾衣杆。',
-    outside: '门外收益高也危险，猫、拖鞋和迷路都在路上等鼠鼠。'
+    outside: '门外收益高也危险，猫、拖鞋和迷路都在路上等鼠鼠，饱腹也消耗更快。'
   };
 
   const LOCATION_ACTIONS = {
@@ -11801,6 +11802,22 @@
     balcony: 0.04,
     outside: 0.06
   };
+
+  function getHourlyFoodLoss(trait = getRatTrait()) {
+    const locationMultiplier = getLocationKey() === 'outside' ? OUTSIDE_FOOD_DECAY_MULTIPLIER : 1;
+    return scaledAmount(3, trait.foodDecay * locationMultiplier, 1);
+  }
+
+  function applyHourlyNeedDecay(trait = getRatTrait()) {
+    state.food = Math.max(0, state.food - getHourlyFoodLoss(trait));
+    state.chew = Math.max(0, state.chew - scaledAmount(2, trait.chewDecay, 1));
+    state.play = Math.max(0, state.play - scaledAmount(3, trait.playDecay, 1));
+    state.love = Math.max(0, state.love - scaledAmount(3, trait.loveDecay, 1));
+  }
+
+  function applyHourlyPoopPressure(trait = getRatTrait()) {
+    state.poop = Math.min(100, state.poop + scaledAmount(7, trait.poopRate, 1));
+  }
 
   function getLocationKey() {
     if (state.location && LOCATIONS[state.location]) return state.location;
@@ -14122,29 +14139,23 @@
     state.timeCapsules = Math.max(0, (state.timeCapsules || 0) - 1);
     const beforeHour = state.hour;
     const beforeStats = {
-      food: state.food,
-      chew: state.chew,
-      play: state.play,
-      love: state.love,
-      poop: state.poop,
       totalOutsideTime: state.totalOutsideTime
     };
 
     for (let i = 0; i < TIME_CAPSULE_SKIP_HOURS; i++) {
       advanceClockByOneHour({ showNewDayOverlay: true });
+      const trait = getRatTrait();
+      applyHourlyNeedDecay(trait);
+      applyHourlyPoopPressure(trait);
+      checkDie();
       if (state.gameOver) break;
     }
 
-    state.food = beforeStats.food;
-    state.chew = beforeStats.chew;
-    state.play = beforeStats.play;
-    state.love = beforeStats.love;
-    state.poop = beforeStats.poop;
     state.totalOutsideTime = beforeStats.totalOutsideTime;
 
     playSfx('timeCapsuleUse');
     setTimeout(playClockTick, 120);
-    logEvent('⏳ 时间胶囊启动：' + beforeHour + ':00 → ' + state.hour + ':00，五项状态保持不变');
+    logEvent('⏳ 时间胶囊启动：' + beforeHour + ':00 → ' + state.hour + ':00，五项状态按时间流逝变化');
     updateClock();
     updateUI();
     updateTimeSpeed();
@@ -14603,11 +14614,8 @@
 
     advanceClockByOneHour({ refreshNewDay: false });
 
-    // 每小时消耗属性：基础饱腹-3、磨牙-2、闲游-3、抚触-3，受鼠鼠性格影响
-    state.food = Math.max(0, state.food - scaledAmount(3, trait.foodDecay, 1));
-    state.chew = Math.max(0, state.chew - scaledAmount(2, trait.chewDecay, 1));
-    state.play = Math.max(0, state.play - scaledAmount(3, trait.playDecay, 1));
-    state.love = Math.max(0, state.love - scaledAmount(3, trait.loveDecay, 1));
+    // 每小时消耗属性：基础饱腹-3、磨牙-2、闲游-3、抚触-3；门外饱腹消耗更快，整体受鼠鼠性格影响
+    applyHourlyNeedDecay(trait);
 
     // 主人在家且有剩余抚触次数时，如果抚触值<10则自动抚触直到用完所有机会
     while (state.ownerHome && state.loveLeft > 0 && state.love < 10) {
@@ -14622,7 +14630,7 @@
     }
 
     // 每小时出恭值基础增加7，最大值100，洁净类鼠鼠压力增长更慢
-    state.poop = Math.min(100, state.poop + scaledAmount(7, trait.poopRate, 1));
+    applyHourlyPoopPressure(trait);
 
     // 逃出家门后随机吃到食物或找到地方出恭
     if (state.escapedHome) {
