@@ -10636,21 +10636,21 @@
       <div class="bar-row">
         <div class="bar-name">磨牙</div>
         <div class="bar-box"><div class="bar-fill" id="chew"></div></div> <!-- 磨牙进度条 -->
-        <div class="limit" id="chewLimit">每日剩余：6</div>
+        <div class="limit" id="chewLimit">磨牙次数：6</div>
       </div>
     </div>
     <div class="bar-item">
       <div class="bar-row">
         <div class="bar-name">闲游</div>
         <div class="bar-box"><div class="bar-fill" id="play"></div></div> <!-- 闲游进度条 -->
-        <div class="limit" id="playLimit">每日剩余：13</div>
+        <div class="limit" id="playLimit">闲游次数：13</div>
       </div>
     </div>
     <div class="bar-item">
       <div class="bar-row">
         <div class="bar-name">抚触</div>
         <div class="bar-box bar-love"><div class="bar-fill" id="love"></div></div> <!-- 抚触进度条 -->
-        <div class="limit" id="loveLimit">每日剩余：11</div>
+        <div class="limit" id="loveLimit">抚触次数：11</div>
       </div>
     </div>
     <div class="bar-item">
@@ -12470,9 +12470,9 @@
     updateClock();
 
     $('#foodLimit').textContent = '每次消耗：' + FOOD_PORTION_COST; // 吃饭只受食物储备限制
-    $('#chewLimit').textContent = '每日剩余：' + state.chewLeft; // 磨牙
-    $('#playLimit').textContent = '每日剩余：' + state.playLeft; // 闲游
-    $('#loveLimit').textContent = '每日剩余：' + state.loveLeft; // 抚摸
+    $('#chewLimit').textContent = '磨牙次数：' + state.chewLeft; // 磨牙
+    $('#playLimit').textContent = '闲游次数：' + state.playLeft; // 闲游
+    $('#loveLimit').textContent = '抚触次数：' + state.loveLeft; // 抚摸
 
     // 按钮禁用规则，根据地点动态调整可用性
     const disabledByGameOver = state.gameOver;
