@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>鼠鼠模拟器 - 奖励音效试听</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f1e8;
+      --panel: #fffaf2;
+      --line: rgba(118, 88, 58, 0.16);
+      --text: #493629;
+      --muted: #806d5e;
+      --accent: #dd7c58;
+      --green: #6fae8a;
+      --shadow: rgba(105, 76, 48, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.66), rgba(255,255,255,0)),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.55;
+    }
+
+    main {
+      width: min(980px, calc(100vw - 28px));
+      margin: 0 auto;
+      padding: 28px 0 42px;
+    }
+
+    header {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(25px, 4vw, 38px);
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 12px 28px var(--shadow);
+    }
+
+    .id {
+      width: fit-content;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(111, 174, 138, 0.16);
+      color: #39735d;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .name {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .use {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    audio {
+      width: 100%;
+      height: 38px;
+    }
+
+    a {
+      color: #9e4f38;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .note {
+      margin-top: 18px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 250, 242, 0.74);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>奖励音效试听</h1>
+      <p>这里只保留当前正式配置：snack-d 用于“捡到小零食”，snack-b 用于“捡到时间胶囊”，snack-c 用于“通关胜利”。</p>
+    </header>
+
+    <section class="grid" id="candidateList"></section>
+
+    <div class="note">
+      来源均为 Mixkit，许可见 <a href="https://mixkit.co/license/" target="_blank" rel="noreferrer">Mixkit Free License</a>。
+      当前页面只用于确认正式绑定结果；未采用的候选已经删除。正式文件、音量和 CREDITS 记录以根目录游戏文件为准。
+    </div>
+  </main>
+
+  <script>
+    const candidates = [
+      {
+        id: 'snack-b',
+        name: 'Bonus earned in video game',
+        use: '已接入“捡到时间胶囊”。短促奖励音，适合稀有掉落提示。',
+        file: 'snack-pickup-sfx-candidates/snack-b-mixkit-bonus-earned-in-video-game-2058-preview.mp3',
+        source: 'https://mixkit.co/free-sound-effects/download/2058/?context=item+grid'
+      },
+      {
+        id: 'snack-c',
+        name: 'Game bonus reached',
+        use: '已接入“通关胜利”。更明确的奖励感，适合通关结算提示。',
+        file: 'snack-pickup-sfx-candidates/snack-c-mixkit-game-bonus-reached-2065-preview.mp3',
+        source: 'https://mixkit.co/free-sound-effects/download/2065/?context=item+grid'
+      },
+      {
+        id: 'snack-d',
+        name: 'Melodic bonus collect',
+        use: '已接入“捡到小零食”。旋律型收集音，比较甜，适合“零食入筐”。',
+        file: 'snack-pickup-sfx-candidates/snack-d-mixkit-melodic-bonus-collect-1938-preview.mp3',
+        source: 'https://mixkit.co/free-sound-effects/download/1938/?context=item+grid'
+      }
+    ];
+
+    const list = document.getElementById('candidateList');
+    candidates.forEach((item) => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="id">${item.id}</div>
+        <div class="name">${item.name}</div>
+        <div class="use">${item.use}</div>
+        <audio controls preload="none" src="${item.file}"></audio>
+        <a href="${item.source}" target="_blank" rel="noreferrer">来源 / license</a>
+      `;
+      list.appendChild(card);
+    });
+  </script>
+</body>
+</html>

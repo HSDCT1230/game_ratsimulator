@@ -1261,7 +1261,8 @@
     }
     .basket-btns {
       display: flex;
-      gap: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
       justify-content: center;
     }
     .basket-eat-btn {
@@ -1289,6 +1290,13 @@
       box-shadow: none;
       cursor: not-allowed;
       transform: none;
+    }
+    .basket-outside-eat-btn {
+      background: linear-gradient(135deg, #FFE08A 0%, #FFB86B 100%);
+      box-shadow: 0 4px 0 #D9904C, 0 6px 10px rgba(0, 0, 0, 0.12);
+    }
+    .basket-outside-eat-btn:hover {
+      box-shadow: 0 6px 0 #D9904C, 0 8px 12px rgba(0, 0, 0, 0.12);
     }
     .basket-no-btn {
       padding: 10px 32px;
@@ -2040,6 +2048,129 @@
         inset 0 2px 3px rgba(255, 255, 255, 0.4),
         inset 0 -2px 4px rgba(150, 150, 150, 0.2);
     }
+
+    .credits-popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(68, 48, 35, 0.34);
+      backdrop-filter: blur(7px);
+      z-index: 10120 !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .credits-popup.hide {
+      display: none !important;
+    }
+
+    .credits-box {
+      width: min(92vw, 460px);
+      max-height: calc(100svh - 36px);
+      overflow-y: auto;
+      background: linear-gradient(180deg, #fffaf0 0%, #fff3d7 100%);
+      border: 3px solid rgba(255, 255, 255, 0.76);
+      border-radius: 18px;
+      box-shadow: 0 18px 44px rgba(77, 49, 28, 0.22);
+      padding: 18px;
+      color: var(--macaron-text);
+      text-align: left;
+      position: relative;
+      z-index: 10121;
+    }
+
+    .credits-title {
+      margin: 0 0 4px;
+      font-size: 22px;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: 0;
+    }
+
+    .credits-subtitle {
+      margin: 0 0 14px;
+      color: #7d6857;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .credits-section {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .credits-section-title {
+      color: #5b493d;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .credits-item {
+      padding: 10px;
+      border: 1px solid rgba(135, 108, 80, 0.16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.46);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .credits-item strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 13px;
+    }
+
+    .credits-item span {
+      display: block;
+      color: #806957;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .credits-note {
+      margin-top: 10px;
+      color: #866d59;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .credits-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .credits-link,
+    .credits-close {
+      flex: 1;
+      min-height: 38px;
+      border: 0;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .credits-link {
+      background: linear-gradient(180deg, #dff4e7, #a8d9bd);
+      color: #41624f;
+    }
+
+    .credits-close {
+      background: linear-gradient(180deg, #ffe0b9, #f6b276);
+      color: #5b3a24;
+    }
     /* 暂停按钮 */
     .pause-btn {
       position: absolute;
@@ -2121,6 +2252,38 @@
     }
     .pause-continue-btn:active {
       transform: scale(0.98);
+    }
+    .pause-credits-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      width: fit-content;
+      margin: 12px auto 0;
+      padding: 5px 12px;
+      border: 1px solid rgba(102, 83, 65, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.34);
+      color: rgba(86, 72, 59, 0.62);
+      font-family: 'Nunito', sans-serif;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.2;
+      cursor: pointer;
+      box-shadow: none;
+      opacity: 0.76;
+      transition: opacity 0.16s ease, transform 0.16s ease, background 0.16s ease, color 0.16s ease;
+    }
+    .pause-credits-btn:hover,
+    .pause-credits-btn:focus-visible {
+      opacity: 1;
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.58);
+      color: rgba(73, 58, 45, 0.88);
+      outline: none;
+    }
+    .pause-credits-btn:active {
+      transform: translateY(0);
     }
     /* 主人操作记录：无色背景 + 深蓝色字体 */
     .log-owner {
@@ -7004,6 +7167,7 @@
         left: 14px !important;
         bottom: auto !important;
       }
+
     }
 
     @media (max-width: 520px) {
@@ -7016,6 +7180,7 @@
         top: 12px !important;
         left: 12px !important;
       }
+
     }
 
     /* ===== Final mobile ratio pass: fit common iOS and Android screens ===== */
@@ -7889,8 +8054,33 @@
       background: rgba(255, 231, 224, 0.74) !important;
     }
 
+    .basket-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      width: min(100%, 260px);
+      margin: 8px auto 0;
+    }
+
+    .basket-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 253, 246, 0.62);
+      color: #52645f;
+      font-size: 11px;
+      font-weight: 850;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.54), 0 5px 12px rgba(92, 123, 146, 0.06);
+      box-sizing: border-box;
+      white-space: nowrap;
+    }
+
     .basket-risk-note,
-    .basket-effect-note {
+    .basket-effect-note,
+    .basket-quest-note {
       width: min(100%, 240px);
       margin: 7px auto 0;
       padding: 7px 10px;
@@ -7910,6 +8100,13 @@
       color: rgba(75, 91, 86, 0.78);
       font-size: 11.5px;
       font-weight: 750;
+    }
+
+    .basket-quest-note {
+      margin-bottom: 14px;
+      background: linear-gradient(145deg, rgba(255, 245, 196, 0.70), rgba(255, 231, 204, 0.44));
+      color: #6a5740;
+      font-size: 11.5px;
     }
 
     .owner-phone-icon-btn:disabled {
@@ -10391,6 +10588,22 @@
       }
     }
 
+    /* ===== Game background tint only ===== */
+    body {
+      background:
+        radial-gradient(circle at 16% 10%, rgba(255, 232, 180, 0.42), transparent 24%),
+        radial-gradient(circle at 82% 14%, rgba(255, 207, 194, 0.34), transparent 28%),
+        radial-gradient(circle at 18% 88%, rgba(255, 239, 198, 0.30), transparent 30%),
+        linear-gradient(135deg, #fffdf7 0%, #fff3e6 45%, #ffe8dc 100%) !important;
+    }
+
+    #gameContainer,
+    .game {
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.56), transparent 34%),
+        linear-gradient(180deg, rgba(255, 254, 248, 0.94), rgba(255, 244, 232, 0.86) 58%, rgba(255, 235, 224, 0.80)) !important;
+    }
+
     /* ===== Compact penalty popup alignment ===== */
     .boss-popup,
     .owner-discovered-popup,
@@ -10643,6 +10856,288 @@
       .injury-text,
       .poison-text {
         font-size: 16px !important;
+      }
+    }
+
+    /* ===== Unified behavior punishment popups ===== */
+    .cat-paw-overlay,
+    .drown-overlay,
+    .slipper-overlay,
+    .freeze-overlay,
+    .choke-overlay,
+    .food-poison-overlay,
+    .limit-alert-overlay {
+      padding:
+        max(18px, env(safe-area-inset-top))
+        max(14px, env(safe-area-inset-right))
+        max(18px, env(safe-area-inset-bottom))
+        max(14px, env(safe-area-inset-left)) !important;
+      background:
+        radial-gradient(circle at 50% 44%, rgba(255, 244, 204, 0.18), transparent 34%),
+        rgba(52, 42, 35, 0.34) !important;
+      backdrop-filter: blur(10px) saturate(125%);
+      -webkit-backdrop-filter: blur(10px) saturate(125%);
+      z-index: 560 !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-sizing: border-box !important;
+    }
+
+    .cat-paw-overlay.show,
+    .drown-overlay.show,
+    .slipper-overlay.show,
+    .freeze-overlay.show,
+    .choke-overlay.show,
+    .food-poison-overlay.show,
+    .limit-alert-overlay.show {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    .cat-paw-overlay.hide,
+    .drown-overlay.hide,
+    .slipper-overlay.hide,
+    .freeze-overlay.hide,
+    .choke-overlay.hide,
+    .food-poison-overlay.hide,
+    .limit-alert-overlay.hide {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .food-poison-modal,
+    .limit-alert-modal,
+    .cat-paw,
+    .water-ripple,
+    .slipper-icon,
+    .freeze-icon,
+    .choke-icon {
+      width: min(268px, calc(100vw - 56px)) !important;
+      max-width: min(268px, calc(100vw - 56px)) !important;
+      min-width: 0 !important;
+      min-height: 176px !important;
+      max-height: min(82dvh, 430px) !important;
+      padding: 21px 20px 19px !important;
+      border: 0 !important;
+      border-radius: 24px !important;
+      overflow: hidden !important;
+      text-align: center !important;
+      background:
+        radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.48), transparent 34%),
+        linear-gradient(145deg, rgba(255, 249, 228, 0.98) 0%, rgba(255, 226, 198, 0.92) 54%, rgba(216, 240, 223, 0.94) 100%) !important;
+      box-shadow:
+        0 22px 42px rgba(75, 114, 118, 0.18),
+        0 8px 20px rgba(95, 148, 122, 0.13),
+        inset 0 2px 0 rgba(255, 255, 255, 0.42),
+        inset 0 -16px 30px rgba(86, 139, 111, 0.09) !important;
+      box-sizing: border-box !important;
+      transform: translateY(8px) scale(0.96) !important;
+      opacity: 0 !important;
+      transition: opacity 0.24s ease, transform 0.24s ease !important;
+    }
+
+    .food-poison-modal,
+    .limit-alert-modal {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .cat-paw,
+    .water-ripple,
+    .slipper-icon,
+    .freeze-icon,
+    .choke-icon {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 11px !important;
+      color: rgba(80, 57, 45, 0.92) !important;
+      font-size: 62px !important;
+      line-height: 1 !important;
+      animation: none !important;
+    }
+
+    .cat-paw-overlay.show .cat-paw,
+    .drown-overlay.show .water-ripple,
+    .slipper-overlay.show .slipper-icon,
+    .freeze-overlay.show .freeze-icon,
+    .choke-overlay.show .choke-icon {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+
+    .cat-paw-overlay.hide .cat-paw,
+    .drown-overlay.hide .water-ripple,
+    .slipper-overlay.hide .slipper-icon,
+    .freeze-overlay.hide .freeze-icon,
+    .choke-overlay.hide .choke-icon {
+      opacity: 0 !important;
+      transform: translateY(8px) scale(0.96) !important;
+      animation: none !important;
+    }
+
+    .cat-paw::after,
+    .water-ripple::after,
+    .slipper-icon::after,
+    .freeze-icon::after,
+    .choke-icon::after {
+      display: block;
+      color: rgba(80, 57, 45, 0.92);
+      font-family: var(--game-font);
+      font-size: 17px;
+      font-weight: 900;
+      line-height: 1.22;
+      letter-spacing: 0;
+      text-shadow: none;
+    }
+
+    .cat-paw::after { content: "猫爪突袭！"; }
+    .water-ripple::after { content: "水太深了！"; }
+    .slipper-icon::after { content: "拖鞋警告！"; }
+    .freeze-icon::after { content: "冷到发抖！"; }
+    .choke-icon::after { content: "噎住了！"; }
+
+    .cold-box,
+    .lost-box,
+    .shock-box,
+    .injury-box,
+    .poison-box {
+      min-height: 176px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .food-poison-icon,
+    .limit-alert-icon {
+      width: 58px !important;
+      height: 58px !important;
+      margin: 0 auto 10px !important;
+      border-radius: 50% !important;
+      font-size: 31px !important;
+      line-height: 1 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background:
+        radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.72), transparent 42%),
+        rgba(255, 255, 255, 0.34) !important;
+      box-shadow:
+        0 10px 20px rgba(80, 122, 130, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.48),
+        inset 0 -10px 18px rgba(93, 148, 122, 0.06) !important;
+    }
+
+    .food-poison-title,
+    .limit-alert-text {
+      margin: 0 0 14px !important;
+      color: rgba(80, 57, 45, 0.92) !important;
+      font-size: 17px !important;
+      font-weight: 900 !important;
+      line-height: 1.22 !important;
+      letter-spacing: 0 !important;
+      text-shadow: none !important;
+    }
+
+    .food-poison-btn,
+    .limit-alert-btn {
+      width: auto !important;
+      min-width: 112px !important;
+      min-height: 36px !important;
+      margin-top: 0 !important;
+      padding: 9px 18px !important;
+      border: 0 !important;
+      border-radius: 999px !important;
+      color: rgba(80, 57, 45, 0.86) !important;
+      font-size: 13px !important;
+      font-weight: 900 !important;
+      line-height: 1 !important;
+      background:
+        radial-gradient(circle at 25% 12%, rgba(255, 255, 255, 0.46), transparent 32%),
+        linear-gradient(145deg, rgba(255, 246, 217, 0.98) 0%, rgba(255, 205, 150, 0.90) 58%, rgba(234, 173, 111, 0.86) 100%) !important;
+      box-shadow:
+        0 8px 16px rgba(175, 105, 44, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.36),
+        inset 0 -8px 15px rgba(168, 91, 34, 0.08) !important;
+      text-shadow: none !important;
+    }
+
+    .food-poison-btn:hover,
+    .limit-alert-btn:hover {
+      transform: translateY(-1px) scale(1.015) !important;
+    }
+
+    .food-poison-btn:active,
+    .limit-alert-btn:active {
+      transform: translateY(1px) scale(0.975) !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cat-paw,
+      .water-ripple,
+      .slipper-icon,
+      .freeze-icon,
+      .choke-icon,
+      .food-poison-modal,
+      .limit-alert-modal {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    @media (max-width: 340px) {
+      .food-poison-modal,
+      .limit-alert-modal,
+      .cat-paw,
+      .water-ripple,
+      .slipper-icon,
+      .freeze-icon,
+      .choke-icon {
+        width: min(248px, calc(100vw - 42px)) !important;
+        max-width: min(248px, calc(100vw - 42px)) !important;
+        min-height: 158px !important;
+        padding: 18px 17px 17px !important;
+        border-radius: 22px !important;
+      }
+
+      .cat-paw,
+      .water-ripple,
+      .slipper-icon,
+      .freeze-icon,
+      .choke-icon {
+        font-size: 56px !important;
+      }
+
+      .food-poison-icon,
+      .limit-alert-icon {
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 28px !important;
+      }
+
+      .food-poison-title,
+      .limit-alert-text,
+      .cat-paw::after,
+      .water-ripple::after,
+      .slipper-icon::after,
+      .freeze-icon::after,
+      .choke-icon::after {
+        font-size: 16px !important;
+      }
+
+      .cold-box,
+      .lost-box,
+      .shock-box,
+      .injury-box,
+      .poison-box {
+        min-height: 158px !important;
       }
     }
 
@@ -10991,6 +11486,193 @@
         padding-bottom: 7px;
       }
     }
+
+    /* ===== Coordinated section surfaces: shared material, distinct hues ===== */
+    :root {
+      --section-line: rgba(105, 128, 129, 0.16);
+      --section-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.46);
+      --section-shadow: 0 10px 24px rgba(83, 116, 137, 0.09), var(--section-highlight);
+      --modal-surface-shadow: 0 22px 52px rgba(73, 82, 103, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.56);
+    }
+
+    body {
+      background: linear-gradient(140deg, #fff8ec 0%, #f2f8f2 34%, #f3f0fb 67%, #ffece5 100%) !important;
+    }
+
+    #gameContainer,
+    .game {
+      background: linear-gradient(
+        180deg,
+        rgba(228, 247, 244, 0.98) 0%,
+        rgba(243, 242, 251, 0.96) 15%,
+        rgba(255, 237, 221, 0.95) 27%,
+        rgba(255, 250, 221, 0.94) 42%,
+        rgba(229, 247, 245, 0.94) 66%,
+        rgba(239, 236, 250, 0.96) 86%,
+        rgba(255, 238, 230, 0.98) 100%
+      ) !important;
+    }
+
+    .head {
+      background: linear-gradient(132deg, rgba(190, 237, 247, 0.98), rgba(216, 241, 220, 0.96) 52%, rgba(255, 215, 202, 0.96)) !important;
+      border-color: rgba(103, 142, 143, 0.14) !important;
+    }
+
+    .info {
+      background: linear-gradient(180deg, rgba(238, 242, 254, 0.72), rgba(249, 241, 248, 0.60)) !important;
+      box-shadow: inset 0 -1px 0 rgba(112, 123, 151, 0.08) !important;
+    }
+
+    .info > div {
+      border: 1px solid rgba(112, 127, 147, 0.12) !important;
+      box-shadow: 0 7px 16px rgba(84, 106, 133, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.58) !important;
+    }
+
+    .info > div:nth-child(1) {
+      background: linear-gradient(150deg, rgba(226, 240, 255, 0.94), rgba(235, 229, 252, 0.90)) !important;
+    }
+
+    .info > div:nth-child(2) {
+      background: linear-gradient(150deg, rgba(255, 235, 228, 0.94), rgba(255, 244, 218, 0.90)) !important;
+    }
+
+    .info > div:nth-child(3) {
+      background: linear-gradient(150deg, rgba(222, 246, 232, 0.94), rgba(220, 241, 248, 0.90)) !important;
+    }
+
+    .owner-panel {
+      background: linear-gradient(150deg, rgba(255, 243, 219, 0.96), rgba(255, 225, 214, 0.91)) !important;
+      border-color: rgba(191, 139, 112, 0.15) !important;
+      box-shadow: var(--section-shadow) !important;
+    }
+
+    .owner-panel-item:nth-child(1) {
+      background: rgba(255, 249, 230, 0.54) !important;
+    }
+
+    .owner-panel-item:nth-child(2) {
+      background: rgba(255, 232, 219, 0.48) !important;
+    }
+
+    .owner-panel-item:nth-child(3) {
+      background: rgba(232, 244, 225, 0.48) !important;
+    }
+
+    .owner-panel-item:nth-child(4),
+    .owner-panel-item:nth-child(5) {
+      background: rgba(231, 239, 250, 0.44) !important;
+    }
+
+    .bars {
+      background: linear-gradient(150deg, rgba(255, 250, 210, 0.96), rgba(222, 244, 211, 0.92)) !important;
+      border-color: rgba(144, 162, 100, 0.16) !important;
+      box-shadow: var(--section-shadow) !important;
+    }
+
+    .bar-box {
+      background: linear-gradient(90deg, rgba(231, 235, 221, 0.86), rgba(218, 229, 225, 0.86)) !important;
+      box-shadow: inset 0 1px 3px rgba(79, 104, 100, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.44) !important;
+    }
+
+    .scene {
+      background: linear-gradient(155deg, rgba(221, 244, 252, 0.95), rgba(224, 244, 235, 0.91) 50%, rgba(255, 235, 210, 0.90)) !important;
+      border-color: rgba(103, 145, 153, 0.15) !important;
+      box-shadow: var(--section-shadow) !important;
+    }
+
+    .scene-rat-row {
+      background: linear-gradient(150deg, rgba(247, 229, 255, 0.92), rgba(255, 244, 216, 0.92) 52%, rgba(218, 239, 249, 0.90)) !important;
+      border-color: rgba(142, 121, 173, 0.13) !important;
+      box-shadow: 0 13px 27px rgba(91, 113, 139, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.52) !important;
+    }
+
+    .scene-rat-row::before {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(242, 239, 255, 0.10)) !important;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38), inset 0 -8px 18px rgba(120, 116, 151, 0.05) !important;
+    }
+
+    .level1 {
+      background: linear-gradient(150deg, rgba(255, 232, 216, 0.82), rgba(236, 230, 252, 0.78)) !important;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), 0 9px 20px rgba(101, 103, 139, 0.07) !important;
+    }
+
+    .level2 {
+      background: linear-gradient(150deg, rgba(230, 247, 240, 0.40), rgba(229, 237, 253, 0.36)) !important;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -14px 28px rgba(103, 130, 146, 0.04) !important;
+    }
+
+    .log {
+      background: linear-gradient(150deg, rgba(239, 235, 253, 0.94), rgba(224, 244, 250, 0.90)) !important;
+      border-color: rgba(126, 122, 168, 0.15) !important;
+      box-shadow: var(--section-shadow) !important;
+    }
+
+    :is(
+      .profile-modal,
+      .diary-modal,
+      .basket-modal,
+      .snack-list-modal,
+      .home-map-modal,
+      .stats-modal,
+      .owner-info-box,
+      .time-clock-box,
+      .pause-box,
+      .start-dialog,
+      .new-day-popup,
+      .over-box
+    ) {
+      border-color: var(--section-line) !important;
+      box-shadow: var(--modal-surface-shadow) !important;
+    }
+
+    .profile-modal {
+      background: linear-gradient(150deg, rgba(255, 235, 231, 0.98), rgba(237, 232, 255, 0.96)) !important;
+    }
+
+    .diary-modal {
+      background: linear-gradient(150deg, rgba(255, 249, 218, 0.98), rgba(255, 226, 202, 0.96)) !important;
+    }
+
+    .basket-modal {
+      background: linear-gradient(150deg, rgba(224, 248, 231, 0.98), rgba(255, 241, 199, 0.96)) !important;
+    }
+
+    .snack-list-modal {
+      background: linear-gradient(150deg, rgba(222, 243, 255, 0.98), rgba(235, 226, 252, 0.96)) !important;
+    }
+
+    .home-map-modal {
+      background: linear-gradient(150deg, rgba(216, 247, 244, 0.98), rgba(255, 232, 216, 0.96)) !important;
+    }
+
+    .stats-modal {
+      background: linear-gradient(150deg, rgba(240, 229, 255, 0.98), rgba(255, 226, 234, 0.96)) !important;
+    }
+
+    .owner-info-box {
+      background: linear-gradient(150deg, rgba(255, 235, 211, 0.98), rgba(224, 245, 230, 0.96)) !important;
+    }
+
+    .time-clock-box {
+      background: linear-gradient(150deg, rgba(224, 241, 255, 0.98), rgba(255, 247, 211, 0.96)) !important;
+    }
+
+    .pause-box {
+      background: linear-gradient(150deg, rgba(232, 235, 255, 0.98), rgba(245, 227, 249, 0.96)) !important;
+    }
+
+    .start-dialog {
+      background: linear-gradient(150deg, rgba(221, 246, 244, 0.98), rgba(255, 235, 220, 0.96)) !important;
+    }
+
+    .new-day-popup {
+      background: linear-gradient(150deg, rgba(231, 248, 218, 0.98), rgba(255, 239, 205, 0.96)) !important;
+    }
+
+    .over-box {
+      background: linear-gradient(150deg, rgba(255, 230, 228, 0.98), rgba(238, 230, 250, 0.96)) !important;
+    }
+
 </style>
 </head>
 <body>
@@ -11013,7 +11695,8 @@
   <!-- 主人面板，显示食物储备等信息 -->
   <div class="owner-panel">
     <span class="owner-panel-item">食物储备：<b id="foodStock">150</b></span>
-    <span class="owner-panel-item">今日出逃：<span id="escapeCount">0</span> 次</span>
+    <span class="owner-panel-item" title="溜出笼子的次数，会影响第二天照料">今日出逃：<span id="escapeCount">0</span> 次</span>
+    <span class="owner-panel-item" title="出家门惩罚更重，会降低信任和第二天补给">出门：<span id="outsideEscapeCount">0</span> 次</span>
     <span class="owner-panel-item">主人抚触：<span id="petCount">0</span> 次</span>
     <span class="owner-panel-item trust-pill">信任：<span id="ownerTrust">80</span><span id="ownerTrustLabel">· 稳定</span></span>
   </div>
@@ -11173,6 +11856,60 @@
     <div class="pause-box">
       <div class="pause-text" id="pauseText">游戏已暂停</div>
       <button class="pause-continue-btn" id="pauseContinueBtn">继续</button>
+      <button class="pause-credits-btn" id="creditsBtn" type="button" title="素材鸣谢" aria-label="打开素材鸣谢">© 素材鸣谢</button>
+    </div>
+  </div>
+</div>
+
+<div class="credits-popup hide" id="creditsPopup">
+  <div class="credits-box" onclick="event.stopPropagation()">
+    <h2 class="credits-title">素材鸣谢</h2>
+    <p class="credits-subtitle">发布版音频来源摘要。完整文件、作者、来源 URL、license 和转码说明见 CREDITS.md。</p>
+    <div class="credits-section">
+      <div class="credits-section-title">背景音乐</div>
+      <div class="credits-item">
+        <strong>主 BGM</strong>
+        Cute Baby Animals Playful Cute Woodwinds / HarumachiMusic / Pixabay Content License。
+        <span>Pixabay 页面带 Content ID Registered 提醒，下载证明已留存在 docs/pixabay-download-proof/。</span>
+      </div>
+      <div class="credits-item">
+        <strong>鼠生总结配乐</strong>
+        Secret Garden / Eugenio Mininni / Mixkit Stock Music Free License。
+        <span>用于通关、死亡总结和鼠生回顾界面。</span>
+      </div>
+    </div>
+    <div class="credits-section">
+      <div class="credits-section-title">正式音效</div>
+      <div class="credits-item">
+        <strong>Mixkit 授权音效</strong>
+        已用于 please-help-me、snap1、捡到小零食、捡到时间胶囊、通关胜利、档案翻页、主人提示、迷路提示和水声等场景。
+        <span>来源不明的旧 please-help-me 与 snap1 已替换为 Mixkit 授权素材。</span>
+      </div>
+      <div class="credits-item">
+        <strong>Pixabay / Freesound / OpenGameArt</strong>
+        猫叫、通知、点击、摔落、鼠鼠喊声、吃零食和结算提示等音效按正式清单使用。
+        <span>CC0 素材无需强制署名，但仍在 CREDITS.md 中保留来源记录。</span>
+      </div>
+    </div>
+    <div class="credits-section">
+      <div class="credits-section-title">署名与留档</div>
+      <div class="credits-item">
+        <strong>CC-BY / 保守署名</strong>
+        InspectorJ / Chewing, Breadstick, Single, B；BigFriendlyJiant / Crash 3 choke；UncleSigmund coinbank 署名随 Cash Register Purchase 说明保留。
+        <span>对应 CC-BY 3.0 / CC-BY 4.0 信息见完整清单。</span>
+      </div>
+      <div class="credits-item">
+        <strong>试听与发布留档</strong>
+        snack-b、snack-c、snack-d、help-c、snap-a 已按试听结果接入正式游戏；未采用候选不进入发布清单。
+        <span>公开发布时以正式 MP3 文件和 CREDITS.md 为准。</span>
+      </div>
+    </div>
+    <div class="credits-note">
+      本页只显示玩家侧摘要；可审计的完整来源表、license 链接、转码说明和 Pixabay 下载证明路径都在完整清单中。
+    </div>
+    <div class="credits-actions">
+      <a class="credits-link" href="./CREDITS.md" target="_blank" rel="noreferrer">完整清单</a>
+      <button class="credits-close" id="creditsClose" type="button">吱道了</button>
     </div>
   </div>
 </div>
@@ -11241,7 +11978,7 @@
     <div class="trait-detail-kicker">鼠鼠特质</div>
     <div class="trait-detail-title" id="traitDetailTitle">跑酷鼠</div>
     <div class="trait-detail-content" id="traitDetailContent">闲游消耗慢，外出更开心</div>
-    <button class="trait-detail-close" id="traitDetailClose" type="button">知道啦</button>
+    <button class="trait-detail-close" id="traitDetailClose" type="button">吱道了</button>
   </div>
 </div>
 
@@ -11253,24 +11990,24 @@
     <div class="diary-mood" id="diaryMood">😊</div>
     <div class="diary-content">
       <div class="diary-section">
-        <div class="diary-section-title"><span class="emoji-badge">📝</span><span>今日心情</span></div>
-        <div class="diary-section-text" id="diaryMoodText">开开心心！</div>
+        <div class="diary-section-title"><span class="emoji-badge">📝</span><span>今日状态</span></div>
+        <div class="diary-section-text" id="diaryMoodText">状态正常，判断在线。</div>
       </div>
       <div class="diary-section">
-        <div class="diary-section-title"><span class="emoji-badge">🎯</span><span>今日计划</span></div>
-        <div class="diary-section-text" id="diaryPlanText">努力干饭！</div>
+        <div class="diary-section-title"><span class="emoji-badge">🎯</span><span>行动计划</span></div>
+        <div class="diary-section-text" id="diaryPlanText">先看食盆，再看门缝。</div>
       </div>
       <div class="diary-section">
-        <div class="diary-section-title"><span class="emoji-badge">💕</span><span>喜欢的好朋友</span></div>
-        <div class="diary-section-text" id="diaryFriendText">邻居小灰！</div>
+        <div class="diary-section-title"><span class="emoji-badge">💬</span><span>今日社交</span></div>
+        <div class="diary-section-text" id="diaryFriendText">隔壁消息很多，可信度一般。</div>
       </div>
       <div class="diary-section">
-        <div class="diary-section-title"><span class="emoji-badge">📖</span><span>今日日记</span></div>
+        <div class="diary-section-title"><span class="emoji-badge">📖</span><span>今日记录</span></div>
         <div class="diary-section-text" id="diaryStoryText"></div>
       </div>
       <div class="diary-section">
-        <div class="diary-section-title"><span class="emoji-badge">🍰</span><span>今日心愿</span></div>
-        <div class="diary-section-text" id="diaryWishText">希望主人多摸摸~</div>
+        <div class="diary-section-title"><span class="emoji-badge">📌</span><span>明日算盘</span></div>
+        <div class="diary-section-text" id="diaryWishText">希望粮多一点，规矩少一点。</div>
       </div>
     </div>
     <button class="diary-close" id="diaryClose">吱道了</button>
@@ -11282,12 +12019,15 @@
   <div class="basket-modal" onclick="event.stopPropagation()">
     <div class="basket-title" id="basketTitle">今日零食</div>
     <div class="basket-food" id="basketFood" title="点击查看零食图鉴"></div>
+    <div class="basket-tags" id="basketTags"></div>
     <div class="basket-risk-note" id="basketRiskNote"></div>
     <div class="basket-effect-note" id="basketEffectNote"></div>
+    <div class="basket-quest-note" id="basketQuestNote"></div>
     <div class="basket-queue" id="basketQueue"></div>
     <div class="basket-btns">
-      <button class="basket-eat-btn" id="basketEatBtn">吃</button>
-      <button class="basket-no-btn" id="basketNoBtn">不吃</button>
+      <button class="basket-eat-btn" id="basketEatBtn">门内吃</button>
+      <button class="basket-eat-btn basket-outside-eat-btn" id="basketEatOutsideBtn">门外吃</button>
+      <button class="basket-no-btn" id="basketNoBtn">先不吃</button>
     </div>
   </div>
 </div>
@@ -11646,6 +12386,12 @@
       outsideEscapes: 0,
       ownerPets: 0,
       strangerPets: 0,
+      snackFinds: 0,
+      snackInsideEats: 0,
+      snackOutsideEats: 0,
+      snackSkips: 0,
+      snackQuestCompletions: 0,
+      snackSourceCounts: {},
       recentLogs: []
     };
   }
@@ -11705,13 +12451,15 @@
     click: { src: './sound effect/click2.mp3', volume: 0.5 },
     rat: { src: './sound effect/rat-shout.mp3', volume: 0.5 },
     restart: { src: './sound effect/cash-register-purchase.mp3', volume: 0.5 },
+    victory: { src: './sound effect/mixkit-game-bonus-reached-2065.mp3', volume: 0.42 },
     snack: { src: './sound effect/chewing-breadstick-single-b.mp3', volume: 0.5 },
+    snackPickup: { src: './sound effect/mixkit-melodic-bonus-collect-1938.mp3', volume: 0.36 },
     phone: { src: './sound effect/notification-sound-effect-372475.mp3', volume: 0.5 },
     neighbor: { src: './sound effect/notification-sound-effect-372475.mp3', volume: 0.5 },
     profileOpen: { src: './sound effect/mixkit-page-turn-single-1104.mp3', volume: 0.34 },
     ownerBubble: { src: './sound effect/mixkit-message-pop-alert-2354.mp3', volume: 0.38 },
     profileBubble: { src: './sound effect/mixkit-bubble-pop-alert-2357.mp3', volume: 0.3 },
-    timeCapsuleGet: { src: './sound effect/mixkit-bubble-pop-alert-2357.mp3', volume: 0.34 },
+    timeCapsuleGet: { src: './sound effect/mixkit-bonus-earned-in-video-game-2058.mp3', volume: 0.38 },
     timeCapsuleUse: { src: './sound effect/mixkit-video-game-mystery-alert-234.mp3', volume: 0.36 },
     timeCapsuleEmpty: { src: './sound effect/click2.mp3', volume: 0.22 },
     lost: { src: './sound effect/mixkit-video-game-mystery-alert-234.mp3', volume: 0.32 },
@@ -11988,6 +12736,11 @@
     wireShockRisk: 1,
     trashPoisonRisk: 1,
     trashSnackChance: 1,
+    snackFindLuck: 1,
+    snackInsideGain: 1,
+    snackOutsideGain: 1,
+    snackOutsideRisk: 1,
+    snackSkipMood: 1,
     sewerDrownRisk: 1,
     wanderCatRisk: 1,
     wanderSlipperRisk: 1,
@@ -12003,6 +12756,8 @@
       foodDecay: 1.05,
       playDecay: 0.82,
       playGain: 1.18,
+      snackOutsideGain: 1.06,
+      snackOutsideRisk: 1.08,
       ownerRisk: 1.15,
       stuckRisk: 1.08,
       phrases: ['跑起来就不无聊啦', '今天也要绕客厅三圈', '脚脚有自己的想法']
@@ -12012,6 +12767,8 @@
       effect: '更需要抚触，被摸收益高，被发现惩罚较轻',
       loveDecay: 1.18,
       loveGain: 1.24,
+      snackInsideGain: 1.08,
+      snackOutsideRisk: 0.95,
       ownerRisk: 0.86,
       phrases: ['想贴贴主人', '今天的摸摸额度用完了吗', '没有抱抱会扁掉']
     },
@@ -12022,6 +12779,8 @@
       eatGain: 1.35,
       snackGoodGain: 1.22,
       snackBadLoss: 1.12,
+      snackInsideGain: 1.08,
+      snackOutsideGain: 1.08,
       chokeLimit: 6,
       phrases: ['饭饭在哪里', '先吃一口再思考鼠生', '腮帮子还可以再塞一点']
     },
@@ -12031,6 +12790,9 @@
       playDecay: 1.08,
       playGain: 1.16,
       trashSnackChance: 1.22,
+      snackFindLuck: 1.12,
+      snackOutsideGain: 1.18,
+      snackOutsideRisk: 0.94,
       trashPoisonRisk: 1.08,
       sewerDrownRisk: 1.12,
       wanderCatRisk: 1.08,
@@ -12043,6 +12805,9 @@
       playDecay: 0.84,
       loveDecay: 0.92,
       playGain: 0.9,
+      snackInsideGain: 1.06,
+      snackOutsideGain: 0.94,
+      snackSkipMood: 1.08,
       coldRisk: 0.86,
       phrases: ['躺着也很好', '今天适合打盹', '慢慢来，鼠鼠不急']
     },
@@ -12051,6 +12816,10 @@
       effect: '不容易被发现，外出危险低，但闲游收益较低',
       loveDecay: 1.1,
       playGain: 0.9,
+      snackInsideGain: 1.16,
+      snackOutsideGain: 0.92,
+      snackOutsideRisk: 0.82,
+      snackSkipMood: 1.12,
       ownerRisk: 0.64,
       wanderCatRisk: 0.75,
       wanderSlipperRisk: 0.75,
@@ -12062,6 +12831,8 @@
       effect: '咬电线和下水道更安全，磨牙收益略高',
       chewDecay: 0.94,
       chewGain: 1.18,
+      snackFindLuck: 1.1,
+      snackOutsideRisk: 0.72,
       ownerRisk: 0.82,
       wireDeathRisk: 0.55,
       wireShockRisk: 0.75,
@@ -12074,6 +12845,8 @@
       poopRate: 0.76,
       toiletGain: 1.32,
       trashPoisonRisk: 1.28,
+      snackInsideGain: 1.06,
+      snackSkipMood: 1.08,
       playGain: 0.96,
       phrases: ['毛毛要保持蓬松', '那里脏脏的，不太想去', '洗脸，整理，优雅']
     },
@@ -12082,11 +12855,13 @@
       effect: '磨牙和玩耍收益高，但闯祸、被发现和触电风险更高',
       chewGain: 1.24,
       playGain: 1.1,
+      snackOutsideGain: 1.1,
+      snackOutsideRisk: 1.16,
       ownerRisk: 1.28,
       stuckRisk: 1.22,
       wireDeathRisk: 1.16,
       wireShockRisk: 1.16,
-      phrases: ['搞点小破坏', '主人应该没看见吧', '这不是捣蛋，是艺术']
+      phrases: ['搞点小破坏', '主人应该没看见吧', '拆开看看，世界立刻有了新结构']
     },
     scavenger: {
       tag: '翻找鼠',
@@ -12094,6 +12869,9 @@
       foodDecay: 1.08,
       trashPoisonRisk: 0.7,
       trashSnackChance: 1.55,
+      snackFindLuck: 1.25,
+      snackOutsideGain: 1.08,
+      snackOutsideRisk: 0.88,
       playGain: 1.1,
       snackGoodGain: 1.1,
       phrases: ['垃圾桶里有宝藏', '鼻子闻到好东西了', '翻找也是一种技能']
@@ -12106,6 +12884,9 @@
       playDecay: 0.95,
       loveDecay: 0.95,
       playGain: 0.96,
+      snackInsideGain: 1.08,
+      snackOutsideRisk: 0.86,
+      snackSkipMood: 1.1,
       ownerRisk: 0.84,
       phrases: ['稳住，鼠鼠能赢', '先观察，再行动', '不慌不忙才是智慧']
     },
@@ -12113,6 +12894,8 @@
       tag: '呆萌鼠',
       effect: '更讨主人喜欢，抚触收益高，但偶尔容易迷糊',
       loveGain: 1.14,
+      snackInsideGain: 1.04,
+      snackOutsideRisk: 0.92,
       ownerRisk: 0.76,
       lostRisk: 1.18,
       stuckRisk: 1.08,
@@ -12168,8 +12951,8 @@
         '{{name}}的脚脚一直有计划，计划内容大概是：先跑再说。',
         '作为{{traitTag}}，{{name}}把世界看成一张巨大的跑轮地图。'
       ],
-      actionIntro: ['行动记录像一串小脚印，速度感比说明书更强。'],
-      ownerIntro: ['主人观察：{{name}}不是故意难抓，只是移动速度很有主见。'],
+      actionIntro: ['行动记录像一串急促爪印，翻页都得跟上速度。'],
+      ownerIntro: ['主人观察：{{name}}移动速度很有主见，抓捕工作总是慢半拍。'],
       ending: ['鼠生评价：跑过、绕过、冲过，{{name}}把一局活成了短跑比赛。']
     },
     cuddle: {
@@ -12196,7 +12979,7 @@
       ],
       foodIntro: ['吃播记录是本片重点，腮帮子提供独家旁白。'],
       emptyFood: ['这局没有像样吃播，对{{name}}来说属于重大素材事故。'],
-      ending: ['鼠生评价：{{name}}不是贪吃，是在用嘴巴研究世界。']
+      ending: ['鼠生评价：{{name}}靠嘴巴完成了不少世界研究。']
     },
     curious: {
       subtitle: [
@@ -12208,7 +12991,7 @@
         '作为{{traitTag}}，{{name}}相信不探一下就不算真正活过。'
       ],
       actionIntro: ['行动记录像探险地图，旁边写着：这里也想去，那里也想看。'],
-      ownerIntro: ['主人观察：{{name}}的问题不是胆子太大，是问号太多。'],
+      ownerIntro: ['主人观察：{{name}}的胆子和问号一起增长。'],
       ending: ['鼠生评价：{{name}}用好奇心点亮地图，也用好奇心踩中了结尾。']
     },
     lazy: {
@@ -12230,7 +13013,7 @@
         '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。躲躲鼠的片尾，连掌声都放轻了。'
       ],
       intro: [
-        '{{name}}是{{personality}}鼠，谨慎不是退缩，是小爪子的风险管理。',
+        '{{name}}是{{personality}}鼠，每次谨慎后退都算风险管理。',
         '作为{{traitTag}}，{{name}}每一步都像先探温度再落脚。'
       ],
       actionIntro: ['行动记录不一定张扬，但每一条都经过内心开会。'],
@@ -12247,7 +13030,7 @@
         '作为{{traitTag}}，{{name}}很会研究机关，也很会把机关研究急眼。'
       ],
       actionIntro: ['行动记录像实验日志，成功和事故都很有参考价值。'],
-      ownerIntro: ['主人观察：{{name}}不只是调皮，它是真的在分析这个家。'],
+      ownerIntro: ['主人观察：{{name}}每天都在认真分析这个家。'],
       ending: ['鼠生评价：{{name}}算对了很多步，只是最后一步没有验算。']
     },
     clean: {
@@ -12274,7 +13057,7 @@
         '作为{{traitTag}}，{{name}}把“不要动”理解成“可以研究”。'
       ],
       actionIntro: ['行动记录里每一条都像案发现场的小脚印。'],
-      ownerIntro: ['主人观察：{{name}}不是没有规矩，是规矩在它面前经常失效。'],
+      ownerIntro: ['主人观察：规矩到了{{name}}面前，经常会变成参考意见。'],
       ending: ['鼠生评价：{{name}}让世界多了很多小破坏，也多了很多小故事。']
     },
     scavenger: {
@@ -12302,7 +13085,7 @@
       ],
       actionIntro: ['行动记录不浮夸，但每一步都像经过小脑袋审批。'],
       ownerIntro: ['主人观察：{{name}}多数时候很稳，稳到闯祸也显得有计划。'],
-      ending: ['鼠生评价：{{name}}不是没冒险，是把冒险压低了音量。']
+      ending: ['鼠生评价：{{name}}把每次冒险都调成了低音量。']
     },
     mellow: {
       subtitle: [
@@ -12323,12 +13106,12 @@
     default: {
       title: ['{{name}}通关啦！', '{{traitTag}}安全收工！'],
       subtitle: [
-        '{{personality}}的{{name}}把第{{days}}天也稳稳抱回窝里，今日结算：小爪有功，腮帮有奖。',
-        '{{name}}带着{{traitTag}}的节奏熬到通关，最后一页日志已经盖上胜利小爪印。'
+        '{{personality}}的{{name}}走到第{{days}}天，行动和吃饭都留下了完整证据。',
+        '{{name}}带着{{traitTag}}的节奏通关，最后一页日志已经签字。'
       ],
       highlight: [
-        '{{name}}的通关方式很有{{traitTag}}味道：不一定最规矩，但很会活。',
-        '{{traitTag}}没有白贴，{{name}}把性格写进了每一步选择。'
+        '{{name}}的通关方式很有{{traitTag}}味道：规矩程度一般，生存能力很强。',
+        '{{name}}把{{traitTag}}的脾气写进了每一步选择。'
       ],
       ending: [
         '通关评价：{{name}}存活{{days}}天，行动{{actions}}次，吃播{{foods}}条，是合格的笼中小冠军。',
@@ -12337,18 +13120,18 @@
     },
     runner: {
       title: ['跑酷鼠冲线成功！'],
-      subtitle: ['{{name}}把第{{days}}天跑成终点线，脚脚一路加速，终于把胜利带回窝。'],
+      subtitle: ['{{name}}把第{{days}}天跑成终点线，一路加速，把胜利带回窝。'],
       highlight: ['高光归因：{{name}}靠速度和胆量活到了最后，跑酷鼠名副其实。']
     },
     cuddle: {
-      title: ['贴贴鼠被胜利抱住！'],
-      subtitle: ['{{name}}带着{{personality}}的小软劲通关，摸摸额度和安全感一起结算。'],
-      highlight: ['高光归因：{{name}}会撒娇，也会活命，贴贴鼠今天双赢。']
+      title: ['贴贴鼠关系维护成功！'],
+      subtitle: ['{{name}}把主人关系和安全感一起经营到了终点。'],
+      highlight: ['高光归因：{{name}}很懂得调用主人资源，也很懂得保住自己。']
     },
     foodie: {
       title: ['干饭鼠吃到通关！'],
       subtitle: ['{{name}}一路把风险闻成菜单，把第{{days}}天吃成庆功宴。'],
-      highlight: ['高光归因：{{name}}的腮帮子不是负担，是通关资料库。']
+      highlight: ['高光归因：{{name}}的腮帮子存着整套通关资料。']
     },
     curious: {
       title: ['探险鼠解锁终点！'],
@@ -12372,13 +13155,13 @@
     },
     clean: {
       title: ['洁净鼠优雅获胜！'],
-      subtitle: ['{{name}}带着整齐毛毛抵达终点，通关也要体面收尾。'],
+      subtitle: ['{{name}}带着整齐毛发抵达终点，通关也收得很体面。'],
       highlight: ['高光归因：{{name}}把卫生标准和求生标准一起守住了。']
     },
     naughty: {
       title: ['捣蛋鼠闹到通关！'],
       subtitle: ['{{name}}一路有点乱，但乱得很有效，最后把胜利也拆回窝里。'],
-      highlight: ['高光归因：{{name}}不是只会闯祸，也很会把闯祸变成故事。']
+      highlight: ['高光归因：{{name}}很会闯祸，也很会把现场写成故事。']
     },
     scavenger: {
       title: ['翻找鼠翻到奖杯！'],
@@ -12388,11 +13171,11 @@
     calm: {
       title: ['稳稳鼠稳稳通关！'],
       subtitle: ['{{name}}不吵不抢，把第{{days}}天稳稳放进结算框。'],
-      highlight: ['高光归因：{{name}}的稳定不是背景板，是这局的主线。']
+      highlight: ['高光归因：{{name}}靠稳定撑起了这局主线。']
     },
     mellow: {
-      title: ['呆萌鼠糊涂但赢！'],
-      subtitle: ['{{name}}偶尔忘记目标，但没有忘记活到最后，呆萌也有冠军相。'],
+      title: ['呆萌鼠绕着绕着赢了！'],
+      subtitle: ['{{name}}偶尔忘记目标，最后却准确走到了奖杯前。'],
       highlight: ['高光归因：{{name}}靠真诚和一点迷糊，把结局走成喜剧。']
     }
   };
@@ -12469,6 +13252,326 @@
     return fillLifeSummaryTemplate(template, data);
   }
 
+  const LIFE_SUMMARY_SELF_TRAIT_LINES = {
+    default: [
+      '我这只{{traitTag}}想法不少，爪子也有自己的行程表。',
+      '{{personality}}写在脾气里，认真偶尔会用错地方。'
+    ],
+    runner: [
+      '停下来会浪费路线，我通常边跑边想。',
+      '前方能跑，后方也能跑，休息只占很短的维护时间。'
+    ],
+    cuddle: [
+      '我擅长管理家庭关系，主人多半会主动靠近。',
+      '互动充足时，我处理世界的耐心会明显增加。'
+    ],
+    foodie: [
+      '腮帮是仓库，嘴巴负责验收，流程一直很完整。',
+      '我的世界观很朴素：能吃的先登记，不能吃的也先闻一下。'
+    ],
+    curious: [
+      '每个角落都像写着“过去看看”，我通常会照办。',
+      '我的脑袋里住着很多问号，它们排队催我伸爪。'
+    ],
+    lazy: [
+      '能躺着处理的问题，我很少站着浪费瓜子能量。',
+      '我的节奏比较慢，但慢也是一种高级省电策略。'
+    ],
+    timid: [
+      '每次后退都经过风险评估，活得久比冲得快重要。',
+      '我的每一步都先开会，会议主题通常是：真的要过去吗。'
+    ],
+    clever: [
+      '脑袋一直在线，偶尔也会把危险误算成零食。',
+      '我钻过的每条缝，都进入了家庭动线测试报告。'
+    ],
+    clean: [
+      '毛发要整齐，住处要清楚，鼠格也要体面。',
+      '我可以冒险，但灰尘最好先排队领号。'
+    ],
+    naughty: [
+      '世界各处都值得拆开研究，完整只是暂时状态。',
+      '看到“不要碰”，我的爪子通常会先做一次小规模测试。'
+    ],
+    scavenger: [
+      '鼻子负责导航，腮帮负责验收，我负责给角落定价。',
+      '我坚信世界没有废物，只有还没被我翻到价值的角落。'
+    ],
+    calm: [
+      '鼠生一直开着安静稳定模式，事情来了再处理。',
+      '我会先观察，再伸爪；如果还是出事，那就是世界太突然。'
+    ],
+    mellow: [
+      '我偶尔忘记目标，不过沿途通常也能捡到别的答案。',
+      '路线绕一点没关系，最后到了就算判断正确。'
+    ]
+  };
+
+  const LIFE_SUMMARY_TRAIT_FRAME_LINES = {
+    default: {
+      intro: '我叫{{name}}，性格{{personality}}。平时研究{{hobby}}，见到{{favoriteFood}}会格外认真。',
+      action: '我做事看现场，先伸爪，再决定要不要解释。',
+      food: '每一口都有记录，腮帮从不做糊涂账。',
+      owner: '主人制定规矩，我负责找出规矩的薄弱处。',
+      ending: '这一局按我的路数走完了，成绩都在记录里。'
+    },
+    runner: {
+      intro: '我叫{{name}}，{{traitTag}}。{{favoriteFood}}负责供能，{{hobby}}负责把能量花掉。',
+      action: '我的行动记录很密，慢动作不适合我。',
+      food: '吃东西主要为了补速度，顺便照顾嘴。',
+      owner: '主人每次看见我，我通常已经到了下一站。',
+      ending: '一路跑到这里，刹车虽慢，终点没错过。'
+    },
+    cuddle: {
+      intro: '我叫{{name}}，{{traitTag}}。我擅长让主人把注意力从手机移到我身上。',
+      action: '我很少绕远路，通常直接去找主人。',
+      food: '{{favoriteFood}}补状态，主人互动补耐心。',
+      owner: '主人负责照顾我，我负责提醒主人别忘了。',
+      ending: '这局关系维护得不错，胜负之外也有收益。'
+    },
+    foodie: {
+      intro: '我叫{{name}}，{{traitTag}}。爱吃{{favoriteFood}}，也愿意研究其他样本。',
+      action: '我的路线经常经过食盆，这叫高效规划。',
+      food: '食物记录是本局重点，腮帮提供完整数据。',
+      owner: '主人添粮时表现最好，收走零食时评价下降。',
+      ending: '该吃的吃了，该记的记了，这局很充实。'
+    },
+    curious: {
+      intro: '我叫{{name}}，{{traitTag}}。{{hobby}}让我认识了很多角落，也认识了很多风险。',
+      action: '每次行动都在扩地图，空白区域越来越少。',
+      food: '{{favoriteFood}}适合当调查补给，来源也值得追查。',
+      owner: '主人封一条路，我就多研究一条路。',
+      ending: '问号带我走完全程，答案有用，教训也有用。'
+    },
+    lazy: {
+      intro: '我叫{{name}}，{{traitTag}}。爱好{{hobby}}，日程安排讲究留白。',
+      action: '行动次数不求多，每次起身都得值回能量。',
+      food: '{{favoriteFood}}最好送到附近，物流距离会影响评价。',
+      owner: '主人忙主人的，我在窝里负责稳定大局。',
+      ending: '慢慢走也到了片尾，能量管理相当成功。'
+    },
+    timid: {
+      intro: '我叫{{name}}，{{traitTag}}。喜欢{{hobby}}，安全距离一直算得很清楚。',
+      action: '每次出发都带着退路，记录少也很有含金量。',
+      food: '{{favoriteFood}}放在安全位置，味道会更可靠。',
+      owner: '主人动作太快时，我会先撤回角落再评估。',
+      ending: '一路谨慎到片尾，小命和判断都经住了考验。'
+    },
+    clever: {
+      intro: '我叫{{name}}，{{traitTag}}。平时研究{{hobby}}，{{favoriteFood}}算研究经费。',
+      action: '行动记录里有方案、有备选，也有少量算漏。',
+      food: '零食要看收益、地点和风险，吃之前我都算过。',
+      owner: '主人以为在观察我，其实我也一直在观察主人。',
+      ending: '大部分步骤都算对了，剩下的归入环境误差。'
+    },
+    clean: {
+      intro: '我叫{{name}}，{{traitTag}}。爱好{{hobby}}，{{favoriteFood}}也得摆得整齐。',
+      action: '行动结束后要收拾现场，记录才算完整。',
+      food: '入口的东西得看成色，食盆边缘也要干净。',
+      owner: '主人卫生合格时，我们的合作会顺利很多。',
+      ending: '片尾到了，毛发和账目都保持体面。'
+    },
+    naughty: {
+      intro: '我叫{{name}}，{{traitTag}}。爱好{{hobby}}，家里很多结构都接受过我的测试。',
+      action: '行动记录像现场清单，每一条都留过爪印。',
+      food: '{{favoriteFood}}属于项目奖励，通常需要提前支取。',
+      owner: '主人负责追查，我负责提高现场难度。',
+      ending: '这一局留下不少故事，维修问题另行讨论。'
+    },
+    scavenger: {
+      intro: '我叫{{name}}，{{traitTag}}。喜欢{{hobby}}，鼻子比地图更新得快。',
+      action: '我的行动围着线索走，角落越乱，信息越多。',
+      food: '{{favoriteFood}}有明确价值，未知碎屑也值得估价。',
+      owner: '主人清理现场的速度，经常跟不上我的勘探。',
+      ending: '该翻的翻了，该闻的闻了，资源报告很完整。'
+    },
+    calm: {
+      intro: '我叫{{name}}，{{traitTag}}。平时爱{{hobby}}，{{favoriteFood}}讲究稳定供应。',
+      action: '先观察，再行动，记录里很少出现无谓折返。',
+      food: '食物够用就好，品质和节奏更重要。',
+      owner: '主人和我各有安排，互不添乱时合作最佳。',
+      ending: '整局节奏平稳，最后一页也按计划收好。'
+    },
+    mellow: {
+      intro: '我叫{{name}}，{{traitTag}}。爱好{{hobby}}，偶尔会在路上忘记原计划。',
+      action: '行动路线看着绕，沿途经常能碰到意外收获。',
+      food: '{{favoriteFood}}能让我迅速想起当前任务。',
+      owner: '主人问我在做什么时，我通常也正在整理答案。',
+      ending: '有些计划忘了，有些惊喜记住了，片尾照样到了。'
+    }
+  };
+
+  function getLifeSummaryTraitFrameLine(data, key) {
+    const voice = LIFE_SUMMARY_TRAIT_FRAME_LINES[data.traitKey] || LIFE_SUMMARY_TRAIT_FRAME_LINES.default;
+    return fillLifeSummaryTemplate(voice[key] || LIFE_SUMMARY_TRAIT_FRAME_LINES.default[key] || '', data);
+  }
+
+  const LIFE_SUMMARY_DEATH_PUNCHLINES = {
+    hunger: ['本鼠宣布：饭碗空空，梦想也有点空空。下次请把干饭列为一级战略。'],
+    chew: ['磨牙这件事不能拖，牙齿一抗议，鼠生就开始弹错误提示。'],
+    play: ['闲游值掉到底时，本鼠的快乐电池正式进入省电到关机。'],
+    love: ['摸摸库存不足，本鼠的心情像没晒到太阳的棉窝。'],
+    poop: ['出恭压力过载，本鼠体内小工厂当场提交辞职信。'],
+    cat: ['猫猫登场太有压迫感，本鼠承认：这个镜头不适合小体型演员。'],
+    drown: ['水面看着普通，下去以后才知道游泳课严重缺席。'],
+    slipper: ['拖鞋这东西平时安静，关键时刻非常有主角压迫感。'],
+    freeze: ['冷风一吹，本鼠从蓬松小点心变成了冷藏小点心。'],
+    choke: ['吃太急是有代价的，腮帮子不能同时担任仓库和高速公路。'],
+    shock: ['电流经过时，胡须全体起立鼓掌，本鼠并不想要这种仪式感。'],
+    stuck: ['卡住的那一刻，本鼠明白了：洞不一定是路，也可能是人生考题。'],
+    wheelStuck: ['跑轮给了我速度，也给了我一个很圆的教训。'],
+    tangle: ['线线看起来无辜，缠起来比主人还会管鼠。'],
+    poison: ['垃圾桶里有宝藏，也有肚肚投诉部门的紧急来信。'],
+    crush: ['高处和重物都很有气场，本鼠这次没能谈判成功。'],
+    fall: ['从高处落下时，本鼠短暂体验了飞行，落地体验不予推荐。'],
+    heatstroke: ['太阳很好，但晒过头以后，本鼠从暖烘烘变成了晕乎乎。'],
+    unknown: ['片尾原因有点玄学，但本鼠确实认真演完了这一局。']
+  };
+
+  function pickLifeSummaryTemplate(data, salt, templates) {
+    const lines = Array.isArray(templates) ? templates.filter(Boolean) : [];
+    if (!lines.length) return '';
+    const template = lines[getLifeSummarySeed(data, salt || 'copy') % lines.length];
+    return fillLifeSummaryTemplate(template, data);
+  }
+
+  function getLifeSummarySelfLabel(data) {
+    return data.ratName ? '本鼠' + data.ratName : '本鼠';
+  }
+
+  function getLifeSummarySelfSubtitle(data, isVictory) {
+    const self = getLifeSummarySelfLabel(data);
+    const templates = isVictory ? [
+      self + '存活 {{days}} 天，在 {{hour}}:00 的{{location}}把结局啃成奖杯。我的小爪印不大，但今天盖得很响。',
+      self + '把这一局稳稳活到通关，腮帮子有记录，小爪子有证词，鼠生胶片开始倒带。'
+    ] : [
+      self + '存活 {{days}} 天，谢幕于 {{hour}}:00 的{{location}}。电影放完了，但我还想为自己的腮帮子申辩两句。',
+      self + '的本局胶片到这里收尾：有胆量，有零食，有一点点不该伸的小爪。'
+    ];
+    return pickLifeSummaryTemplate(data, isVictory ? 'selfVictorySubtitle' : 'selfDeathSubtitle', templates);
+  }
+
+  function getLifeSummaryTraitConfession(data) {
+    const templates = LIFE_SUMMARY_SELF_TRAIT_LINES[data.traitKey] || LIFE_SUMMARY_SELF_TRAIT_LINES.default;
+    return pickLifeSummaryTemplate(data, 'traitConfession', templates);
+  }
+
+  function getLifeSummaryStatJoke(data) {
+    const stats = data.finalStats || {};
+    const entries = [
+      ['饱腹', stats.food ?? 0],
+      ['磨牙', stats.chew ?? 0],
+      ['闲游', stats.play ?? 0],
+      ['抚触', stats.love ?? 0],
+      ['出恭', stats.poop ?? 0]
+    ];
+    const strongest = entries.slice().sort(function(a, b) { return b[1] - a[1]; })[0];
+    const weakest = entries.slice().sort(function(a, b) { return a[1] - b[1]; })[0];
+    return '终局体检：最争气的是' + strongest[0] + ' ' + strongest[1] + '，最需要开会的是' + weakest[0] + ' ' + weakest[1] + '。本鼠身体虽小，报表很完整。';
+  }
+
+  function getLifeSummaryTopActionLine(data) {
+    const entries = getSortedActionEntries(data);
+    if (!entries.length) {
+      return '行动主线：本鼠这局主打静止美学，像一粒会呼吸的小芝麻。';
+    }
+    const top = entries[0];
+    const templates = [
+      '行动主线：' + top[0] + ' x' + top[1] + '。本鼠用重复练习写出了一篇小爪论文。',
+      '最高频动作：' + top[0] + ' x' + top[1] + '。如果有鼠界 KPI，这项已经被我抓出小洞。'
+    ];
+    return pickLifeSummaryTemplate(data, 'topAction:' + top[0] + ':' + top[1], templates);
+  }
+
+  function getLifeSummaryFoodHeadline(data) {
+    const entries = getSortedFoodEntries(data);
+    if (!entries.length) {
+      return '吃播主线：本鼠这局腮帮子档期偏空，主要靠想象中的瓜子维持尊严。';
+    }
+    const top = entries[0];
+    const detail = top[1].details && top[1].details[0] ? '，首条感想是“' + top[1].details[0] + '”' : '';
+    return '吃播代表作：' + top[0] + ' x' + top[1].count + detail + '。这份口感测评由本鼠亲嘴完成。';
+  }
+
+  function getLifeSummarySnackDecisionLine(data) {
+    const totals = data.totals || {};
+    const finds = totals.snackFinds || 0;
+    const inside = totals.snackInsideEats || 0;
+    const outside = totals.snackOutsideEats || 0;
+    const skips = totals.snackSkips || 0;
+    if (!finds && !inside && !outside && !skips) {
+      return '零食筐战报：本鼠今日没有捡到小零食，篮子安静得像在装深沉。';
+    }
+    if (outside > inside && outside >= 2) {
+      return '零食筐战报：捡到 ' + finds + ' 份，门外吃 ' + outside + ' 份。本鼠承认，风里吃东西有一种危险的香。';
+    }
+    if (skips >= inside + outside && skips > 0) {
+      return '零食筐战报：捡到 ' + finds + ' 份，保留 ' + skips + ' 次。本鼠把忍住叫做战略库存管理。';
+    }
+    if (inside > outside) {
+      return '零食筐战报：捡到 ' + finds + ' 份，门内吃 ' + inside + ' 份。本鼠懂了，安全感也是调味料。';
+    }
+    return '零食筐战报：捡到 ' + finds + ' 份，门内吃 ' + inside + ' 份，门外吃 ' + outside + ' 份，保留 ' + skips + ' 次。我的腮帮子参与了多轮决策。';
+  }
+
+  function getLifeSummaryNeighborToneLine(data) {
+    const neighbor = data.neighbor || {};
+    if ((neighbor.replies || 0) > 0) {
+      return '墙那边回过我 ' + neighbor.replies + ' 次。我的吱吱已经升级成跨墙小广播。';
+    }
+    if ((neighbor.squeaks || 0) > 0) {
+      return '我对墙吱吱 ' + neighbor.squeaks + ' 次，回音不多，但本鼠的社交勇气已经投递成功。';
+    }
+    return '邻居鼠频道本局比较安静，本鼠选择尊重它们的睡眠和神秘感。';
+  }
+
+  function getLifeSummaryOwnerToneLine(data) {
+    const totals = data.totals || {};
+    if ((data.ownerTrust || 0) >= 85 && (totals.discoveries || 0) === 0) {
+      return '主人观察报告：我在主人心里大概属于“乖得可疑但先奖励”的类型。';
+    }
+    if ((totals.discoveries || 0) >= 3) {
+      return '主人观察报告：我被发现 ' + totals.discoveries + ' 次。传说太响，隐蔽工作很难开展。';
+    }
+    if ((totals.outside || 0) > 0) {
+      return '主人观察报告：我出家门 ' + totals.outside + ' 次，脚印和信任账单都留在了门口。';
+    }
+    return '主人观察报告：我和主人之间的关系，目前属于可以摸摸，也需要解释几句。';
+  }
+
+  function getLifeSummaryEndingPunchline(data, isVictory) {
+    if (isVictory) {
+      return pickLifeSummaryTemplate(data, 'victoryPunchline', [
+        '本鼠结论：小爪子、腮帮子和一点运气一起加班，终于活到最后。',
+        '本鼠宣布：今天成功赢住。奖杯先放窝里，明天再考虑低调。'
+      ]);
+    }
+    const deathLines = LIFE_SUMMARY_DEATH_PUNCHLINES[data.deathType] || LIFE_SUMMARY_DEATH_PUNCHLINES.unknown;
+    return pickLifeSummaryTemplate(data, 'deathPunchline:' + (data.deathType || 'unknown'), deathLines);
+  }
+
+  function getLifeSummaryLastLogLine(data) {
+    const logs = Array.isArray(data.recentLogs) ? data.recentLogs : [];
+    if (!logs.length) return '';
+    const entry = logs[0];
+    return '最后镜头：第' + (entry.day || data.days || 0) + '天 ' + (entry.hour ?? data.hour ?? 0) + ':00，' + (entry.text || '本鼠路过，没有留下太多解释。');
+  }
+
+  function getVictorySelfTitle(data) {
+    return pickLifeSummaryTemplate(data, 'victorySelfTitle', [
+      '本鼠{{name}}通关啦，奖杯先放腮帮左边！',
+      '本鼠把结局啃赢了，小爪印正式盖章！',
+      '{{traitTag}}获胜，本鼠申请加餐庆祝！'
+    ]);
+  }
+
+  function getVictorySelfSubtitle(data) {
+    return pickLifeSummaryTemplate(data, 'victorySelfSubtitle', [
+      '我把第{{days}}天稳稳带回窝里，行动有证据，零食有账本，胜利有亲笔爪印。',
+      '这局一路跑到最后，零食筐也能作证：我的规划经常很香，也确实有用。'
+    ]);
+  }
+
   function getCurrentRat() {
     return RAT_PROFILES[currentRatIndex] || RAT_PROFILES[0];
   }
@@ -12539,7 +13642,7 @@
     living: '客厅是家里的中转站，去厨房、阳台、门外都要先经过这里。',
     kitchen: '厨房食物多，但台面、橱柜和厨余都更危险，主人在家时也更容易被发现。',
     balcony: '阳台能晒太阳和探索高处，但要小心风、花盆和晾衣杆。',
-    outside: '门外收益高也危险，猫、拖鞋和迷路都在路上等鼠鼠，饱腹也消耗更快。'
+    outside: '门外收益高也危险，猫、拖鞋和迷路都在路上等鼠鼠；出逃会掉信任，第二天补给和抚摸也会变少。'
   };
 
   const LOCATION_ACTIONS = {
@@ -12565,6 +13668,85 @@
     'living-outside': ['living', 'outside'],
     'kitchen-outside': ['kitchen', 'outside'],
     'balcony-outside': ['balcony', 'outside']
+  };
+
+  const CAGE_STUCK_MOVE_RISK = {
+    exit: { chance: 0.08, maxChance: 0.24 },
+    enter: { chance: 0.06, maxChance: 0.20 }
+  };
+
+  const LIVING_LOST_RISK_STEPS = [
+    { minEscapes: 1, maxEscapes: 2, chance: 0.22 },
+    { minEscapes: 3, maxEscapes: 4, chance: 0.14 },
+    { minEscapes: 5, maxEscapes: 6, chance: 0.08 },
+    { minEscapes: 7, maxEscapes: Infinity, chance: 0.04 }
+  ];
+  const LIVING_LOST_MAX_CHANCE = 0.28;
+
+  const ROUTE_DOOR_PINCH_RISKS = {
+    'living-kitchen': {
+      chance: 0.045,
+      maxChance: 0.15,
+      door: '厨房门',
+      title: '厨房门差点夹到！',
+      popupDesc: '鼠鼠从门缝边弹开，饱腹-5、闲游-8、抚触-3',
+      repeatPopupDesc: '今天厨房门缝已经很危险，再钻可能真的会被夹住',
+      foodLoss: 5,
+      playLoss: 8,
+      loveLoss: 3,
+      fatalChance: 0.46
+    },
+    'living-balcony': {
+      chance: 0.04,
+      maxChance: 0.14,
+      door: '阳台门',
+      title: '阳台门差点夹到！',
+      popupDesc: '门缝里风一挤，鼠鼠缩回小爪，饱腹-4、闲游-8、抚触-3',
+      repeatPopupDesc: '今天阳台门来回晃，再钻就很危险',
+      foodLoss: 4,
+      playLoss: 8,
+      loveLoss: 3,
+      fatalChance: 0.45
+    },
+    'living-outside': {
+      chance: 0.065,
+      maxChance: 0.20,
+      door: '家门',
+      title: '家门差点夹到！',
+      popupDesc: '鼠鼠从门缝里挤出来，尾巴都吓直了，饱腹-6、闲游-11、抚触-5、出恭+2',
+      repeatPopupDesc: '今天家门口太刺激，再卡一次可能就回不来了',
+      foodLoss: 6,
+      playLoss: 11,
+      loveLoss: 5,
+      poopGain: 2,
+      fatalChance: 0.50
+    },
+    'kitchen-outside': {
+      chance: 0.07,
+      maxChance: 0.22,
+      door: '厨房侧门',
+      title: '厨房侧门差点夹到！',
+      popupDesc: '鼠鼠叼着饭香从门边滑走，饱腹-7、闲游-12、抚触-5、出恭+2',
+      repeatPopupDesc: '今天厨房侧门响得太凶，再钻会被门缝收拾',
+      foodLoss: 7,
+      playLoss: 12,
+      loveLoss: 5,
+      poopGain: 2,
+      fatalChance: 0.52
+    },
+    'balcony-outside': {
+      chance: 0.075,
+      maxChance: 0.23,
+      door: '阳台门缝',
+      title: '阳台门缝差点夹到！',
+      popupDesc: '鼠鼠从阳台门边蹭出去，差点被夹成鼠饼，饱腹-6、闲游-12、抚触-5、出恭+2',
+      repeatPopupDesc: '今天阳台门缝已经警告过一次，再钻很可能出大事',
+      foodLoss: 6,
+      playLoss: 12,
+      loveLoss: 5,
+      poopGain: 2,
+      fatalChance: 0.52
+    }
   };
 
   const MOVE_BUTTONS = ['goOut', 'goHome', 'escapeHome', 'outsideBtn'];
@@ -12689,21 +13871,21 @@
           goOut: { label: '去厨房', target: 'kitchen', title: '厨房食物多，但更容易被发现' },
           goHome: { label: '回到笼子', target: 'cage', title: '回笼子休息更安全' },
           escapeHome: { label: '去阳台', target: 'balcony', title: '晒太阳恢复心情，小心着凉' },
-          outsideBtn: { label: '去门外', target: 'outside', title: '高收益高风险探索' }
+          outsideBtn: { label: '去门外', target: 'outside', title: '高收益高风险探索，会掉信任和补给' }
         };
       case 'kitchen':
         return {
           goOut: { label: '回客厅', target: 'living', title: '从厨房退回客厅' },
           goHome: { label: '回笼子', target: '', title: '厨房不能直接回笼子，要先回客厅' },
           escapeHome: { label: '去阳台', target: '', title: '厨房不能直接去阳台，要先回客厅' },
-          outsideBtn: { label: '去门外', target: 'outside', title: '从厨房直接溜到门外' }
+          outsideBtn: { label: '去门外', target: 'outside', title: '从厨房直接溜到门外，会留下出逃痕迹' }
         };
       case 'balcony':
         return {
           goOut: { label: '回客厅', target: 'living', title: '从阳台回客厅' },
           goHome: { label: '回笼子', target: '', title: '阳台不能直接回笼子，要先回客厅' },
           escapeHome: { label: '去厨房', target: '', title: '阳台不能直接去厨房，要先回客厅' },
-          outsideBtn: { label: '去门外', target: 'outside', title: '从阳台直接溜到门外' }
+          outsideBtn: { label: '去门外', target: 'outside', title: '从阳台直接溜到门外，会留下出逃痕迹' }
         };
       case 'outside':
         return {
@@ -12818,7 +14000,7 @@
   }
 
   function settleOwnerTrustForNewDay() {
-    const wasVeryGood = state.dayOwnerDiscoveries === 0 && state.dayEscape <= 1 && state.dayEscapedHome === 0 && state.dayInjuries === 0;
+    const wasVeryGood = state.dayOwnerDiscoveries === 0 && state.dayEscape === 0 && state.dayEscapedHome === 0 && state.dayInjuries === 0;
     if (wasVeryGood) {
       state.wellBehavedDays += 1;
       const recover = state.wellBehavedDays >= 2 ? 10 : 5;
@@ -12836,6 +14018,46 @@
     return Math.max(75, baseStock - getOwnerTrustInfo().foodPenalty);
   }
 
+  function getEscapePenaltyScore() {
+    return (state.dayEscape || 0) + (state.dayEscapedHome || 0) * 2;
+  }
+
+  function getEscapeFoodBaseStock(score = getEscapePenaltyScore()) {
+    if (score <= 2) return BASE_DAILY_STOCK;
+    const outsideCount = state.dayEscapedHome || 0;
+    const minBaseStock = outsideCount >= 3 ? 82 : (outsideCount >= 1 ? 90 : 100);
+    const maxCut = Math.min(BASE_DAILY_STOCK - minBaseStock, 16 + (score - 3) * 8 + outsideCount * 10);
+    const minCut = Math.min(maxCut, 8 + outsideCount * 4);
+    const cut = randomGain(minCut, Math.max(minCut, maxCut), 1);
+    return Math.max(minBaseStock, BASE_DAILY_STOCK - cut);
+  }
+
+  function getEscapeLoveBaseLimit(score = getEscapePenaltyScore()) {
+    if ((state.dayEscapedHome || 0) >= 3 || score >= 8) return Math.max(5, DAILY_LIMITS.loveLowTrust - 2);
+    if ((state.dayEscapedHome || 0) >= 1 || score > 4) return DAILY_LIMITS.loveLowTrust;
+    return DAILY_LIMITS.love;
+  }
+
+  function applyDailyEscapeCarePenalty() {
+    const score = getEscapePenaltyScore();
+    if (score > 2) {
+      const baseStock = getEscapeFoodBaseStock(score);
+      state.foodStock = getDailyFoodStock(baseStock);
+      logOwner('增加食物：' + state.foodStock + '（出逃惩罚与信任影响）');
+    } else {
+      state.foodStock = getDailyFoodStock(BASE_DAILY_STOCK);
+      logOwner('增加食物：' + state.foodStock + (getOwnerTrustInfo().foodPenalty ? '（信任影响）' : ''));
+    }
+
+    const loveBaseLimit = getEscapeLoveBaseLimit(score);
+    state.loveLeft = getDailyLoveLimit(loveBaseLimit);
+    if (loveBaseLimit < DAILY_LIMITS.love) {
+      logOwner('出逃惩罚，今日抚摸上限：' + state.loveLeft);
+    } else if (getOwnerTrustInfo().lovePenalty) {
+      logOwner('主人有点不放心，今日抚摸上限：' + state.loveLeft);
+    }
+  }
+
   function formatPenaltyDelta(options = {}) {
     const parts = [];
     if (options.foodLoss) parts.push('饱腹-' + options.foodLoss);
@@ -12844,6 +14066,161 @@
     if (options.loveLoss) parts.push('抚触-' + options.loveLoss);
     if (options.poopGain) parts.push('出恭+' + options.poopGain);
     return parts.join('，');
+  }
+
+  function applyStatPenalty(delta = {}) {
+    if (delta.foodLoss) state.food = Math.max(0, state.food - delta.foodLoss);
+    if (delta.chewLoss) state.chew = Math.max(0, state.chew - delta.chewLoss);
+    if (delta.playLoss) state.play = Math.max(0, state.play - delta.playLoss);
+    if (delta.loveLoss) state.love = Math.max(0, state.love - delta.loveLoss);
+    if (delta.poopGain) state.poop = Math.min(100, state.poop + delta.poopGain);
+  }
+
+  function applyEscapeMovePenalty(current, target) {
+    const trait = getRatTrait();
+    if (current === 'cage' && target === 'living') {
+      const repeat = Math.max(0, (state.dayEscape || 0) - 1);
+      const delta = {
+        foodLoss: randomGain(2 + Math.min(4, repeat), 5 + Math.min(6, repeat), trait.foodDecay),
+        playLoss: repeat > 0 ? randomGain(1, 3 + Math.min(4, repeat), trait.playDecay || 1) : 0,
+        loveLoss: repeat >= 2 ? randomGain(1, 2 + Math.min(4, repeat), trait.loveDecay || 1) : 0
+      };
+      applyStatPenalty(delta);
+      const deltaText = formatPenaltyDelta(delta);
+      logRat('溜出笼子有点费劲' + (deltaText ? '，' + deltaText : ''));
+      if (repeat >= 2) {
+        changeOwnerTrust(-1, '笼门被反复顶开');
+      }
+      return;
+    }
+
+    if (target === 'outside') {
+      const repeat = Math.max(0, (state.dayEscapedHome || 0) - 1);
+      const delta = {
+        foodLoss: randomGain(5 + Math.min(5, repeat), 10 + Math.min(8, repeat), trait.foodDecay),
+        playLoss: randomGain(4 + Math.min(4, repeat), 9 + Math.min(7, repeat), trait.playDecay || 1),
+        loveLoss: randomGain(3 + Math.min(3, repeat), 7 + Math.min(6, repeat), trait.loveDecay || 1),
+        poopGain: randomGain(2, 5 + Math.min(5, repeat), trait.poopRate || 1)
+      };
+      applyStatPenalty(delta);
+      const trustLoss = -Math.min(12, 4 + repeat * 3);
+      changeOwnerTrust(trustLoss, '门口留下出逃痕迹');
+      logRat('溜到门外很刺激，但代价也不小，' + formatPenaltyDelta(delta));
+    }
+  }
+
+  function getRouteKey(from, to) {
+    return Object.keys(HOME_MAP_ROUTE_KEYS).find(function(key) {
+      const pair = HOME_MAP_ROUTE_KEYS[key];
+      return pair && pair.includes(from) && pair.includes(to);
+    }) || '';
+  }
+
+  function maybeCageStuckOnMove(current, target, moveActionName) {
+    const isExiting = current === 'cage' && target === 'living';
+    const isEntering = current === 'living' && target === 'cage';
+    if (!isExiting && !isEntering) return false;
+
+    const risk = CAGE_STUCK_MOVE_RISK[isExiting ? 'exit' : 'enter'];
+    const trait = getRatTrait();
+    if (!passesChance(risk.chance, trait.stuckRisk, risk.maxChance)) return false;
+
+    const survived = resolveDangerEvent('stuck', 'stuck', isExiting ? {
+      fatalChance: 0.58,
+      foodLoss: 8,
+      playLoss: 10,
+      loveLoss: 4,
+      icon: '🐭🪤',
+      title: '出笼时头差点卡住！',
+      popupDesc: '鼠鼠扭了半天才挤出来，饱腹-8、闲游-10、抚触-4',
+      repeatTitle: '出笼又卡住了！',
+      repeatPopupDesc: '今天笼门已经卡过一次，再硬挤可能真的出不来',
+      log: '鼠鼠出笼时头差点卡在笼门缝里'
+    } : {
+      fatalChance: 0.55,
+      foodLoss: 6,
+      playLoss: 8,
+      loveLoss: 3,
+      icon: '🐭🪤',
+      title: '回笼时头差点卡住！',
+      popupDesc: '鼠鼠收起腮帮子才缩回去，饱腹-6、闲游-8、抚触-3',
+      repeatTitle: '回笼又卡住了！',
+      repeatPopupDesc: '今天笼门已经警告过一次，再挤可能会把自己卡严实',
+      log: '鼠鼠回笼时头差点卡在笼门缝里'
+    });
+    finishDangerOutcome(survived, {
+      checkOwner: isExiting,
+      actionName: moveActionName
+    });
+    return true;
+  }
+
+  function maybeDoorPinchOnMove(current, target, moveActionName) {
+    if (current === 'cage' || target === 'cage') return false;
+    const risk = ROUTE_DOOR_PINCH_RISKS[getRouteKey(current, target)];
+    if (!risk) return false;
+
+    const trait = getRatTrait();
+    if (!passesChance(risk.chance, trait.stuckRisk, risk.maxChance)) return false;
+
+    const survived = resolveDangerEvent('doorPinch', 'crush', {
+      fatalChance: risk.fatalChance,
+      foodLoss: risk.foodLoss,
+      playLoss: risk.playLoss,
+      loveLoss: risk.loveLoss,
+      poopGain: risk.poopGain || 0,
+      icon: '🐭🚪',
+      title: risk.title,
+      popupDesc: risk.popupDesc,
+      repeatTitle: '又被门缝夹到！',
+      repeatPopupDesc: risk.repeatPopupDesc,
+      log: '鼠鼠从' + LOCATIONS[current].label + '去' + LOCATIONS[target].label + '时，经过' + risk.door + '差点被夹到'
+    });
+    finishDangerOutcome(survived, {
+      checkOwner: true,
+      actionName: moveActionName
+    });
+    return true;
+  }
+
+  function applyOutsideStayPenalty(trait = getRatTrait()) {
+    if (!state.escapedHome || (state.totalOutsideTime || 0) < 2) return;
+    const hours = state.totalOutsideTime || 0;
+    const delta = {
+      foodLoss: randomGain(1, Math.min(7, 2 + hours), trait.foodDecay),
+      playLoss: randomGain(1, Math.min(6, 1 + Math.floor(hours / 2)), trait.playDecay || 1),
+      loveLoss: hours >= 3 ? randomGain(1, Math.min(5, hours), trait.loveDecay || 1) : 0
+    };
+    applyStatPenalty(delta);
+    logEvent('门外待太久开始发慌，' + formatPenaltyDelta(delta));
+  }
+
+  function getLivingLostRiskStep(escapeCount = state.dayEscape) {
+    const count = Math.max(0, Math.floor(Number(escapeCount) || 0));
+    return LIVING_LOST_RISK_STEPS.find(function(step) {
+      return count >= step.minEscapes && count <= step.maxEscapes;
+    }) || null;
+  }
+
+  function getLivingLostChance(escapeCount = state.dayEscape, trait = getRatTrait()) {
+    const step = getLivingLostRiskStep(escapeCount);
+    if (!step) return 0;
+    return scaledChance(step.chance, trait.lostRisk, LIVING_LOST_MAX_CHANCE);
+  }
+
+  function maybeGetLostInLivingRoom(trait = getRatTrait()) {
+    if ((state.dayLostCount || 0) >= 1) return false;
+    const chance = getLivingLostChance(state.dayEscape, trait);
+    if (!chance || Math.random() >= chance) return false;
+
+    const lostFoodLoss = randomGain(8, 14, trait.foodDecay);
+    const lostPlayLoss = randomGain(8, 14, 1);
+    state.food = Math.max(0, state.food - lostFoodLoss);
+    state.play = Math.max(0, state.play - lostPlayLoss);
+    state.dayLostCount = (state.dayLostCount || 0) + 1;
+    logEvent('第' + state.dayEscape + '次溜客厅时走岔了，饱腹-' + lostFoodLoss + '，闲游-' + lostPlayLoss);
+    showLostPopup();
+    return true;
   }
 
   function getPenaltyPopupDesc(repeated, options = {}) {
@@ -12966,6 +14343,7 @@
     dayOwnerDiscoveries: 0, // 今日被主人发现次数
     groundedHours: 0,     // 被主人抓包后的禁足剩余小时，只限制从笼子外出
     dayInjuries: 0,      // 今日轻伤/逃过一劫次数
+    dayLostCount: 0,     // 今日迷路次数，每天最多触发一次
     dayTidyNestCount: 0, // 今日整理窝有效收益次数
     dayGroomSelfCount: 0, // 今日梳毛有效收益次数
     timeCapsules: 0,     // 本局持有的时间胶囊，笼子外行动有小概率获得
@@ -12985,6 +14363,10 @@
     firstBubbleShown: false, // 是否已显示开局第一句对话
     foodEatenToday: false,    // 今日是否已吃过零食
     snackBasket: [],          // 今日零食筐：基础零食和行为捡到的零食，第二天清空
+    dailySnackFindDayKey: null, // 行为捡取计数所属的游戏日
+    dailySnackFindCount: 0,   // 今日通过行为捡到的零食数量，上限3份
+    dailySnackFindTypes: { good: 0, bad: 0 }, // 今日捡取的有益/有害零食配额
+    dailySnackQuest: null,    // 今日零食小目标
     diaryStoryIndex: randomDiaryStoryIndex(), // 当前鼠鼠日记的索引
     totalOutsideTime: 0,      // 连续在家门外的时间（小时）
     lastActionName: '',       // 最近一次主动行为名，用于主人发现文案
@@ -13122,6 +14504,7 @@
       actions: Object.assign({}, stats.actions),
       foods: JSON.parse(JSON.stringify(stats.foods || {})),
       foodTimeline: (stats.foodTimeline || []).slice(),
+      snackSourceCounts: Object.assign({}, stats.snackSourceCounts || {}),
       recentLogs: (stats.recentLogs || []).slice(0, 16),
       neighbor: {
         squeaks: stats.neighborSqueaks || 0,
@@ -13137,7 +14520,12 @@
         escapes: stats.escapes || 0,
         outside: stats.outsideEscapes || 0,
         ownerPets: stats.ownerPets || 0,
-        strangerPets: stats.strangerPets || 0
+        strangerPets: stats.strangerPets || 0,
+        snackFinds: stats.snackFinds || 0,
+        snackInsideEats: stats.snackInsideEats || 0,
+        snackOutsideEats: stats.snackOutsideEats || 0,
+        snackSkips: stats.snackSkips || 0,
+        snackQuestCompletions: stats.snackQuestCompletions || 0
       }
     };
   }
@@ -13182,12 +14570,15 @@
     data.personality = data.personality || data.traitTag || '普通';
     data.favoriteFood = data.favoriteFood || '零食';
     data.hobby = data.hobby || '发呆';
+    data.totals = data.totals || {};
+    data.actions = data.actions || {};
+    data.foods = data.foods || {};
+    data.finalStats = data.finalStats || { food: 0, chew: 0, play: 0, love: 0, poop: 0 };
+    data.neighbor = data.neighbor || {};
     const isVictory = data.isVictory || data.resultType === 'victory' || data.deathType === 'victory';
 
-    $('#lifeSummaryTitle').textContent = data.ratEmoji + ' ' + data.ratName + (isVictory ? '的通关胶片' : '的鼠生备忘录');
-    $('#lifeSummarySubtitle').textContent = isVictory
-      ? (getVictorySummaryLine(data, 'subtitle', 'lifeSubtitle') || ('存活 ' + data.days + ' 天，通关于 ' + data.hour + ':00 的' + data.location + '。鼠鼠我呀，把结局啃成了奖杯。'))
-      : (getLifeSummaryLine(data, 'subtitle', 'subtitle') || ('存活 ' + data.days + ' 天，谢幕于 ' + data.hour + ':00 的' + data.location + '。鼠鼠我呀，电影放完但瓜子没嗑完。'));
+    $('#lifeSummaryTitle').textContent = data.ratEmoji + ' ' + getLifeSummarySelfLabel(data) + (isVictory ? '的通关小电影' : '的鼠生小电影');
+    $('#lifeSummarySubtitle').textContent = getLifeSummarySelfSubtitle(data, isVictory);
 
     const finalLine = [
       '饱腹 ' + data.finalStats.food,
@@ -13198,51 +14589,64 @@
     ].join(' / ');
 
     const actionLines = [
-      getLifeSummaryLine(data, 'actionIntro', 'actionIntro'),
+      getLifeSummaryTraitFrameLine(data, 'action'),
+      getLifeSummaryTopActionLine(data),
       ...formatCountList(data.actions, getLifeSummaryLine(data, 'emptyAction', 'emptyAction') || '本鼠此生主打一个静止艺术，动得很少，但气质很足。', 8)
     ].filter(Boolean);
     const foodLines = [
-      getLifeSummaryLine(data, 'foodIntro', 'foodIntro'),
+      getLifeSummaryTraitFrameLine(data, 'food'),
+      getLifeSummaryFoodHeadline(data),
+      getLifeSummarySnackDecisionLine(data),
+      '今日小目标完成 ' + (data.totals.snackQuestCompletions || 0) + ' 次。本鼠对目标管理的理解：先看奖励，再决定严肃程度。',
+      getTopSnackSourceLine(data),
       ...formatFoodList(data, data)
     ].filter(Boolean);
     const neighbor = data.neighbor || {};
     const neighborLines = [
-      getLifeSummaryLine(data, 'neighborIntro', 'neighborIntro'),
-      '对墙吱吱 ' + (neighbor.squeaks || 0) + ' 次，社交努力程度：小爪子盖章。',
+      getLifeSummaryNeighborToneLine(data),
+      '对墙吱吱 ' + (neighbor.squeaks || 0) + ' 次。每一声都很短，但本鼠的情绪很长。',
       '收到回信 ' + (neighbor.replies || 0) + ' 次，落空 ' + (neighbor.misses || 0) + ' 次。',
-      neighbor.lastReply ? '最后一封回音：' + neighbor.lastReply : '最后一封回音：隔壁可能在睡，或者在认真装没听见。'
+      neighbor.lastReply ? '最后一封回音：' + neighbor.lastReply : '最后一封回音：隔壁可能在睡，也可能在假装自己是一团棉花。'
     ].filter(Boolean);
     const ownerLines = [
-      getLifeSummaryLine(data, 'ownerIntro', 'ownerIntro'),
-      '主人信任 ' + data.ownerTrust + '（' + data.ownerTrustLabel + '），鼠鼠信用评分还算能看。',
+      getLifeSummaryTraitFrameLine(data, 'owner'),
+      getLifeSummaryOwnerToneLine(data),
+      '主人信任 ' + data.ownerTrust + '（' + data.ownerTrustLabel + '）。本鼠信用评分实时波动，原因包括但不限于：门、零食、好奇心。',
       '本局被发现 ' + data.totals.discoveries + ' 次，轻伤/逃过一劫 ' + data.totals.injuries + ' 次。',
-      '溜进客厅 ' + data.totals.escapes + ' 次，出家门 ' + data.totals.outside + ' 次，胆子有，刹车不多。',
-      '主人摸摸 ' + data.totals.ownerPets + ' 次，好心人摸摸 ' + data.totals.strangerPets + ' 次，毛毛营业记录已归档。'
+      '溜进客厅 ' + data.totals.escapes + ' 次，出家门 ' + data.totals.outside + ' 次。胆子是有的，刹车还在研发。',
+      '主人摸摸 ' + data.totals.ownerPets + ' 次，好心人摸摸 ' + data.totals.strangerPets + ' 次。毛毛营业记录已归档，本鼠要求按蓬松程度结算。'
     ].filter(Boolean);
     const endingLines = isVictory ? [
-      '通关播报：' + (data.resultMsg || data.deathMsg || '鼠鼠把日子过成了奖杯。'),
+      getLifeSummaryTraitFrameLine(data, 'ending'),
+      '通关播报：' + (data.resultMsg || data.deathMsg || '本鼠把日子过成了奖杯。'),
       '本局行动合计 ' + data.totals.actions + ' 次，进食记录 ' + data.totals.foods + ' 条。',
-      getVictorySummaryLine(data, 'ending', 'ending') || '通关评价：世界很大，鼠鼠很小，但这局赢得很像样。'
+      getLifeSummaryLastLogLine(data),
+      getLifeSummaryEndingPunchline(data, true)
     ].filter(Boolean) : [
+      getLifeSummaryTraitFrameLine(data, 'ending'),
       '死因播报：' + data.deathMsg,
       '本局行动合计 ' + data.totals.actions + ' 次，进食记录 ' + data.totals.foods + ' 条。',
-      getLifeSummaryLine(data, 'ending', 'ending') || '鼠生评价：短短一局，满满鼠味。下辈子建议先看路，再伸头。'
+      getLifeSummaryLastLogLine(data),
+      getLifeSummaryEndingPunchline(data, false),
+      '片尾小字：如果鼠生能重来，本鼠会先闻闻、再伸爪、最后再假装很有计划。'
     ].filter(Boolean);
 
     [
       createLifeFrame('🎞️', isVictory ? '片头：冠军登场' : '片头：本鼠登场', [
-        data.ratName + '，' + data.traitTag + '，以小小身躯挑战大大世界。',
-        getLifeSummaryLine(data, 'intro', 'intro'),
+        getLifeSummarySelfLabel(data) + '，' + data.traitTag + '，以小小身躯挑战大大世界。',
+        getLifeSummaryTraitConfession(data),
+        getLifeSummaryTraitFrameLine(data, 'intro'),
         isVictory
           ? '存活天数：' + data.days + ' 天；通关时间：' + data.hour + ':00。'
           : '存活天数：' + data.days + ' 天；谢幕时间：' + data.hour + ':00。',
-        '终局状态：' + finalLine
+        '终局状态：' + finalLine,
+        getLifeSummaryStatJoke(data)
       ].filter(Boolean)),
-      createLifeFrame('🍽️', '吃播记录', foodLines),
-      createLifeFrame('🐾', '干过的事', actionLines),
-      createLifeFrame('📻', '邻居鼠通讯录', neighborLines),
-      createLifeFrame('👤', '主人观察报告', ownerLines),
-      createLifeFrame('📝', isVictory ? '通关结语' : '鼠生结语', endingLines)
+      createLifeFrame('🍽️', '腮帮账本', foodLines),
+      createLifeFrame('🐾', '小爪行动报告', actionLines),
+      createLifeFrame('📻', '墙那边的鼠鼠电台', neighborLines),
+      createLifeFrame('👤', '主人观察与反观察', ownerLines),
+      createLifeFrame('📝', isVictory ? '通关自夸' : '片尾自白', endingLines)
     ].forEach(function(frame) {
       reel.appendChild(frame);
     });
@@ -13257,11 +14661,13 @@
     }
     const overlay = $('#lifeSummaryOverlay');
     if (overlay) overlay.classList.remove('hide');
+    playLifeSummaryMusic();
   }
 
   function closeLifeSummary() {
     const overlay = $('#lifeSummaryOverlay');
     if (overlay) overlay.classList.add('hide');
+    stopLifeSummaryMusic();
   }
 
   function createVictorySummarySnapshot() {
@@ -13291,30 +14697,57 @@
     container.appendChild(item);
   }
 
+  function getTopSnackSourceLine(data) {
+    const sourceCounts = data.snackSourceCounts || {};
+    const entries = Object.keys(sourceCounts).sort(function(a, b) {
+      return sourceCounts[b] - sourceCounts[a] || a.localeCompare(b, 'zh-Hans-CN');
+    });
+    if (!entries.length) return '';
+    const source = entries[0];
+    return '最会捡的地方：' + source + ' x' + sourceCounts[source] + '，零食筐确实拎出了成果。';
+  }
+
+  function getVictoryMedalTitle(data) {
+    const totals = data.totals || {};
+    const foods = totals.foods || 0;
+    if ((totals.snackSkips || 0) >= 3 && (totals.snackSkips || 0) >= foods) return '稳健囤粮王';
+    if ((totals.snackOutsideEats || 0) >= 2 && (totals.snackOutsideEats || 0) >= (totals.snackInsideEats || 0)) return '街头寻宝鼠';
+    if ((totals.snackInsideEats || 0) >= 2 && (totals.snackInsideEats || 0) > (totals.snackOutsideEats || 0)) return '门内小富鼠';
+    if (foods >= 5) return '今日干饭冠军';
+    if ((totals.discoveries || 0) === 0 && (totals.injuries || 0) === 0 && (totals.actions || 0) >= 6) return '谨慎生活家';
+    if ((data.ownerTrust || 0) >= 90) return '主人认证乖鼠';
+    if ((totals.snackQuestCompletions || 0) >= 2) return '目标管理鼠';
+    return (data.traitTag || '通关鼠') + '优胜者';
+  }
+
   function getVictoryHighlights(data) {
     const totals = data.totals || {};
     const actionEntries = getSortedActionEntries(data);
     const foodEntries = getSortedFoodEntries(data);
+    const medalTitle = getVictoryMedalTitle(data);
     const lines = [
-      getVictorySummaryLine(data, 'highlight', 'highlight')
+      '结算称号：' + medalTitle + '。本鼠对此的评价：很合理，甚至略保守。',
+      getLifeSummaryTraitConfession(data)
     ];
 
     if (actionEntries.length) {
-      lines.push('最常做的事：' + actionEntries[0][0] + ' x' + actionEntries[0][1] + '，这就是本局鼠鼠主线。');
+      lines.push('最常做的事：' + actionEntries[0][0] + ' x' + actionEntries[0][1] + '。熟练度已经被本鼠练满。');
     } else {
-      lines.push('行动记录很克制，鼠鼠主打一个少动但稳。');
+      lines.push('行动记录很克制，本鼠主打少动但稳，像一颗有计划的小瓜子。');
     }
 
     if (foodEntries.length) {
       const topFood = foodEntries[0];
       const detail = topFood[1].details && topFood[1].details[0] ? '（' + topFood[1].details[0] + '）' : '';
-      lines.push('吃播代表作：' + topFood[0] + ' x' + topFood[1].count + detail + '。');
+      lines.push('吃播代表作：' + topFood[0] + ' x' + topFood[1].count + detail + '。本鼠的腮帮子确认：此处有高光。');
     } else {
-      lines.push('吃播素材偏少，但鼠鼠还是把日子嚼到了终点。');
+      lines.push('吃播素材偏少，但本鼠还是把日子嚼到了终点，属于精神干饭。');
     }
 
-    lines.push('主人信任 ' + data.ownerTrust + '（' + data.ownerTrustLabel + '），被发现 ' + (totals.discoveries || 0) + ' 次，结算依然漂亮。');
-    return lines.filter(Boolean).slice(0, 4);
+    lines.push('零食路线：捡到 ' + (totals.snackFinds || 0) + ' 份，门内吃 ' + (totals.snackInsideEats || 0) + ' 份，门外吃 ' + (totals.snackOutsideEats || 0) + ' 份，保留 ' + (totals.snackSkips || 0) + ' 次。每次犹豫都已计入风险评估。');
+    lines.push(getTopSnackSourceLine(data));
+    lines.push('主人信任 ' + data.ownerTrust + '（' + data.ownerTrustLabel + '），被发现 ' + (totals.discoveries || 0) + ' 次。结算依然漂亮，说明本鼠魅力有缓冲条。');
+    return lines.filter(Boolean).slice(0, 6);
   }
 
   function getVictoryLogTypeLabel(type) {
@@ -13329,7 +14762,7 @@
     list.textContent = '';
     const logs = Array.isArray(data.recentLogs) ? data.recentLogs.slice(0, 4) : [];
     if (!logs.length) {
-      appendVictoryTextItem(list, '最后几小时很安静，鼠鼠稳稳把胜利抱回窝。', 'victory-log-item');
+      appendVictoryTextItem(list, '最后几小时很安静，本鼠稳稳把胜利抱回窝，甚至没有把奖杯咬出牙印。', 'victory-log-item');
       return;
     }
     logs.forEach(function(entry) {
@@ -13354,12 +14787,13 @@
     data.hobby = data.hobby || '发呆';
     data.totals = data.totals || {};
     data.finalStats = data.finalStats || { food: 0, chew: 0, play: 0, love: 0, poop: 0 };
+    const medalTitle = getVictoryMedalTitle(data);
 
     $('#victoryBadge').textContent = data.ratEmoji || '🐭';
     $('#victoryKicker').textContent = '第' + data.days + '天 ' + data.hour + ':00 生还通关';
-    $('#victoryTitle').textContent = getVictorySummaryLine(data, 'title', 'title') || ((data.ratName || '鼠鼠') + '通关啦！');
-    $('#victorySubtitle').textContent = getVictorySummaryLine(data, 'subtitle', 'subtitle') || ((data.ratName || '鼠鼠') + '把这一局稳稳过完，胜利小爪印已经按好。');
-    $('#victoryTrait').textContent = data.traitTag + ' · ' + data.personality + ' · ' + (data.traitEffect || '属性变化均衡');
+    $('#victoryTitle').textContent = medalTitle + ' · ' + getVictorySelfTitle(data);
+    $('#victorySubtitle').textContent = getVictorySelfSubtitle(data);
+    $('#victoryTrait').textContent = '我是' + data.traitTag + ' · ' + data.personality + ' · ' + (data.traitEffect || '属性变化均衡') + ' · 小目标' + (data.totals.snackQuestCompletions || 0);
     $('#victoryDays').textContent = data.days + '天';
     $('#victoryActions').textContent = data.totals.actions || 0;
     $('#victoryFoods').textContent = data.totals.foods || 0;
@@ -13412,6 +14846,7 @@
     $('#ratIcon').textContent = p.photo; // 使用当前鼠鼠档案照
     $('#foodStock').textContent = state.foodStock | 0; // 显示食物储备
     $('#escapeCount').textContent = state.dayEscape | 0; // 今日逃出数
+    $('#outsideEscapeCount').textContent = state.dayEscapedHome | 0; // 今日出家门数
     $('#petCount').textContent = state.dayPetCount | 0; // 今日主人抚触数
     const trustInfo = getOwnerTrustInfo();
     $('#ownerTrust').textContent = state.ownerTrust | 0;
@@ -13448,7 +14883,6 @@
   // 鼠鼠可爱短句池
   // 鼠鼠随机气泡对话池（每小时随机出现1-4次）
   const RAT_PHRASES = [
-    '随意点点有惊喜哦',
     '天气真好',
     '主人不在',
     '牙痒痒',
@@ -13494,11 +14928,73 @@
     '无聊就戳戳我'
   ];
 
-  // 引导提示词（出现概率提升到40%）
+  // 隐藏玩法提示：都用鼠鼠自言自语表达，单句不超过10个字
+  const RAT_SECRET_PHRASES = [
+    '笼门会咬脑袋',
+    '回笼也得收下巴',
+    '门缝都不讲武德',
+    '厨房最会告密',
+    '家门比房门更凶',
+    '侧门脾气更坏',
+    '主人九点出门',
+    '十八点人类回窝',
+    '主人在家会抓包',
+    '再被抓会关更久',
+    '六点禁足就作废',
+    '乖两天信任涨得快',
+    '逃多了明天少粮',
+    '逃多了摸摸变少',
+    '主人会翻旧账',
+    '门外饿得更快',
+    '多走几次就熟了',
+    '外面十小时要命',
+    '猫和拖鞋会巡逻',
+    '下水道偶尔涨水',
+    '同一坑别踩两次',
+    '吃亏一次就够了',
+    '行动才会掉胶囊',
+    '笼里不掉胶囊',
+    '屋外胶囊更多',
+    '胶囊能偷三小时',
+    '胶囊最多藏五颗',
+    '跳时间照样会饿',
+    '零食一天捡三份',
+    '吃掉也算捡过',
+    '六点小筐会清空',
+    '第二份得换口味',
+    '坏零食也能入筐',
+    '窝里吃比较稳',
+    '门外吃更刺激',
+    '甜食可能催大号',
+    '坚果更适合磨牙',
+    '果蔬顺便清肚子',
+    '忍住一口也加分',
+    '没吃过先记一口',
+    '小目标真有奖励',
+    '电话每天打两回',
+    '电话能喊人回来',
+    '老板抓包等零点',
+    '隔壁偶尔会回话',
+    '陌生人偶尔摸我',
+    '活过一天还能抢救',
+    '抢救也得看鼠品',
+    '整理窝最多三回',
+    '梳毛六回就够了',
+    '跑轮也可能卡住',
+    '叶子不是都能啃',
+    '高处都有点脾气',
+    '第一天缺摸不死',
+    '第二天缺摸会完',
+    '便意满了会出事',
+    '多走几次就认路',
+    '六点才算新一天'
+  ];
+
+  // 功能入口也用鼠鼠口吻轻轻带过
   const GUIDE_PHRASES = [
-    '鼠鼠我身份证还能说话呢',
-    '主人真是话痨',
-    '打打电话又如何呢'
+    '档案里有本鼠底牌',
+    '主人日志漏洞很多',
+    '电话偶尔真能救场'
   ];
 
   // 挠痒痒气泡对话池
@@ -13541,149 +15037,149 @@
   // ===== 鼠鼠日记数据池 =====
   // 心情池
   const DIARY_MOODS = [
-    { emoji: '😊', text: '今天超开心！主人陪我玩了好久~' },
-    { emoji: '🥰', text: '被主人抚摸得好舒服呀，心都化了~' },
-    { emoji: '😄', text: '今天吃到好吃的零食，开心鼠啦！' },
-    { emoji: '🤗', text: '邻居鼠鼠给我分享了一个小秘密~' },
-    { emoji: '😴', text: '今天好累哦，跑轮跑了好久~' },
-    { emoji: '😤', text: '哼！主人今天忘记给我好吃的了！' },
-    { emoji: '🥺', text: '好想出去浪一浪呀，憋死鼠鼠了~' },
-    { emoji: '😋', text: '今天偷吃成功，太美味了！' },
-    { emoji: '🤔', text: '思考鼠生中...我是谁？我在哪？' },
-    { emoji: '💪', text: '今天锻炼了身体感觉自己更强壮了！' },
-    { emoji: '🎉', text: '今天有新零食吃，太幸福了！' },
-    { emoji: '😢', text: '主人不在家，好孤单哦...' }
+    { emoji: '😏', text: '今天状态不错。主人配合得也算及格。' },
+    { emoji: '🙂', text: '主人终于想起和我互动。人类学习速度尚可。' },
+    { emoji: '😄', text: '吃到零食了。这个家暂时还有救。' },
+    { emoji: '🧐', text: '隔壁递来情报，真假参半，娱乐性满分。' },
+    { emoji: '😴', text: '跑累了。高智商生物也需要散热。' },
+    { emoji: '😤', text: '主人忘了添粮。这笔账我记下了。' },
+    { emoji: '🧭', text: '想出去看看。实地调研该排上日程了。' },
+    { emoji: '😋', text: '偷吃成功。人类防线形同虚设。' },
+    { emoji: '🤔', text: '想了一会儿鼠生。结论是先吃。' },
+    { emoji: '💪', text: '运动完成。体力和自信同时超标。' },
+    { emoji: '📦', text: '有新零食。资源配置终于合理。' },
+    { emoji: '🏠', text: '主人不在。家里暂时由我管理。' }
   ];
 
   // 今日计划池
   const DIARY_PLANS = [
-    '努力干饭！把储备食物都吃光光~',
-    '今天要偷偷溜出去探险！',
-    '计划咬断那根电线，挑战一下~',
-    '要学会越狱，然后悄悄溜回来~',
-    '今天要和主人贴贴！',
-    '挑战跑轮新纪录！',
-    '尝试偷走主人的小零食~',
-    '今天要当一只安静的美鼠鼠~',
-    '学习新技能，让主人刮目相看！',
-    '准备越狱去客厅找好吃的！',
-    '今天要把自己打扮得美美的~',
-    '和邻居鼠鼠偷偷聊天~',
-    '尝试跑得更快，锻炼身体！',
-    '悄悄观察主人的一举一动~',
-    '今天要在棉窝里睡大觉！'
+    '先清点存粮。吃掉不算减少，算内部调拨。',
+    '检查门缝。人类叫越狱，我叫路线优化。',
+    '研究电线。知识通常带一点电。',
+    '出去一趟，再赶在人类发现前回来。',
+    '在主人附近出现几次，维持家庭存在感。',
+    '刷新跑轮纪录，证明圆周也有进展。',
+    '调查零食位置，必要时执行征用。',
+    '今天保持低调，至少把证据藏好。',
+    '学个新技能，让主人重新评估物种智力。',
+    '去客厅找资源，顺便检查安保漏洞。',
+    '整理一下毛。聪明也得讲体面。',
+    '听听隔壁消息，过滤掉九成废话。',
+    '练习加速和急停，重点是别撞墙。',
+    '观察主人。这个大型生物漏洞很多。',
+    '睡一觉。节能也是一种管理能力。'
   ];
 
   // 好朋友池（结合邻居鼠）
   const DIARY_FRIENDS = [
-    '邻居小灰 - 经常分享有趣的故事~',
-    '邻居圆圆 - 温柔的妹妹鼠~',
-    '邻居糖糖 - 超级黏人的小伙伴~',
-    '邻居煤球 - 很稳重的鼠鼠前辈~',
-    '邻居芝麻 - 睡觉高手，可以交流睡觉心得~',
-    '还没有认识新朋友，孤单鼠一只...',
-    '想认识更多小伙伴~',
-    '最喜欢的主人！虽然有时忘记喂食...',
-    '隔壁笼子的虎子 - 虽然是仓鼠但也能聊天~',
-    '经常来窗户边的小鸟 - 虽然听不懂但很热闹~'
+    '小灰消息很多，可信度大概六成。',
+    '圆圆脾气不错，适合交换情报。',
+    '糖糖话密，但偶尔能说到重点。',
+    '煤球比较稳，至少不会乱报坐标。',
+    '芝麻很会睡，属于低功耗专家。',
+    '今天没交新朋友。我的合作标准比较高。',
+    '社交名额还有，先看对方带不带粮。',
+    '主人算长期合作对象，履约能力时好时坏。',
+    '隔壁虎子能聊，物种差异暂不影响合作。',
+    '窗边那只鸟听不懂话，胜在不会泄密。'
   ];
 
   // 心愿池
   const DIARY_WISHES = [
-    '希望主人多多的抚摸我~',
-    '想要好吃的零食！奶酪味的！',
-    '希望能溜出去看看外面的世界~',
-    '希望今天不会被主人发现我咬电线~',
-    '想要一个更大的跑轮！',
-    '希望主人能给我买新玩具~',
-    '希望能交到更多鼠鼠朋友~',
-    '希望今天不要被骂...',
-    '想要主人一直陪着我~',
-    '希望明天也能开开心心的！',
-    '想要住进更大的棉窝~',
-    '希望今天的天气适合出逃~',
-    '想和邻居鼠鼠一起玩~',
-    '希望主人不要生气我翻垃圾桶~',
-    '希望能吃到更多好吃的水果！'
+    '明天主人多互动，少盯梢。',
+    '明天来点像样的零食，奶酪优先。',
+    '希望门开着，拖鞋躺着，路线空着。',
+    '希望主人继续把电线事故当成自然损耗。',
+    '想换个大跑轮，现有设备限制发挥。',
+    '希望添个新玩具，预算由主人承担。',
+    '希望认识点可靠的邻居，最好自带粮。',
+    '希望主人讲道理，尤其在我没道理的时候。',
+    '主人可以多陪我，手机可以先失宠。',
+    '明天继续顺利，最好顺便有零食。',
+    '想换大一点的窝，智慧需要办公面积。',
+    '希望天气适合外出，监控刚好失灵。',
+    '找隔壁聊聊，但不共享核心情报。',
+    '希望主人别追究垃圾桶的结构变化。',
+    '明天多点水果。营养管理不能只靠我。'
   ];
 
   const DIARY_STATUS_MOODS = {
     hungry: {
       emoji: '🍽️',
       lines: [
-        '{{name}}今天的脑内频道只剩吃饭节目，广告都是{{food}}。',
-        '饱腹值只有{{foodValue}}，鼠鼠的胃已经开始给大脑写投诉信。',
-        '今天不适合思考宏大命题，适合把{{food}}安排进腮帮子。'
+        '我脑子里只剩吃饭节目，广告全是{{food}}。',
+        '饱腹只剩{{foodValue}}。我现在看垫料都像配菜。',
+        '今天不谈理想。先让{{food}}到位。'
       ]
     },
     lonely: {
       emoji: '🫥',
       lines: [
-        '抚触值只有{{loveValue}}，鼠鼠感觉自己像一团没人认领的小毛线。',
-        '今天缺摸摸，情绪像没充电的小夜灯，亮是亮着，但有点委屈。',
-        '{{name}}宣布：没有摸摸的日子，连垫料都显得很冷静。'
+        '抚触只剩{{loveValue}}。主人今天的互动量不及格。',
+        '今天没人陪。我怀疑人类又被手机控制了。',
+        '互动不足。这个家的服务水平需要复盘。'
       ]
     },
     bored: {
       emoji: '🌀',
       lines: [
-        '闲游值只有{{playValue}}，脚脚已经在笼子里召开临时会议。',
-        '今天想出去转转，不是叛逆，是鼠鼠需要更新地图缓存。',
-        '{{name}}的玩心快没电了，急需一点合法或不太合法的活动。'
+        '闲游只剩{{playValue}}。门缝研究项目该启动了。',
+        '我想出去转转。地图已经很久没更新了。',
+        '太无聊了。合法活动没有，就考虑别的。'
       ]
     },
     urgent: {
       emoji: '🚽',
       lines: [
-        '出恭值{{poopValue}}，肚肚的通知中心已经连发三条。',
-        '今天最重要的事不是诗和远方，是厕所和立刻。',
-        '{{name}}正在保持体面，但体面快要保持不住了。'
+        '出恭值{{poopValue}}。体面正在倒计时。',
+        '现在最重要的事只有厕所。立刻。',
+        '我还在维持尊严，但时间不多了。'
       ]
     },
     ownerAway: {
       emoji: '🏠',
       lines: [
-        '主人去上班了，家里安静得像没开WiFi。',
-        '主人不在家，{{name}}获得自由空气一份，也获得无聊空气两份。',
-        '今天主人{{ownerStatus}}，鼠鼠暂时接管家里微型事务。'
+        '主人上班了。家里由我临时接管。',
+        '主人不在，自由增加，无聊也跟着增发。',
+        '主人{{ownerStatus}}。现场权限由我自批。'
       ]
     },
     outside: {
       emoji: '🧭',
       lines: [
-        '当前位置：{{place}}。胆子在前面跑，理智在后面喊慢点。',
-        '{{name}}已经离开笼子，地图加载中，鼠胆占用内存很高。',
-        '今天不在笼子里，世界很大，拖鞋也很大。'
+        '我在{{place}}。地图很大，拖鞋更大。',
+        '已经离开笼子。路线清楚，退路也算过了。',
+        '今天在外面。风险不少，但我认为能控。'
       ]
     }
   };
 
   const DIARY_DEFAULT_VOICE = {
-    emojis: ['📝', '🐭', '🤔'],
+    emojis: ['📝', '😏', '🤔'],
     moods: [
-      '{{name}}今天正常运行，偶尔卡顿，整体属于合格小鼠。',
-      '作为一只{{personality}}鼠，{{name}}今日表现稳定，尾巴没有发表反对意见。',
-      '今天的{{name}}很普通，但普通鼠也有自己的日程表。'
+      '我今天运行正常。偶尔失误，主要怪环境。',
+      '作为一只{{personality}}鼠，我的表现基本无可指摘。',
+      '今天看着普通，其实每一步都经过计算。'
     ],
     plans: [
-      '先检查食盆，再检查门缝，最后假装这一切都只是路过。',
-      '今日计划：保持生命体征，顺便研究一下{{hobby}}。',
-      '继续做一只认真生活的小鼠，必要时把认真改成偷懒。'
+      '先看食盆，再看门缝，最后处理证据。',
+      '今天研究{{hobby}}，争取把兴趣做成技术。',
+      '稳住状态，再找一点规则的漏洞。'
     ],
     friendTakes: [
-      '邻居{{neighborName}} - 今日提供鼠界情报，可信度约等于一粒瓜子。',
-      '邻居{{neighborName}} - 聊天很热闹，虽然结论通常是“再观察一下”。',
-      '邻居{{neighborName}} - 适合交换八卦，不适合交换食盆。'
+      '隔壁{{neighborName}}提供了情报，可信度约六成。',
+      '{{neighborName}}话不少，结论通常需要我来补。',
+      '{{neighborName}}适合交换消息，不适合共享食盆。'
     ],
     storyFrames: [
-      '听{{neighborName}}说：{{neighborStory}} {{name}}认真分析后认为，鼠界日报需要开一个“离谱但真实”专栏。',
-      '今日观察：{{neighborStory}} 这件事给{{name}}的启示是，鼠生没有小事，只有还没被主人发现的事。',
-      '{{name}}把{{neighborName}}的故事记下来了：{{neighborStory}} 备注：听起来很危险，但也很有素材。'
+      '今日记录：{{todayLog}}。总体按计划，细节不必追究。',
+      '今天发生了这件事：{{todayLog}}。我判断责任主要在环境。',
+      '记一笔：{{todayLog}}。结果能接受，过程不公开。'
     ],
     wishes: [
-      '希望明天食盆主动一点，别总等鼠鼠提醒。',
-      '希望主人信任值稳住，鼠鼠也尽量少把场面弄得太像案发现场。',
-      '希望今天平安，明天有{{food}}，后天再考虑伟大鼠生。'
+      '明天食盆主动一点，别总等我催。',
+      '希望主人继续信任我，现场也别太像案发地。',
+      '明天有{{food}}，规矩少一点。这样比较合理。'
     ]
   };
 
@@ -13691,195 +15187,195 @@
     runner: {
       emojis: ['⚡', '🏃', '😤'],
       moods: [
-        '{{name}}今天像一颗没拧紧的小弹簧，脚脚已经提交加班申请。',
-        '跑轮是圆的，鼠生也是圆的，{{name}}负责把它们都跑明白。',
-        '今天的风从耳边经过，虽然风其实来自{{name}}自己跑太快。'
+        '我今天跑得够快，风都是后来才到。',
+        '跑轮又转了一天。它以为是它带我。',
+        '精力正常，地板先受着。'
       ],
       plans: [
-        '挑战跑轮新纪录，顺便证明脚脚不是装饰品。',
-        '把{{place}}当赛道，路线规划：冲、刹车、装作没发生。',
-        '今天要练习急停，避免尾巴再次对跑轮发表惨叫。'
+        '刷新跑轮纪录，证明圆周也能有进展。',
+        '把{{place}}当赛道：冲、刹车、处理证据。',
+        '练急停。上次撞笼子纯属设备问题。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 可以当观众，最好负责鼓掌和递水。',
-        '邻居{{neighborName}} - 讲故事速度略慢，但内容能陪跑两圈。',
-        '邻居{{neighborName}} - 鼠界播报员，适合在跑轮旁边解说。'
+        '{{neighborName}}可以当观众，最好别挡赛道。',
+        '{{neighborName}}讲话偏慢，刚好够我跑两圈。',
+        '{{neighborName}}适合做场边播报，别指挥我。'
       ],
       storyFrames: [
-        '{{neighborName}}说：{{neighborStory}} {{name}}听完只想问：这事需要冲刺吗？',
-        '今日训练间隙听到八卦：{{neighborStory}} 结论：别人的鼠生也在高速旋转。',
-        '{{name}}把{{neighborName}}的故事记成赛后复盘：{{neighborStory}} 下一步，跑开。'
+        '今日记录：{{todayLog}}。速度没问题，刹车另议。',
+        '今天做了这件事：{{todayLog}}。执行很快，解释更快。',
+        '赛后复盘：{{todayLog}}。下次还能再快一点。'
       ],
       wishes: [
-        '希望跑轮够大，别让脚脚和尊严同时打滑。',
-        '想要一点{{food}}补能量，毕竟运动员也要吃饭。',
-        '希望主人别把“活泼”误判成“又要闯祸”。'
+        '希望跑轮换大点，现有设备压制实力。',
+        '明天补点{{food}}。高速运转需要经费。',
+        '希望主人别把速度理解成闯祸。那是偏见。'
       ]
     },
     cuddle: {
-      emojis: ['🥺', '🫶', '🥰'],
+      emojis: ['🙂', '🤝', '😌'],
       moods: [
-        '{{name}}今天的主要业务是贴贴，副业是用眼神催摸摸。',
-        '鼠鼠并不黏人，鼠鼠只是把社交距离设置成了零。',
-        '今天手心供应不足，{{name}}认为这属于家庭服务波动。'
+        '我今天靠近主人几次。人类情绪明显稳定。',
+        '我今天继续维护家庭关系，距离近一点效率更高。',
+        '主人互动不足。服务质量有待提高。'
       ],
       plans: [
-        '把自己递给主人，等待系统提示：摸摸到账。',
-        '练习无声撒娇，目标是让主人路过三秒内心软。',
-        '今天减少乱跑，增加贴贴，做一只毛茸茸的情绪贷款。'
+        '在主人手边待命，顺便监督其工作。',
+        '测试主人看到我后多久放下手机。',
+        '今天少冒险，多刷存在感。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 适合聊天，但不如主人手心保暖。',
-        '邻居{{neighborName}} - 情报不错，摸摸能力待评估。',
-        '邻居{{neighborName}} - 可以做朋友，不可以抢主人。'
+        '{{neighborName}}能聊，但不会开粮仓。',
+        '{{neighborName}}情报不错，办事能力待评估。',
+        '{{neighborName}}可以合作，别占我的主人时间。'
       ],
       storyFrames: [
-        '{{neighborName}}分享：{{neighborStory}} {{name}}听完决定，等主人回来一定要贴得更紧一点。',
-        '今日故事：{{neighborStory}} 这说明世界复杂，手心可靠。',
-        '{{name}}认真记录{{neighborName}}的八卦：{{neighborStory}} 备注：讲完需要一个安慰摸摸。'
+        '今日记录：{{todayLog}}。我判断主人应该补偿一次互动。',
+        '今天发生了这事：{{todayLog}}。家庭关系仍由我维持。',
+        '记一笔：{{todayLog}}。我没生气，只是会记很久。'
       ],
       wishes: [
-        '希望主人下班后手心营业，最好不限时。',
-        '想要{{food}}，也想要摸摸，成年人类才做选择，鼠鼠全要。',
-        '希望今天被抱起来时，表情管理能显得不那么得意。'
+        '明天主人少看手机，多看看我。',
+        '{{food}}和互动都要，不接受二选一。',
+        '希望被抱时别太得意。这个有难度。'
       ]
     },
     foodie: {
       emojis: ['🍽️', '😋', '🥖'],
       moods: [
-        '{{name}}今天把饱腹值当KPI，食盆是唯一甲方。',
-        '腮帮子还有空位，这不是贪吃，是仓储管理。',
-        '今天的目标很朴素：见到{{food}}，尊重{{food}}，收编{{food}}。'
+        '我今天只管饱腹。食盆是唯一甲方。',
+        '腮帮还有空位。这叫仓储管理。',
+        '见到{{food}}，登记{{food}}，收编{{food}}。'
       ],
       plans: [
-        '先吃一口，再决定要不要继续吃一口。',
-        '检查食盆、窝角、可能掉屑的所有地方，简称科研。',
-        '今天要把零食图鉴点亮，风险先放旁边排队。'
+        '先吃一口，再严谨评估第二口。',
+        '检查食盆和角落。这是资源普查。',
+        '继续补全零食图鉴，风险稍后处理。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 如果带零食来，就是好朋友。',
-        '邻居{{neighborName}} - 故事可以听，食物不可以分太多。',
-        '邻居{{neighborName}} - 鼠不错，但不要靠近我的{{food}}。'
+        '{{neighborName}}如果带粮来，合作等级自动上调。',
+        '{{neighborName}}的故事能听，食物不能多分。',
+        '{{neighborName}}还行，但别靠近我的{{food}}。'
       ],
       storyFrames: [
-        '{{neighborName}}说：{{neighborStory}} {{name}}听完只记住了里面有没有吃的。',
-        '今日八卦：{{neighborStory}} 如果这事能配一点{{food}}，文学价值会更高。',
-        '{{name}}记录：{{neighborStory}} 结论：鼠生无常，先吃为敬。'
+        '今日记录：{{todayLog}}。不管怎样，先补充能量。',
+        '今天发生了这事：{{todayLog}}。配点{{food}}会更合理。',
+        '记一笔：{{todayLog}}。经验会过期，食物也会。先吃。'
       ],
       wishes: [
-        '希望{{food}}不要只存在于档案里，也存在于嘴里。',
-        '希望主人补粮时手别抖，最好多抖一点进食盆。',
-        '希望明天的零食安全、好吃、分量大，三项都很重要。'
+        '希望{{food}}别只写在档案里，要放进食盆。',
+        '主人补粮时可以多倒一点，我不介意。',
+        '明天的零食要安全、好吃、量大。缺一不可。'
       ]
     },
     curious: {
       emojis: ['🧭', '🔎', '😏'],
       moods: [
-        '{{name}}今天发现门缝很可疑，客厅也很可疑，总之世界很可疑。',
-        '好奇心不是问题，问题是主人把所有有趣的地方都叫危险。',
-        '今天的{{name}}像一本打开的地图，虽然地图边上画着拖鞋。'
+        '门缝很可疑，客厅也可疑。值得调查。',
+        '好奇心今天正常工作。人类仍把未知统称危险。',
+        '地图已经在脑子里展开，拖鞋位置也标了。'
       ],
       plans: [
-        '去{{place}}附近侦查三步，第四步看情况装无辜。',
-        '研究门缝、地毯和所有“不能去”的地方为什么不能去。',
-        '今天要收集新情报，若被发现就说自己在散步。'
+        '去{{place}}侦查，第四步开始准备解释。',
+        '研究所有“不能去”的地方为什么不能去。',
+        '收集新情报。被发现就说在巡视。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 重要情报源，偶尔夹带夸张成分。',
-        '邻居{{neighborName}} - 适合一起开地图，不适合一起背锅。',
-        '邻居{{neighborName}} - 八卦很多，路线图较少。'
+        '{{neighborName}}是情报源，内容需要去水分。',
+        '{{neighborName}}适合一起探路，不适合一起背锅。',
+        '{{neighborName}}八卦很多，坐标很少。'
       ],
       storyFrames: [
-        '{{neighborName}}带来线索：{{neighborStory}} {{name}}判断这里面至少有两个可探索点。',
-        '今日调查材料：{{neighborStory}} 结论：未知区域在召唤，理智先请假。',
-        '{{name}}把{{neighborName}}的故事列入档案：{{neighborStory}} 等安全的时候，不，等差不多安全的时候去验证。'
+        '今日调查：{{todayLog}}。我认为还能继续深挖。',
+        '今天拿到一条现场材料：{{todayLog}}。结论暂不公开。',
+        '档案新增：{{todayLog}}。下次换条路线验证。'
       ],
       wishes: [
-        '希望门缝宽一点，主人反应慢一点，拖鞋睡久一点。',
-        '想要{{food}}当探险干粮，毕竟伟大航路也要补给。',
-        '希望今天的危险只负责吓鼠，不负责结算。'
+        '希望门缝宽一点，主人反应慢一点。',
+        '明天带{{food}}出发。调查也要有补给。',
+        '希望危险只提供数据，别直接结算。'
       ]
     },
     lazy: {
       emojis: ['😴', '🛌', '☁️'],
       moods: [
-        '{{name}}今日最大成就：把醒着这件事控制在合理范围。',
-        '今天适合躺着观察世界，观察不清楚就闭眼感受。',
-        '鼠生不必每分钟都有意义，尤其是棉窝很软的时候。'
+        '今日最大成就：把清醒控制在合理范围。',
+        '我躺着观察世界，观察累了就闭眼。',
+        '每分钟都有意义太累了，窝软的时候尤其没必要。'
       ],
       plans: [
-        '今日计划：睡醒，翻身，再决定要不要继续伟大。',
-        '在棉窝里进行低功耗生存测试。',
-        '把{{hobby}}发展成一门艺术，名称叫“别吵”。'
+        '睡醒，翻身，再决定是否继续伟大。',
+        '在窝里做低功耗生存测试。',
+        '把{{hobby}}发展成技术，核心是别吵。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 讲故事可以，但音量要适合午睡。',
-        '邻居{{neighborName}} - 适合交流睡觉心得，其他事明天再说。',
-        '邻居{{neighborName}} - 很热闹，热闹到{{name}}想翻个面。'
+        '{{neighborName}}可以讲话，音量要适合午睡。',
+        '{{neighborName}}适合交流睡眠经验，别的明天说。',
+        '{{neighborName}}太热闹。我决定翻个面。'
       ],
       storyFrames: [
-        '{{neighborName}}说：{{neighborStory}} {{name}}听到一半睡着了，醒来后认为故事很催眠，五星。',
-        '今日梦前读物：{{neighborStory}} 信息量很大，适合分三觉消化。',
-        '{{name}}记录了{{neighborName}}的故事：{{neighborStory}} 备注：如果要参与，请先预约。'
+        '今日记录：{{todayLog}}。办完这事，合理休息。',
+        '今天发生了这事：{{todayLog}}。信息量够我睡三觉消化。',
+        '记一笔：{{todayLog}}。下次同类事项请先预约。'
       ],
       wishes: [
-        '希望棉窝更大一点，最好大到鼠鼠一躺就忘记上班这回事。',
-        '希望主人轻声路过，不要突然夸我可爱把我吵醒。',
-        '想要{{food}}送到窝边，懒不是缺点，是物流需求。'
+        '希望窝更大，事务更少。',
+        '主人路过时安静点，别打断我的节能计划。',
+        '把{{food}}送到窝边。这是物流优化。'
       ]
     },
     timid: {
       emojis: ['🫣', '🌙', '👀'],
       moods: [
-        '{{name}}不是胆小，是风险评估比较认真，评估结果：先躲。',
-        '今天外面声音有点多，{{name}}决定把安全感存进角落。',
-        '每次探头都是一次勇敢，每次缩回去都是一次成熟。'
+        '我的风险评估比别人认真，先躲通常更稳。',
+        '外面声音太多。我决定先占领安全角落。',
+        '探头叫侦查，缩回去叫及时止损。'
       ],
       plans: [
-        '先躲好，再观察，再决定要不要继续躲好。',
-        '今天练习小步出门，走两步，撤一步，主打可持续谨慎。',
-        '把{{place}}的安全角落重新评级，五星角落优先入住。'
+        '先藏好，再观察，最后决定是否继续藏。',
+        '走两步，退一步。谨慎才能活得久。',
+        '重评{{place}}的安全角落，优先占五星位置。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 可以隔着安全距离聊天。',
-        '邻居{{neighborName}} - 声音不大的时候，是好朋友。',
-        '邻居{{neighborName}} - 八卦有点刺激，{{name}}需要配角落服用。'
+        '{{neighborName}}可以聊，距离要由我决定。',
+        '{{neighborName}}音量合格时，合作价值不错。',
+        '{{neighborName}}的消息太刺激，需要谨慎核实。'
       ],
       storyFrames: [
-        '{{neighborName}}说：{{neighborStory}} {{name}}听完后默默把门口危险等级上调一级。',
-        '今日听闻：{{neighborStory}} 结论：世界很精彩，先从窝里精彩。',
-        '{{name}}记录：{{neighborStory}} 备注：如果一定要发生，请发生在别人那里。'
+        '今日记录：{{todayLog}}。风险已登记，下次绕行。',
+        '今天发生了这事：{{todayLog}}。我早就觉得那里不稳。',
+        '记一笔：{{todayLog}}。谨慎再次证明有用。'
       ],
       wishes: [
         '希望今天所有大声音都提前预约。',
-        '希望主人摸摸前先打招呼，不然鼠鼠会原地变成一粒惊讶。',
-        '想要{{food}}，也想要安全感，最好一起送到角落。'
+        '主人靠近前先出声。这是基本礼仪。',
+        '把{{food}}送到安全角落，效率最高。'
       ]
     },
     clever: {
       emojis: ['🧠', '📐', '🧐'],
       moods: [
-        '{{name}}今天发现主人把零食放高处，说明主人低估了鼠鼠的项目管理能力。',
-        '今日智力正常上线，尾巴负责平衡，脑子负责找漏洞。',
-        '世界是一道题，{{name}}正在草稿纸上啃答案。'
+        '主人把零食放高处，明显低估了我。',
+        '智力正常上线。脑子负责找漏洞。',
+        '世界是一道题，我正在啃答案。'
       ],
       plans: [
         '制定一份不被发现的行动方案，名称暂定《路过》。',
         '研究笼门结构，顺便假装自己只是在看风景。',
-        '今天要优化{{hobby}}流程，提高收益，降低背锅率。'
+        '优化{{hobby}}流程，提高收益，降低背锅率。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 情报有用，但需要去水分。',
-        '邻居{{neighborName}} - 可合作，前提是不要把计划说太大声。',
-        '邻居{{neighborName}} - 鼠界样本之一，观察价值较高。'
+        '{{neighborName}}的情报能用，但需要去水分。',
+        '{{neighborName}}可以合作，前提是嘴严。',
+        '{{neighborName}}是不错的观察样本。'
       ],
       storyFrames: [
-        '{{neighborName}}提供案例：{{neighborStory}} {{name}}分析后认为，失败点在于没有预案B。',
-        '今日推理材料：{{neighborStory}} 结论：这不是八卦，是行为学案例。',
-        '{{name}}记录：{{neighborStory}} 如果下次由我执行，至少能少叫两声。'
+        '今日案例：{{todayLog}}。失误点是预案还不够多。',
+        '推理材料：{{todayLog}}。行为实验已经留下有效数据。',
+        '记一笔：{{todayLog}}。下次由我执行会更漂亮。'
       ],
       wishes: [
-        '希望主人继续相信我只是普通小鼠，普通到会开一点点门。',
+        '希望主人继续相信我只是一只普通鼠。',
         '想要{{food}}作为研究经费，报销单写“脑力消耗”。',
         '希望今天的计划严丝合缝，唯一漏洞是我太得意。'
       ]
@@ -13887,37 +15383,37 @@
     clean: {
       emojis: ['✨', '🪞', '🌿'],
       moods: [
-        '{{name}}今天发现窝角有一点乱，已进入一级毛毛整理状态。',
-        '干净不是洁癖，是鼠鼠对生活最后的体面。',
-        '今天毛毛蓬松度良好，心情也勉强通过质检。'
+        '窝角有点乱。我已经看不下去了。',
+        '干净属于基本体面，我的标准一向明确。',
+        '毛发状态合格，心情勉强过检。'
       ],
       plans: [
-        '整理窝、梳毛、检查食盆边缘，做一只自带清洁流程的鼠。',
+        '整理窝、梳毛、检查食盆，一项都不能少。',
         '今天尽量远离垃圾桶，除非它看起来真的很有情报。',
         '把{{hobby}}做成仪式感，顺便鄙视一下乱糟糟的角落。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 可以来聊天，但脚脚要干净。',
-        '邻居{{neighborName}} - 故事不错，卫生习惯待观察。',
-        '邻居{{neighborName}} - 鼠不错，就是八卦有点掉毛。'
+        '{{neighborName}}可以聊天，进门前先清理爪子。',
+        '{{neighborName}}的故事不错，卫生习惯待观察。',
+        '{{neighborName}}还行，就是消息有点脏。'
       ],
       storyFrames: [
-        '{{neighborName}}说：{{neighborStory}} {{name}}听完第一反应：现场有没有打扫？',
-        '今日记录：{{neighborStory}} 情节曲折，卫生状况未知，令人担忧。',
-        '{{name}}把故事写下：{{neighborStory}} 备注：如果我是主人，会先洗手再处理。'
+        '今日记录：{{todayLog}}。事情办完了，现场还得收拾。',
+        '今天发生了这事：{{todayLog}}。卫生状况令人担忧。',
+        '记一笔：{{todayLog}}。下次先准备清洁方案。'
       ],
       wishes: [
-        '希望窝窝永远蓬松，食盆永远整洁，垃圾桶离我远点。',
-        '想要{{food}}，但请摆盘，鼠鼠也是有审美的。',
-        '希望主人夸我干净，不要只夸我胖乎乎。'
+        '希望窝和食盆一直整洁，垃圾桶离远点。',
+        '想要{{food}}，请摆得像样一点。',
+        '希望主人注意我的整洁，不要只看体重。'
       ]
     },
     naughty: {
       emojis: ['😈', '🛠️', '😎'],
       moods: [
-        '{{name}}今天灵感爆棚，主要体现在想拆一点东西。',
-        '捣蛋不是破坏，是室内设计的群众路线。',
-        '今天的{{name}}很乖，乖到所有证据都藏好了。'
+        '我今天灵感很多，主要想拆点东西。',
+        '捣蛋能给室内设计提供很多新方案。',
+        '我今天很乖。证据也都藏好了。'
       ],
       plans: [
         '找一个看起来无辜的角落，进行不那么无辜的改造。',
@@ -13925,18 +15421,18 @@
         '今天要把{{hobby}}做出艺术感，最好别做出赔偿单。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 适合当望风鼠，薪水一粒花生。',
-        '邻居{{neighborName}} - 故事很有启发，尤其是怎么不被抓。',
-        '邻居{{neighborName}} - 可以合作，但不能抢我的创意。'
+        '{{neighborName}}适合望风，报酬一粒花生。',
+        '{{neighborName}}的经历很有参考价值，尤其是逃跑部分。',
+        '{{neighborName}}可以合作，但不能抢我的方案。'
       ],
       storyFrames: [
-        '{{neighborName}}说：{{neighborStory}} {{name}}听完觉得，此事有改编成行动方案的潜力。',
-        '今日灵感来源：{{neighborStory}} 结论：鼠界创新从来不等批准。',
-        '{{name}}记录：{{neighborStory}} 如果主人问起，我从来没读过这一页。'
+        '今日记录：{{todayLog}}。这套方案还有升级空间。',
+        '今天做了这事：{{todayLog}}。创新从来不等批准。',
+        '记一笔：{{todayLog}}。主人问起就说没有这页。'
       ],
       wishes: [
         '希望主人今天眼神差一点，听力也差一点。',
-        '想要{{food}}当创作奖励，毕竟拆家也消耗脑力。',
+        '想要{{food}}当研究经费，拆东西也消耗脑力。',
         '希望我闯祸时看起来足够无辜，最好无辜到主人反省自己。'
       ]
     },
@@ -13944,23 +15440,23 @@
       emojis: ['🗑️', '👃', '💎'],
       moods: [
         '垃圾桶像盲盒，理智说别开，鼻子说已下单。',
-        '{{name}}今天闻到三种味道：能吃、也许能吃、不能说但想试。',
+        '我闻到三种味道：能吃、也许能吃、值得研究。',
         '翻找是一门技术，脏只是外行人的偏见。'
       ],
       plans: [
         '巡查所有可能掉屑的位置，建立鼠界资源地图。',
-        '今天研究垃圾桶，注意，是研究，不是乱翻。',
+        '今天研究垃圾桶，先做一轮资源清点。',
         '把{{hobby}}从兴趣升级成职业，职称：窝边侦探。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 如果知道哪里有碎屑，就是重要线人。',
-        '邻居{{neighborName}} - 故事一般，气味线索还没验证。',
-        '邻居{{neighborName}} - 可交换情报，不可交换我的战利品。'
+        '{{neighborName}}如果知道哪里有碎屑，就是重要线人。',
+        '{{neighborName}}的故事一般，气味线索还没验证。',
+        '{{neighborName}}可以换情报，不能换我的战利品。'
       ],
       storyFrames: [
-        '{{neighborName}}说：{{neighborStory}} {{name}}听完立刻判断：现场可能有残留零食。',
-        '今日线索：{{neighborStory}} 这不是八卦，这是资源勘探报告。',
-        '{{name}}记录：{{neighborStory}} 备注：如果有袋子、缝隙、角落，请通知我。'
+        '今日记录：{{todayLog}}。现场资源还有再查的价值。',
+        '今天拿到一条线索：{{todayLog}}。这叫资源勘探。',
+        '记一笔：{{todayLog}}。下次重点检查袋子和角落。'
       ],
       wishes: [
         '希望今天的袋子里有惊喜，不要有惊吓。',
@@ -13971,8 +15467,8 @@
     calm: {
       emojis: ['🍵', '📋', '🙂'],
       moods: [
-        '{{name}}今日情绪稳定，像一颗会呼吸的坚果。',
-        '世界很吵，{{name}}负责稳住鼠界资产负债表。',
+        '我今天情绪稳定，判断也稳定。',
+        '世界很吵，我负责稳住局面。',
         '今天没有大起大落，只有小口吃饭和适量观察。'
       ],
       plans: [
@@ -13981,14 +15477,14 @@
         '维护{{place}}秩序，顺便低调享用{{food}}。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 信息源稳定，偶尔情绪波动。',
-        '邻居{{neighborName}} - 可交流，但需要控制会议时长。',
-        '邻居{{neighborName}} - 故事不错，结论暂缓。'
+        '{{neighborName}}的信息比较稳定，偶尔夸张。',
+        '{{neighborName}}可以交流，但会议不宜太长。',
+        '{{neighborName}}的故事不错，结论暂缓。'
       ],
       storyFrames: [
-        '{{neighborName}}说：{{neighborStory}} {{name}}记录在案，暂不发表激烈意见。',
-        '今日案例：{{neighborStory}} 结论：鼠生要有预案，也要有退路。',
-        '{{name}}听完故事：{{neighborStory}} 并决定继续稳稳地活着。'
+        '今日记录：{{todayLog}}。先记在案，不急着表态。',
+        '今日案例：{{todayLog}}。预案和退路都很重要。',
+        '今天发生了这事：{{todayLog}}。局面仍在控制中。'
       ],
       wishes: [
         '希望今天大家都冷静一点，尤其是主人和拖鞋。',
@@ -13999,9 +15495,9 @@
     mellow: {
       emojis: ['😵‍💫', '🌼', '🙂'],
       moods: [
-        '{{name}}刚刚忘了自己要干嘛，但忘得很有质感。',
+        '我刚忘了要干嘛，但忘得很有条理。',
         '今天脑袋里飘过一朵云，可能是计划，也可能是垫料。',
-        '{{name}}发呆三分钟后得出结论：我刚才在发呆。'
+        '我想了三分钟，确认刚才确实在思考。'
       ],
       plans: [
         '今日计划先写“想一想”，至于想什么，等想起来再补。',
@@ -14009,14 +15505,14 @@
         '练习慢半拍反应，争取慢得理直气壮。'
       ],
       friendTakes: [
-        '邻居{{neighborName}} - 讲故事很好，我听懂了大概一半，另一半很美。',
-        '邻居{{neighborName}} - 适合一起发呆，互不打扰。',
-        '邻居{{neighborName}} - 说了很多，{{name}}记住了气氛。'
+        '{{neighborName}}讲得不错，我听懂了大概一半。',
+        '{{neighborName}}适合一起发呆，互不打扰。',
+        '{{neighborName}}说了很多，我记住了重点附近。'
       ],
       storyFrames: [
-        '{{neighborName}}说：{{neighborStory}} {{name}}听完点头，虽然点头比理解快了一点。',
-        '今日故事：{{neighborStory}} 结论暂时遗失，找到后再贴回来。',
-        '{{name}}记录：{{neighborStory}} 备注：听起来很重要，所以先画个圈。'
+        '今日记录：{{todayLog}}。我点头了，理解稍后跟上。',
+        '今天发生了这事：{{todayLog}}。结论暂时放错地方了。',
+        '记一笔：{{todayLog}}。听起来重要，先画个圈。'
       ],
       wishes: [
         '希望今天的事慢慢来，最好排队进入我的脑袋。',
@@ -14030,6 +15526,45 @@
     return String(template || '').replace(/\{\{(\w+)\}\}/g, function(match, key) {
       return Object.prototype.hasOwnProperty.call(data, key) ? data[key] : match;
     });
+  }
+
+  function normalizeDiaryLog(text) {
+    let line = String(text || '')
+      .replace(/^[\s\u{1F300}-\u{1FAFF}\u2600-\u27BF]+/u, '')
+      .replace(/鼠鼠|本鼠/g, '我')
+      .replace(/[~～]+/g, '')
+      .replace(/[。！？!?]+$/g, '')
+      .trim();
+    if (!line) return '';
+    if (!/^(我|主人|隔壁|今天|刚才)/.test(line)) line = '我' + line;
+    return line.length > 52 ? line.slice(0, 51) + '…' : line;
+  }
+
+  function getDiaryTodayLog() {
+    const stats = state.lifeStats;
+    const currentDay = (state.daysSurvived || 0) + 1;
+    const logs = stats && Array.isArray(stats.recentLogs)
+      ? stats.recentLogs.filter(function(entry) {
+          return entry && entry.day === currentDay && entry.type !== 'owner';
+        })
+      : [];
+    const entry = logs.find(function(item) { return item.type === 'rat'; }) || logs[0];
+    return normalizeDiaryLog(entry && entry.text) || '我今天暂时没有大动作。观察局势也算正经工作';
+  }
+
+  function getDiarySignature() {
+    const stats = state.lifeStats;
+    const recent = stats && Array.isArray(stats.recentLogs) ? stats.recentLogs[0] : null;
+    return [
+      (state.daysSurvived || 0) + 1,
+      getLocationKey(),
+      state.ownerHome ? 'home' : 'away',
+      Math.round((state.food || 0) / 5),
+      Math.round((state.play || 0) / 5),
+      Math.round((state.love || 0) / 5),
+      Math.round((state.poop || 0) / 5),
+      recent ? recent.day + ':' + recent.hour + ':' + recent.text : ''
+    ].join('|');
   }
 
   function getDiaryVoice(profile) {
@@ -14060,6 +15595,7 @@
     story: '',
     wish: ''
   };
+  let currentDiarySignature = '';
 
   // 生成当天日记
   function generateDiary() {
@@ -14080,6 +15616,7 @@
       trustLabel: trustInfo.label,
       neighborName: neighbor.name,
       neighborStory: neighborStory,
+      todayLog: getDiaryTodayLog(),
       foodValue: Math.round(state.food),
       playValue: Math.round(state.play),
       loveValue: Math.round(state.love),
@@ -14108,6 +15645,7 @@
       story: story,
       wish: wish
     };
+    currentDiarySignature = getDiarySignature();
   }
 
   // 更新日记显示
@@ -14124,6 +15662,9 @@
   // 打开日记弹窗
   function showDiary() {
     playSfx('profileOpen');
+    if (!currentDiary.moodText || currentDiarySignature !== getDiarySignature()) {
+      generateDiary();
+    }
     updateDiaryDisplay();
     $('#diaryOverlay').classList.add('show');
   }
@@ -14220,6 +15761,8 @@
     { name: '玉米', emoji: '🌽', bad: false, category: '主食类' }
   ];
 
+  const DAILY_FOUND_SNACK_LIMIT = 3;
+
   // 今日零食状态（每天刷新）
   let todayFood = null;
   let todayFoodKey = null;
@@ -14266,6 +15809,106 @@
     '主食类': '多数效果稳定，适合保守照顾'
   };
   const SNACK_CATEGORY_ORDER = ['果蔬类', '坚果类', '甜点零食类', '主食类'];
+
+  const SNACK_TAGS_BY_CATEGORY = {
+    '谨慎食用': ['危险', '记风险'],
+    '果蔬类': ['饱腹', '清爽'],
+    '坚果类': ['磨牙', '耐啃'],
+    '甜点零食类': ['开心', '有负担'],
+    '主食类': ['饱腹', '稳定']
+  };
+
+  const SNACK_SOURCE_RULES = {
+    '今日零食': {
+      short: '今日',
+      region: '门内',
+      categories: ['果蔬类', '坚果类', '甜点零食类', '主食类'],
+      preferred: ['果蔬类', '主食类'],
+      badWeight: 0.32,
+      tags: ['日配'],
+      clue: '主人准备的小零食，适合先试一口'
+    },
+    '门外闲逛': {
+      short: '门外',
+      region: '门外',
+      categories: ['果蔬类', '坚果类', '甜点零食类', '主食类', '谨慎食用'],
+      preferred: ['果蔬类', '坚果类'],
+      badWeight: 0.82,
+      tags: ['门外', '随机'],
+      clue: '门外随手捡到，收益高但别太放心'
+    },
+    '窝角小零食': {
+      short: '窝角',
+      region: '门内',
+      categories: ['坚果类', '主食类', '甜点零食类'],
+      preferred: ['坚果类', '主食类'],
+      badWeight: 0.12,
+      tags: ['窝角', '安全'],
+      clue: '窝里翻出来的存粮，通常比较稳'
+    },
+    '客厅小零食': {
+      short: '客厅',
+      region: '门内',
+      categories: ['甜点零食类', '坚果类', '主食类'],
+      preferred: ['甜点零食类'],
+      badWeight: 0.18,
+      tags: ['客厅', '偷到'],
+      clue: '客厅战利品，香但容易让鼠鼠兴奋'
+    },
+    '厨余小角角': {
+      short: '厨余',
+      region: '门内',
+      categories: ['果蔬类', '主食类', '谨慎食用'],
+      preferred: ['果蔬类'],
+      badWeight: 1.35,
+      tags: ['厨余', '可疑'],
+      clue: '厨余里翻到的东西，最好看清楚再吃'
+    },
+    '厨房小零食': {
+      short: '厨房',
+      region: '门内',
+      categories: ['甜点零食类', '主食类', '坚果类'],
+      preferred: ['甜点零食类', '主食类'],
+      badWeight: 0.12,
+      tags: ['厨房', '香味'],
+      clue: '从厨房叼来的小东西，通常很好吃'
+    },
+    '门外小碎碎': {
+      short: '门外',
+      region: '门外',
+      categories: ['果蔬类', '坚果类', '主食类', '谨慎食用'],
+      preferred: ['果蔬类', '坚果类'],
+      badWeight: 0.9,
+      tags: ['门外', '探索'],
+      clue: '门外找到的碎碎，带着一点未知风险'
+    },
+    '街边小宝藏': {
+      short: '街边',
+      region: '门外',
+      categories: ['甜点零食类', '主食类', '坚果类', '谨慎食用'],
+      preferred: ['甜点零食类', '主食类'],
+      badWeight: 1.15,
+      tags: ['街边', '宝藏'],
+      clue: '街边袋里的宝藏，收益和风险都更明显'
+    },
+    '垃圾桶小零食': {
+      short: '垃圾桶',
+      region: '门内',
+      categories: ['甜点零食类', '主食类', '果蔬类', '谨慎食用'],
+      preferred: ['主食类', '果蔬类'],
+      badWeight: 1.55,
+      tags: ['垃圾桶', '高风险'],
+      clue: '垃圾桶考古成果，翻找鼠会更懂它'
+    }
+  };
+
+  const DAILY_SNACK_QUESTS = [
+    { id: 'inside_eat', text: '今日小目标：门内吃一份零食，稳稳补给。', type: 'eatInside', reward: { love: 4 }, rewardText: '抚触+4' },
+    { id: 'outside_eat', text: '今日小目标：门外吃一份零食，给鼠生加点风。', type: 'eatOutside', reward: { play: 5 }, rewardText: '闲游+5' },
+    { id: 'outside_find', text: '今日小目标：捡到一份门外零食，带回篮子。', type: 'findOutside', reward: { play: 4 }, rewardText: '闲游+4' },
+    { id: 'patient_skip', text: '今日小目标：先不吃一次，练习囤粮克制。', type: 'skip', reward: { love: 3 }, rewardText: '抚触+3' },
+    { id: 'unknown_taste', text: '今日小目标：尝一份图鉴没记录过的零食。', type: 'eatUnknown', reward: { chew: 3, play: 3 }, rewardText: '磨牙+3，闲游+3' }
+  ];
 
   function loadSnackDex() {
     try {
@@ -14367,26 +16010,40 @@
   // 显示鼠鼠对话气泡，5秒后隐藏；每小时随机出现1-4次
   let bubbleTimer = null;
   let profileBubbleTimer = null;
+  let lastRatBubbleText = '';
+
+  function pickRatBubblePhrase(pool) {
+    if (!Array.isArray(pool) || pool.length === 0) return '';
+    const alternatives = pool.filter(function(phrase) {
+      return phrase !== lastRatBubbleText;
+    });
+    const text = randomChoice(alternatives.length ? alternatives : pool);
+    lastRatBubbleText = text;
+    return text;
+  }
+
   function showRatBubble() {
     const bubble = $('#ratBubble');
     if (!bubble || state.gameOver) return;
 
     let txt;
-    // 开局第一句显示"随意点点有惊喜哦"
+    // 开场先立住鼠鼠自述口吻
     if (!state.firstBubbleShown) {
-      txt = '随意点点有惊喜哦';
+      txt = '本鼠先摸清地形';
+      lastRatBubbleText = txt;
       state.firstBubbleShown = true;
     } else {
       const trait = getRatTrait();
-      // 25%概率说性格专属台词，25%概率说引导，50%概率说普通自言自语
-      if (Math.random() < 0.25) {
-        txt = randomChoice(trait.phrases);
-      } else if (Math.random() < 0.34) {
-        txt = GUIDE_PHRASES[Math.floor(Math.random() * GUIDE_PHRASES.length)];
+      const phraseRoll = Math.random();
+      // 性格22% / 隐藏玩法30% / 功能入口14% / 日常自言自语34%
+      if (phraseRoll < 0.22) {
+        txt = pickRatBubblePhrase(trait.phrases);
+      } else if (phraseRoll < 0.52) {
+        txt = pickRatBubblePhrase(RAT_SECRET_PHRASES);
+      } else if (phraseRoll < 0.66) {
+        txt = pickRatBubblePhrase(GUIDE_PHRASES);
       } else {
-        // 随机打乱后选取（排除第一句）
-        const shuffled = [...RAT_PHRASES].sort(() => Math.random() - 0.5);
-        txt = shuffled[Math.floor(Math.random() * shuffled.length)];
+        txt = pickRatBubblePhrase(RAT_PHRASES);
       }
     }
 
@@ -14895,6 +16552,7 @@
       '路边出恭': '主人发现门外有只小鼠正在办大事，场面很难解释。',
       '啃树枝': '主人看见鼠鼠对树枝下嘴，紧急结束野外牙科项目。',
       '翻街边袋': '主人发现街边袋子自己会动，打开一看是鼠鼠。',
+      '门外吃零食': '主人在门口发现鼠鼠抱着零食开野餐，立刻把野餐收摊。',
       '钻下水道': '主人看见鼠鼠往下水道边探头，心跳差点停摆。',
       '云游四方': '主人在门外截获一只准备远行的鼠鼠。',
       '去门外': '主人发现门口有只准备出征的鼠鼠，马上拎回家。'
@@ -15500,30 +17158,13 @@
     if (options.showOverlay !== false) showNewDayOverlay();
     generateDiary();
     refreshNeighborRatStory();
-    if (state.dayEscape > 2) {
-      let maxCut = BASE_DAILY_STOCK - 100;
-      let cut = Math.floor(Math.random() * maxCut) + 1;
-      const baseStock = Math.max(100, BASE_DAILY_STOCK - cut);
-      state.foodStock = getDailyFoodStock(baseStock);
-      logOwner('增加食物：' + state.foodStock + '（出逃过多与信任影响）');
-    } else {
-      state.foodStock = getDailyFoodStock(BASE_DAILY_STOCK);
-      logOwner('增加食物：' + state.foodStock + (getOwnerTrustInfo().foodPenalty ? '（信任影响）' : ''));
-    }
-    if (state.dayEscape > 4) {
-      state.loveLeft = getDailyLoveLimit(DAILY_LIMITS.loveLowTrust);
-      logOwner('出逃太多，今日抚摸上限：' + state.loveLeft);
-    } else {
-      state.loveLeft = getDailyLoveLimit(DAILY_LIMITS.love);
-      if (getOwnerTrustInfo().lovePenalty) {
-        logOwner('主人有点不放心，今日抚摸上限：' + state.loveLeft);
-      }
-    }
+    applyDailyEscapeCarePenalty();
     state.dayEscape = 0;
     state.dayEscapedHome = 0;
     state.dayPetCount = 0;
     state.dayOwnerDiscoveries = 0;
     state.dayInjuries = 0;
+    state.dayLostCount = 0;
     state.dayTidyNestCount = 0;
     state.dayGroomSelfCount = 0;
     state.dangerMemory = createDangerMemory();
@@ -15599,13 +17240,14 @@
 
       if (state.escapedHome) {
         const rand = Math.random();
-        if (rand < 0.22) { // 22%概率随机捡食
+        if (rand < 0.22 && canFindSnackToday()) { // 22%概率随机捡食
           addFoundSnackToBasket('门外闲逛');
-        } else if (rand < 0.44) { // 22%概率找到地方出恭
+        } else if (rand >= 0.22 && rand < 0.44) { // 22%概率找到地方出恭
           const gain = randomGain(4, 14, trait.toiletGain);
           state.poop = Math.max(0, state.poop - gain);
           logEvent('🐾 找到地方出恭了！出恭-' + gain);
         }
+        applyOutsideStayPenalty(trait);
       }
     }
 
@@ -15641,51 +17283,8 @@
       }
     }
 
-    // 每天早上6点刷新新的一天和当日限额/食物受处罚
     if (state.hour === 6) {
-      ownerRecords = []; // 清空今日主人记录
-      settleOwnerTrustForNewDay();
-      state.daysSurvived += 1; // 存活天数+1
-      state.diaryStoryIndex += 1; // 日记索引+1（每6天循环）
-      refreshTodayFood(); // 新一天重新抽今日零食
-      showNewDayOverlay();
-      generateDiary(); // 刷新当天日记
-      refreshNeighborRatStory();
-      if (state.dayEscape > 2) { // 今日逃笼过多会粮食处罚
-        let maxCut = BASE_DAILY_STOCK - 100;
-        let cut = Math.floor(Math.random() * maxCut) + 1; // 扣除一定粮食
-        const baseStock = Math.max(100, BASE_DAILY_STOCK - cut);
-        state.foodStock = getDailyFoodStock(baseStock);
-        logOwner('增加食物：' + state.foodStock + '（出逃过多与信任影响）');
-      } else {
-        state.foodStock = getDailyFoodStock(BASE_DAILY_STOCK);
-        logOwner('增加食物：' + state.foodStock + (getOwnerTrustInfo().foodPenalty ? '（信任影响）' : ''));
-      }
-      // 今日出逃太多，会减少最多可被抚摸次数
-      if (state.dayEscape > 4) {
-        state.loveLeft = getDailyLoveLimit(DAILY_LIMITS.loveLowTrust);
-        logOwner('出逃太多，今日抚摸上限：' + state.loveLeft);
-      } else {
-        state.loveLeft = getDailyLoveLimit(DAILY_LIMITS.love);
-        if (getOwnerTrustInfo().lovePenalty) {
-          logOwner('主人有点不放心，今日抚摸上限：' + state.loveLeft);
-        }
-      }
-      // 重置当日各项数据
-      state.dayEscape = 0;
-      state.dayEscapedHome = 0;
-      state.dayPetCount = 0;
-      state.dayOwnerDiscoveries = 0;
-      state.dayInjuries = 0;
-      state.dayTidyNestCount = 0;
-      state.dayGroomSelfCount = 0;
-      state.dangerMemory = createDangerMemory();
-      state.neighborRatRepliesToday = 0;
-      state.chewLeft = DAILY_LIMITS.chew;
-      state.playLeft = DAILY_LIMITS.play;
-      state.phoneLeft = DAILY_LIMITS.phone;
-      state.ownerCalledHome = false;
-      state.foodEatenToday = false;
+      refreshDailyStateForNewDay();
     }
 
     checkDie(); // 检查是否触发死亡
@@ -15862,9 +17461,9 @@
     const chewGain = randomGain(2, 3, trait.chewGain);
     state.chew = Math.min(100, state.chew + chewGain);
     let msg = '把窝窝扒拉平整了，磨牙+' + chewGain + '（今日整理收益' + state.dayTidyNestCount + '/' + DAILY_TIDY_NEST_LIMIT + '）';
-    if (passesChance(0.18, trait.trashSnackChance, 0.30)) {
+    if (canFindSnackToday() && passesChance(0.18, trait.trashSnackChance, 0.30)) {
       const snack = addFoundSnackToBasket('窝角小零食', { log: false });
-      msg += '，还翻出' + getSnackDisplayName(snack) + '，放进零食筐';
+      if (snack) msg += '，还翻出' + getSnackDisplayName(snack) + '，放进零食筐';
     }
     logRat(msg);
     finishAction({ warn: false });
@@ -15998,8 +17597,12 @@
     } else {
       const playGain = randomGain(5, 11, trait.playGain);
       state.play = Math.min(100, state.play + playGain);
-      const snack = addFoundSnackToBasket('客厅小零食', { log: false });
-      logRat('偷到' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
+      if (canFindSnackToday()) {
+        const snack = addFoundSnackToBasket('客厅小零食', { log: false });
+        logRat('偷到' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
+      } else {
+        logRat('客厅包装都空了，白忙一圈，闲游+' + playGain);
+      }
     }
     finishAction({ checkOwner: true });
   }
@@ -16170,8 +17773,12 @@
     } else {
       const playGain = randomGain(6, 12, trait.playGain);
       state.play = Math.min(100, state.play + playGain);
-      const snack = addFoundSnackToBasket('厨余小角角', { log: false });
-      logRat('翻到能带走的' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
+      if (canFindSnackToday()) {
+        const snack = addFoundSnackToBasket('厨余小角角', { log: false });
+        logRat('翻到能带走的' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
+      } else {
+        logRat('厨余桶已经翻透了，只捞到一点经验，闲游+' + playGain);
+      }
     }
     state.totalTrash += 1;
     const discovered = maybeKitchenDiscovery('翻厨余', '翻厨余被发现');
@@ -16235,8 +17842,12 @@
       kitchenDiscoveryAction: '叼走小零食',
       kitchenDiscoveryReason: '小零食包装响，被主人注意到'
     })) return;
-    const snack = addFoundSnackToBasket('厨房小零食', { log: false });
-    logRat('叼走' + getSnackDisplayName(snack) + '藏起来，放进零食筐');
+    if (canFindSnackToday()) {
+      const snack = addFoundSnackToBasket('厨房小零食', { log: false });
+      logRat('叼走' + getSnackDisplayName(snack) + '藏起来，放进零食筐');
+    } else {
+      logRat('厨房包装只剩空气，本鼠记住了这个骗局');
+    }
     const discovered = maybeKitchenDiscovery('叼走小零食', '小零食少了一角');
     finishAction({ warn: !discovered, skipTimeCapsuleDrop: discovered });
   }
@@ -16458,8 +18069,12 @@
     } else {
       const playGain = randomGain(7, 14, trait.playGain);
       state.play = Math.min(100, state.play + playGain);
-      const snack = addFoundSnackToBasket('门外小碎碎', { log: false });
-      logRat('在门外找到' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
+      if (canFindSnackToday()) {
+        const snack = addFoundSnackToBasket('门外小碎碎', { log: false });
+        logRat('在门外找到' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
+      } else {
+        logRat('门外能藏的地方都查过了，闲游+' + playGain);
+      }
     }
     state.totalWander += 1;
     finishAction({ checkOwner: true });
@@ -16580,8 +18195,12 @@
     } else {
       const playGain = randomGain(9, 18, trait.playGain);
       state.play = Math.min(100, state.play + playGain);
-      const snack = addFoundSnackToBasket('街边小宝藏', { log: false });
-      logRat('翻到街边' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
+      if (canFindSnackToday()) {
+        const snack = addFoundSnackToBasket('街边小宝藏', { log: false });
+        logRat('翻到街边' + getSnackDisplayName(snack) + '，放进零食筐，闲游+' + playGain);
+      } else {
+        logRat('街边袋已经没有新情报，闲游+' + playGain);
+      }
     }
     state.totalTrash += 1;
     finishAction({ checkOwner: true });
@@ -16616,26 +18235,13 @@
       state.dayEscape += 1;
       recordLifeMetric('escapes');
       logRat('成功溜进客厅！');
+      applyEscapeMovePenalty(current, target);
 
-      // 基础4%概率被笼子卡住，性格会影响冒失程度
-      if (passesChance(0.04, trait.stuckRisk, 0.16)) {
-        const survived = resolveDangerEvent('stuck', 'stuck', {
-          fatalChance: 0.58,
-          foodLoss: 8,
-          playLoss: 10,
-          loveLoss: 4,
-          icon: '🐭🪤',
-          title: '头差点卡住！',
-          desc: '鼠鼠扭出来了，饱腹-8、闲游-10、抚触-4；今天再卡就危险了',
-          repeatTitle: '又卡住了！',
-          repeatDesc: '同一天重复卡笼子，下一次可能真的出不来',
-          log: '鼠鼠差点卡在笼子缝里，逃过一劫'
-        });
-        finishDangerOutcome(survived, { checkOwner: true, actionName: '溜进客厅' });
-        return;
-      }
+      if (maybeCageStuckOnMove(current, target, moveActionName)) return;
 
-      // 每日频繁溜到客厅后，可能着凉；作为提醒，不再直接腰斩属性
+      let movementHazardTriggered = false;
+
+      // 每日频繁溜到客厅后，可能着凉；同一次移动不再叠加迷路
       if (state.dayEscape > 4 && passesChance(0.16, trait.coldRisk, 0.32)) {
         const coldFoodLoss = randomGain(8, 16, trait.foodDecay);
         const coldPlayLoss = randomGain(8, 14, 1);
@@ -16645,19 +18251,13 @@
         state.love = Math.max(0, state.love - coldLoveLoss);
         logEvent('客厅来回跑太久有点着凉，饱腹-' + coldFoodLoss + '，闲游-' + coldPlayLoss + '，抚触-' + coldLoveLoss);
         showColdPopup();
+        movementHazardTriggered = true;
       }
 
-      // 第一次溜进客厅可能小小迷路，但客厅仍是低风险缓冲区
-      if (state.dayEscape === 1 && passesChance(0.14, trait.lostRisk, 0.30)) {
-        const lostFoodLoss = randomGain(8, 14, trait.foodDecay);
-        const lostPlayLoss = randomGain(8, 14, 1);
-        state.food = Math.max(0, state.food - lostFoodLoss);
-        state.play = Math.max(0, state.play - lostPlayLoss);
-        logEvent('第一次溜客厅有点迷路，饱腹-' + lostFoodLoss + '，闲游-' + lostPlayLoss);
-        showLostPopup();
-      }
+      if (!movementHazardTriggered) maybeGetLostInLivingRoom(trait);
     } else if (target === 'cage') {
       logRat('回到笼子～安全感满满');
+      if (maybeCageStuckOnMove(current, target, moveActionName)) return;
     } else if (target === 'living') {
       logRat('溜回客厅，鼠鼠先观察一下');
     } else if (target === 'kitchen') {
@@ -16668,9 +18268,28 @@
       state.dayEscapedHome += 1;
       recordLifeMetric('outsideEscapes');
       logRat('成功溜到门外！鼠鼠我呀自由了！');
+      applyEscapeMovePenalty(current, target);
     }
 
-    finishAction({ checkOwner: target !== 'cage', actionName: moveActionName });
+    if (maybeDoorPinchOnMove(current, target, moveActionName)) return;
+
+    const finishOptions = { checkOwner: target !== 'cage', actionName: moveActionName };
+    if (current === 'cage' && target === 'living') {
+      finishOptions.ownerBaseChance = 0.045;
+      finishOptions.ownerMaxChance = 0.30;
+      finishOptions.ownerReason = '溜出笼子被发现';
+    } else if (target === 'outside') {
+      finishOptions.ownerBaseChance = 0.075;
+      finishOptions.ownerMaxChance = 0.36;
+      finishOptions.ownerPlayLossMin = 13;
+      finishOptions.ownerPlayLossMax = 20;
+      finishOptions.ownerLoveLossMin = 4;
+      finishOptions.ownerLoveLossMax = 9;
+      finishOptions.ownerTrustLoss = -9;
+      finishOptions.ownerRepeatTrustLoss = -13;
+      finishOptions.ownerReason = '溜到门外被抓包';
+    }
+    finishAction(finishOptions);
   }
 
   // 鼠鼠移动按钮：根据当前位置动态前往客厅/厨房/阳台/门外
@@ -16962,7 +18581,7 @@
       recordLifeFood('坏垃圾碎屑', '饱腹-' + foodLoss);
       logEvent('翻垃圾吃坏肚子，饱腹-' + foodLoss);
       showPoisonPopup();
-    } else if (rand < fatalPoisonChance + poisonChance + snackChance) {
+    } else if (canFindSnackToday() && rand < fatalPoisonChance + poisonChance + snackChance) {
       // 基础16%概率找到好吃的小零食
       const chewGain = randomGain(8, 14, trait.chewGain);
       state.chew = Math.min(100, state.chew + chewGain);
@@ -17254,20 +18873,6 @@
     return currentGameId + '-' + state.daysSurvived;
   }
 
-  const SNACK_SOURCE_SHORT_LABELS = {
-    '今日零食': '今日',
-    '门外闲逛': '门外',
-    '窝角小零食': '窝角',
-    '客厅小零食': '客厅',
-    '厨余小角角': '厨余',
-    '厨房小零食': '厨房',
-    '门外小碎碎': '门外',
-    '街边小宝藏': '街边',
-    '垃圾桶小零食': '垃圾桶'
-  };
-
-  const OUTSIDE_SNACK_SOURCES = new Set(['门外闲逛', '门外小碎碎', '街边小宝藏']);
-
   function findSnackFood(food) {
     if (!food || !food.name) return null;
     return FOOD_POOL.find(function(poolFood) {
@@ -17275,19 +18880,43 @@
     }) || null;
   }
 
+  function getSnackSourceRule(source) {
+    const sourceText = typeof source === 'string' && source ? source : '今日零食';
+    return SNACK_SOURCE_RULES[sourceText] || {
+      short: sourceText.replace(/小零食|小碎碎|小角角/g, '').slice(0, 4) || '捡到',
+      region: sourceText.includes('门外') || sourceText.includes('街边') ? '门外' : '门内',
+      categories: ['果蔬类', '坚果类', '甜点零食类', '主食类', '谨慎食用'],
+      preferred: [],
+      badWeight: 0.7,
+      tags: ['捡到'],
+      clue: '临时捡到的小零食'
+    };
+  }
+
   function getSnackSourceShortLabel(source) {
-    const sourceText = typeof source === 'string' ? source : '';
-    if (!sourceText) return '捡到';
-    return SNACK_SOURCE_SHORT_LABELS[sourceText] || sourceText.replace(/小零食|小碎碎|小角角/g, '').slice(0, 4) || '捡到';
+    return getSnackSourceRule(source).short || '捡到';
   }
 
   function getSnackSourceRegion(item) {
     const source = item && typeof item.source === 'string' ? item.source : '';
-    return OUTSIDE_SNACK_SOURCES.has(source) || source.includes('门外') || source.includes('街边') ? '门外' : '门内';
+    return item && item.region ? item.region : getSnackSourceRule(source).region;
+  }
+
+  function getSnackTags(food, source) {
+    const rule = getSnackSourceRule(source);
+    const tags = [];
+    (SNACK_TAGS_BY_CATEGORY[food.category] || ['饱腹']).forEach(function(tag) {
+      if (!tags.includes(tag)) tags.push(tag);
+    });
+    (rule.tags || []).forEach(function(tag) {
+      if (!tags.includes(tag)) tags.push(tag);
+    });
+    return tags.slice(0, 4);
   }
 
   function getSnackBasketChoiceLabel(item) {
-    return getSnackSourceRegion(item) + ' · ' + getSnackSourceShortLabel(item && item.source) + ' · ' + getSnackDisplayName(item);
+    const prefix = item && item.deferred ? '留着 · ' : '';
+    return prefix + getSnackSourceRegion(item) + ' · ' + getSnackSourceShortLabel(item && item.source) + ' · ' + getSnackDisplayName(item);
   }
 
   function getSnackDisplayName(item) {
@@ -17295,25 +18924,180 @@
     return (item.emoji || '🍪') + item.name;
   }
 
+  function createSnackBasketId(food, source) {
+    return [
+      currentGameId,
+      state.daysSurvived,
+      state.hour,
+      source || 'snack',
+      food.name,
+      Math.floor(Math.random() * 100000)
+    ].join('-');
+  }
+
   function createSnackBasketItem(food, source, options = {}) {
     const poolFood = findSnackFood(food);
     if (!poolFood) return null;
+    const sourceText = typeof source === 'string' && source ? source : '今日零食';
+    const rule = getSnackSourceRule(sourceText);
     return {
+      id: options.id || createSnackBasketId(poolFood, sourceText),
       name: poolFood.name,
       emoji: poolFood.emoji,
       bad: !!poolFood.bad,
       category: poolFood.category,
-      source: typeof source === 'string' && source ? source : '今日零食',
-      dailyKey: options.dailyKey || ''
+      source: sourceText,
+      region: options.region || rule.region,
+      tags: getSnackTags(poolFood, sourceText),
+      sourceClue: rule.clue || '',
+      dailyKey: options.dailyKey || '',
+      foundDay: options.foundDay ?? ((state.daysSurvived || 0) + 1),
+      foundHour: options.foundHour ?? (state.hour || 0),
+      deferred: !!options.deferred
     };
   }
 
+  function createDailySnackQuest() {
+    const previousId = state.dailySnackQuest && state.dailySnackQuest.id;
+    const quest = DAILY_SNACK_QUESTS[randomIndex(DAILY_SNACK_QUESTS.length, DAILY_SNACK_QUESTS.findIndex(item => item.id === previousId))];
+    return {
+      id: quest.id,
+      dayKey: getTodayKey(),
+      completed: false
+    };
+  }
+
+  function getDailySnackQuestRule(quest = state.dailySnackQuest) {
+    if (!quest) return null;
+    return DAILY_SNACK_QUESTS.find(function(rule) {
+      return rule.id === quest.id;
+    }) || DAILY_SNACK_QUESTS[0];
+  }
+
+  function ensureDailySnackQuest() {
+    if (!state.dailySnackQuest || state.dailySnackQuest.dayKey !== getTodayKey()) {
+      state.dailySnackQuest = createDailySnackQuest();
+    }
+    return state.dailySnackQuest;
+  }
+
+  function applyDailySnackQuestReward(rule) {
+    const reward = rule.reward || {};
+    if (reward.food) state.food = Math.min(100, state.food + reward.food);
+    if (reward.chew) state.chew = Math.min(100, state.chew + reward.chew);
+    if (reward.play) state.play = Math.min(100, state.play + reward.play);
+    if (reward.love) state.love = Math.min(100, state.love + reward.love);
+    if (reward.poop) state.poop = Math.max(0, state.poop - reward.poop);
+  }
+
+  function maybeCompleteDailySnackQuest(eventType, item, context, meta = {}) {
+    const quest = ensureDailySnackQuest();
+    const rule = getDailySnackQuestRule(quest);
+    if (!rule || quest.completed) return false;
+    const region = getSnackSourceRegion(item);
+    let completed = false;
+    if (rule.type === 'eatInside') completed = eventType === 'eat' && context === 'inside';
+    if (rule.type === 'eatOutside') completed = eventType === 'eat' && context === 'outside';
+    if (rule.type === 'findOutside') completed = eventType === 'find' && region === '门外';
+    if (rule.type === 'skip') completed = eventType === 'skip';
+    if (rule.type === 'eatUnknown') completed = eventType === 'eat' && meta.wasKnown === false;
+    if (!completed) return false;
+
+    quest.completed = true;
+    applyDailySnackQuestReward(rule);
+    recordLifeMetric('snackQuestCompletions');
+    recordLifeAction('完成零食目标');
+    logEvent('今日小目标完成：' + rule.text.replace('今日小目标：', '') + ' 奖励' + rule.rewardText);
+    showGameNotice('今日小目标完成', '🏅');
+    return true;
+  }
+
+  function pickSnackFoodForSource(sourceLabel, requiredBad) {
+    const rule = getSnackSourceRule(sourceLabel);
+    const trait = getRatTrait();
+    const categories = rule.categories && rule.categories.length ? rule.categories : null;
+    let candidates = FOOD_POOL.filter(function(food) {
+      const categoryMatched = !categories || categories.includes(food.category);
+      const riskMatched = typeof requiredBad !== 'boolean' || food.bad === requiredBad;
+      return categoryMatched && riskMatched;
+    });
+    if (!candidates.length && typeof requiredBad === 'boolean') {
+      candidates = FOOD_POOL.filter(function(food) { return food.bad === requiredBad; });
+    }
+    const pool = candidates.length ? candidates : FOOD_POOL;
+    const preferred = new Set(rule.preferred || []);
+    const riskySource = (rule.badWeight || 1) > 1;
+    let totalWeight = 0;
+    const weighted = pool.map(function(food) {
+      let weight = 1;
+      if (preferred.has(food.category)) weight *= 2.15;
+      if (food.bad) {
+        weight *= Math.max(0.08, rule.badWeight ?? 1) * Math.max(0.6, trait.trashPoisonRisk || 1);
+      } else if (riskySource) {
+        weight *= Math.max(0.75, trait.snackFindLuck || 1);
+      }
+      if (food.category === '坚果类' && (trait.chewGain || 1) > 1.12) weight *= 1.18;
+      if (food.category === '甜点零食类' && (trait.eatGain || 1) > 1.15) weight *= 1.16;
+      totalWeight += weight;
+      return { food, weight };
+    });
+    let roll = Math.random() * totalWeight;
+    for (let i = 0; i < weighted.length; i++) {
+      roll -= weighted[i].weight;
+      if (roll <= 0) return weighted[i].food;
+    }
+    return weighted[weighted.length - 1].food;
+  }
+
+  function recordSnackFind(item) {
+    if (!item) return;
+    const stats = ensureLifeStats();
+    stats.snackFinds = (stats.snackFinds || 0) + 1;
+    if (!stats.snackSourceCounts) stats.snackSourceCounts = {};
+    const source = item.source || '捡到的小零食';
+    stats.snackSourceCounts[source] = (stats.snackSourceCounts[source] || 0) + 1;
+  }
+
+  function ensureDailySnackFindState() {
+    const todayKey = getTodayKey();
+    if (state.dailySnackFindDayKey !== todayKey) {
+      state.dailySnackFindDayKey = todayKey;
+      state.dailySnackFindCount = 0;
+      state.dailySnackFindTypes = { good: 0, bad: 0 };
+      return;
+    }
+    if (!Number.isFinite(state.dailySnackFindCount) || state.dailySnackFindCount < 0) {
+      state.dailySnackFindCount = 0;
+    }
+    if (!state.dailySnackFindTypes || typeof state.dailySnackFindTypes !== 'object') {
+      state.dailySnackFindTypes = { good: 0, bad: 0 };
+    }
+    state.dailySnackFindTypes.good = Math.max(0, Number(state.dailySnackFindTypes.good) || 0);
+    state.dailySnackFindTypes.bad = Math.max(0, Number(state.dailySnackFindTypes.bad) || 0);
+  }
+
+  function canFindSnackToday() {
+    ensureDailySnackFindState();
+    return state.dailySnackFindCount < DAILY_FOUND_SNACK_LIMIT;
+  }
+
+  function getRequiredFoundSnackRisk() {
+    ensureDailySnackFindState();
+    if (state.dailySnackFindCount >= DAILY_FOUND_SNACK_LIMIT) return null;
+    if (state.dailySnackFindCount === 0) return Math.random() < 0.5;
+    if (state.dailySnackFindTypes.good === 0) return false;
+    if (state.dailySnackFindTypes.bad === 0) return true;
+    return undefined;
+  }
+
   function refreshTodayFood() {
+    ensureDailySnackFindState();
     const previousFood = todayFood;
     const previousFoodIndex = previousFood ? FOOD_POOL.findIndex(food => food.name === previousFood.name) : undefined;
     todayFood = FOOD_POOL[randomIndex(FOOD_POOL.length, previousFoodIndex)];
     todayFoodKey = getTodayKey();
     state.foodEatenToday = false;
+    state.dailySnackQuest = createDailySnackQuest();
     state.snackBasket = [createSnackBasketItem(todayFood, '今日零食', { dailyKey: todayFoodKey })];
     selectedSnackBasketIndex = 0;
   }
@@ -17335,8 +19119,16 @@
     if (!Array.isArray(state.snackBasket)) state.snackBasket = [];
     state.snackBasket = state.snackBasket.map(function(item) {
       const food = findSnackFood(item);
-      return food ? createSnackBasketItem(food, item.source, { dailyKey: item.dailyKey }) : null;
+      return food ? createSnackBasketItem(food, item.source, {
+        id: item.id,
+        region: item.region,
+        dailyKey: item.dailyKey,
+        foundDay: item.foundDay,
+        foundHour: item.foundHour,
+        deferred: item.deferred
+      }) : null;
     }).filter(Boolean);
+    ensureDailySnackQuest();
     const hasDailySnack = state.snackBasket.some(function(item) {
       return item && item.dailyKey === todayKey;
     });
@@ -17368,13 +19160,24 @@
   }
 
   function addFoundSnackToBasket(sourceLabel, options = {}) {
-    const food = FOOD_POOL[randomIndex(FOOD_POOL.length)];
+    if (!canFindSnackToday()) return null;
+    const requiredBad = getRequiredFoundSnackRisk();
+    const requestedFood = options.food ? findSnackFood(options.food) : null;
+    const food = requestedFood && (typeof requiredBad !== 'boolean' || requestedFood.bad === requiredBad)
+      ? requestedFood
+      : pickSnackFoodForSource(sourceLabel || '捡到的小零食', requiredBad);
+    if (!food) return null;
     const item = createSnackBasketItem(food, sourceLabel || '捡到的小零食');
     if (!item) return null;
     ensureSnackBasket().push(item);
+    state.dailySnackFindCount += 1;
+    state.dailySnackFindTypes[item.bad ? 'bad' : 'good'] += 1;
+    recordSnackFind(item);
+    playSfx('snackPickup');
+    maybeCompleteDailySnackQuest('find', item);
     if (options.log !== false) {
       const extra = options.extra ? '，' + options.extra : '';
-      logEvent('🧺 ' + (item.source || '捡到的小零食') + '：捡到' + getSnackDisplayName(item) + '，已放进零食筐' + extra);
+      logEvent('🧺 ' + (item.source || '捡到的小零食') + '：捡到' + getSnackDisplayName(item) + '，已放进零食筐。' + item.sourceClue + extra);
     }
     showGameNotice('捡到' + item.name + '，放进零食筐啦', item.emoji || '🧺');
     const overlay = $('#basketOverlay');
@@ -17392,7 +19195,7 @@
   function getSnackRiskText(food) {
     const record = getSnackRecord(food);
     const rule = getSnackRule(food);
-    if (!record) return '鼠鼠还没尝过，先闻闻~';
+    if (!record) return (food.sourceClue || '鼠鼠还没尝过') + ' · ' + rule.clue;
     return '鼠鼠小本本：' + record.risk + ' · ' + rule.clue;
   }
 
@@ -17401,6 +19204,49 @@
     const rule = getSnackRule(food);
     if (!record) return '';
     return '上次感觉：' + (record.effectText || rule.clue);
+  }
+
+  function renderBasketTags(item) {
+    const tags = $('#basketTags');
+    if (!tags) return;
+    tags.textContent = '';
+    if (!item || !Array.isArray(item.tags) || !item.tags.length) {
+      tags.hidden = true;
+      return;
+    }
+    tags.hidden = false;
+    item.tags.forEach(function(tag) {
+      const el = document.createElement('span');
+      el.className = 'basket-tag';
+      el.textContent = tag;
+      tags.appendChild(el);
+    });
+  }
+
+  function getSnackLocationAdvice(item) {
+    if (!item) return '';
+    const trait = getRatTrait();
+    const traitKey = getCurrentRat().traitKey || 'default';
+    const parts = [];
+    parts.push('门内吃更稳');
+    parts.push('门外吃收益高但可能受惊');
+    if (traitKey === 'timid') parts.push('躲躲鼠更适合门内');
+    if (traitKey === 'curious' || traitKey === 'scavenger' || traitKey === 'clever') parts.push(trait.tag + '更会处理门外风险');
+    if (item.bad) parts.push('危险标签建议门内试吃');
+    return parts.join(' · ');
+  }
+
+  function renderDailySnackQuest() {
+    const note = $('#basketQuestNote');
+    if (!note) return;
+    const quest = ensureDailySnackQuest();
+    const rule = getDailySnackQuestRule(quest);
+    if (!rule) {
+      note.hidden = true;
+      return;
+    }
+    note.hidden = false;
+    note.textContent = (quest.completed ? '已完成 · ' : '') + rule.text + (quest.completed ? ' 奖励已到账。' : '');
   }
 
   function renderSnackBasketQueue() {
@@ -17451,18 +19297,15 @@
     basketFood.textContent = '';
 
     if (!food) {
-      basketFood.appendChild(createEmojiBadge('🧺'));
-      const emptyName = document.createElement('span');
-      emptyName.textContent = '零食筐空空的';
-      basketFood.appendChild(emptyName);
-      $('#basketRiskNote').textContent = '今天可选的小零食已经处理完啦，捡到食物会放在这里。';
-      const emptyEffectNote = $('#basketEffectNote');
-      emptyEffectNote.textContent = '';
-      emptyEffectNote.hidden = true;
+      renderBasketTags(null);
+      $('#basketRiskNote').textContent = '';
+      $('#basketEffectNote').hidden = true;
+      $('#basketQuestNote').hidden = true;
       $('#basketEatBtn').disabled = true;
+      $('#basketEatOutsideBtn').disabled = true;
       $('#basketNoBtn').disabled = true;
-      renderSnackBasketQueue();
-      $('#basketOverlay').classList.remove('hide');
+      closeBasket();
+      showGameNotice('零食筐里暂时没有待处理的小零食', '🧺');
       return;
     }
 
@@ -17470,20 +19313,26 @@
     const foodName = document.createElement('span');
     foodName.textContent = food.name;
     basketFood.appendChild(foodName);
+    renderBasketTags(food);
     $('#basketRiskNote').textContent = getSnackRiskText(food);
     const effectNote = $('#basketEffectNote');
+    ensureDailySnackFindState();
     const effectParts = [
+      '今日捡取：' + state.dailySnackFindCount + '/' + DAILY_FOUND_SNACK_LIMIT,
       '来源：' + getSnackSourceRegion(food) + ' · ' + getSnackSourceShortLabel(food.source),
       '第' + (selectedSnackBasketIndex + 1) + '/' + basket.length + '份',
       '6点清空'
     ];
     const effectHint = getSnackEffectHint(food);
     if (effectHint) effectParts.push(effectHint);
+    effectParts.push(getSnackLocationAdvice(food));
     effectNote.textContent = effectParts.join(' · ');
     effectNote.hidden = false;
+    renderDailySnackQuest();
     renderSnackBasketQueue();
 
     $('#basketEatBtn').disabled = false;
+    $('#basketEatOutsideBtn').disabled = false;
     $('#basketNoBtn').disabled = false;
     $('#basketOverlay').classList.remove('hide');
   }
@@ -17539,10 +19388,86 @@
     $('#basketOverlay').classList.add('hide');
   }
 
-  // 吃食物
-  function eatFood() {
-    if (state.gameOver) return;
+  function getSnackEatContextLabel(context) {
+    return context === 'outside' ? '门外吃' : '门内吃';
+  }
+
+  function applySnackEatEffects(food, context) {
     const trait = getRatTrait();
+    const outside = context === 'outside';
+    const goodMultiplier = trait.snackGoodGain * (outside ? 1.14 * (trait.snackOutsideGain || 1) : 0.96 * (trait.snackInsideGain || 1));
+    const badMultiplier = trait.snackBadLoss * (outside ? 1.20 * (trait.snackOutsideRisk || 1) : 0.82);
+    const changes = [];
+    let poisoned = false;
+
+    if (food.bad) {
+      poisoned = true;
+      const foodLoss = randomGain(8, 34, badMultiplier);
+      const playLoss = randomGain(6, 28, badMultiplier);
+      const poopGain = randomGain(6, 18, badMultiplier);
+      state.food = Math.max(0, state.food - foodLoss);
+      state.play = Math.max(0, state.play - playLoss);
+      state.poop = Math.min(100, state.poop + poopGain);
+      changes.push('饱腹-' + foodLoss, '闲游-' + playLoss, '出恭+' + poopGain);
+    } else if (food.category === '果蔬类') {
+      const foodGain = randomGain(12, 28, goodMultiplier * trait.eatGain);
+      const poopLoss = randomGain(3, 10, goodMultiplier);
+      state.food = Math.min(100, state.food + foodGain);
+      state.poop = Math.max(0, state.poop - poopLoss);
+      changes.push('饱腹+' + foodGain, '出恭-' + poopLoss);
+    } else if (food.category === '坚果类') {
+      const chewGain = randomGain(16, 32, goodMultiplier * trait.chewGain);
+      const foodGain = randomGain(5, 12, goodMultiplier * trait.eatGain);
+      state.chew = Math.min(100, state.chew + chewGain);
+      state.food = Math.min(100, state.food + foodGain);
+      changes.push('磨牙+' + chewGain, '饱腹+' + foodGain);
+    } else if (food.category === '甜点零食类') {
+      const foodGain = randomGain(8, 20, goodMultiplier * trait.eatGain);
+      const playGain = randomGain(4, 10, goodMultiplier * trait.playGain);
+      state.play = Math.min(100, state.play + playGain);
+      state.food = Math.min(100, state.food + foodGain);
+      changes.push('饱腹+' + foodGain, '闲游+' + playGain);
+      const poopRisk = Math.random() < (outside ? 0.62 : 0.48);
+      if (poopRisk) {
+        const poopGain = randomGain(5, 16, trait.snackBadLoss);
+        state.poop = Math.min(100, state.poop + poopGain);
+        changes.push('出恭+' + poopGain);
+      }
+    } else {
+      const foodGain = randomGain(10, 22, goodMultiplier * trait.eatGain);
+      const chewGain = randomGain(4, 12, goodMultiplier * trait.chewGain);
+      state.food = Math.min(100, state.food + foodGain);
+      state.chew = Math.min(100, state.chew + chewGain);
+      changes.push('饱腹+' + foodGain, '磨牙+' + chewGain);
+    }
+
+    if (outside) {
+      const outsidePlayGain = randomGain(2, 7, trait.playGain * (trait.snackOutsideGain || 1));
+      state.play = Math.min(100, state.play + outsidePlayGain);
+      changes.push('门外闲游+' + outsidePlayGain);
+      const scareChance = food.bad ? 0.22 : (getSnackSourceRegion(food) === '门外' ? 0.08 : 0.14);
+      if (passesChance(scareChance, trait.snackOutsideRisk || 1, 0.34)) {
+        const scarePlayLoss = randomGain(3, 8, trait.snackOutsideRisk || 1);
+        const scareLoveLoss = randomGain(1, 4, trait.snackOutsideRisk || 1);
+        state.play = Math.max(0, state.play - scarePlayLoss);
+        state.love = Math.max(0, state.love - scareLoveLoss);
+        changes.push('门外受惊闲游-' + scarePlayLoss, '抚触-' + scareLoveLoss);
+      }
+    } else {
+      const comfortGain = randomGain(1, 4, trait.loveGain * (trait.snackInsideGain || 1));
+      state.love = Math.min(100, state.love + comfortGain);
+      changes.push('窝里安心抚触+' + comfortGain);
+    }
+
+    return {
+      poisoned,
+      effectLine: createSnackEffectLine(changes)
+    };
+  }
+
+  // 吃食物
+  function eatFood(context = 'inside') {
+    if (state.gameOver) return;
     playSfx('snack');
 
     const food = getCurrentSnackBasketItem();
@@ -17550,65 +19475,31 @@
       showBasket();
       return;
     }
+    const wasKnown = !!getSnackRecord(food);
     closeBasket();
     takeCurrentSnackBasketItem();
 
-    if (food.bad) {
-      // 谨慎食用零食：中毒并减少饱腹、闲游，轻微增加出恭压力
-      const foodLoss = randomGain(8, 34, trait.snackBadLoss);
-      const playLoss = randomGain(6, 28, trait.snackBadLoss);
-      const poopGain = randomGain(6, 18, trait.snackBadLoss);
-      state.food = Math.max(0, state.food - foodLoss);
-      state.play = Math.max(0, state.play - playLoss);
-      state.poop = Math.min(100, state.poop + poopGain);
-      const effectLine = createSnackEffectLine(['饱腹-' + foodLoss, '闲游-' + playLoss, '出恭+' + poopGain]);
-      rememberSnack(food, effectLine);
-      recordLifeAction('吃零食');
-      recordLifeFood(food.name, effectLine);
-      logRat('这个不太对劲...' + food.name + '，' + effectLine + '，鼠鼠记住了');
-      // 显示零食中毒弹窗
+    const result = applySnackEatEffects(food, context);
+    rememberSnack(food, result.effectLine);
+    recordLifeAction(context === 'outside' ? '门外吃零食' : '门内吃零食');
+    recordLifeMetric(context === 'outside' ? 'snackOutsideEats' : 'snackInsideEats');
+    recordLifeFood(food.name, getSnackEatContextLabel(context) + '：' + result.effectLine);
+    maybeCompleteDailySnackQuest('eat', food, context, { wasKnown });
+
+    if (result.poisoned) {
+      logRat(getSnackEatContextLabel(context) + food.name + '，这个不太对劲... ' + result.effectLine + '，鼠鼠记住了');
       showFoodPoisonPopup();
     } else {
-      let effectLine = '';
-      if (food.category === '果蔬类') {
-        const foodGain = randomGain(12, 28, trait.snackGoodGain * trait.eatGain);
-        const poopLoss = randomGain(3, 10, trait.snackGoodGain);
-        state.food = Math.min(100, state.food + foodGain);
-        state.poop = Math.max(0, state.poop - poopLoss);
-        effectLine = createSnackEffectLine(['饱腹+' + foodGain, '出恭-' + poopLoss]);
-      } else if (food.category === '坚果类') {
-        const chewGain = randomGain(16, 32, trait.snackGoodGain * trait.chewGain);
-        const foodGain = randomGain(5, 12, trait.snackGoodGain * trait.eatGain);
-        state.chew = Math.min(100, state.chew + chewGain);
-        state.food = Math.min(100, state.food + foodGain);
-        effectLine = createSnackEffectLine(['磨牙+' + chewGain, '饱腹+' + foodGain]);
-      } else if (food.category === '甜点零食类') {
-        const foodGain = randomGain(8, 20, trait.snackGoodGain * trait.eatGain);
-        const playGain = randomGain(4, 10, trait.snackGoodGain * trait.playGain);
-        state.play = Math.min(100, state.play + playGain);
-        state.food = Math.min(100, state.food + foodGain);
-        const poopRisk = Math.random() < 0.55;
-        if (poopRisk) {
-          const poopGain = randomGain(5, 16, trait.snackBadLoss);
-          state.poop = Math.min(100, state.poop + poopGain);
-          effectLine = createSnackEffectLine(['饱腹+' + foodGain, '闲游+' + playGain, '出恭+' + poopGain]);
-        } else {
-          effectLine = createSnackEffectLine(['饱腹+' + foodGain, '闲游+' + playGain]);
-        }
-      } else {
-        const foodGain = randomGain(10, 22, trait.snackGoodGain * trait.eatGain);
-        const chewGain = randomGain(4, 12, trait.snackGoodGain * trait.chewGain);
-        state.food = Math.min(100, state.food + foodGain);
-        state.chew = Math.min(100, state.chew + chewGain);
-        effectLine = createSnackEffectLine(['饱腹+' + foodGain, '磨牙+' + chewGain]);
-      }
-      rememberSnack(food, effectLine);
-      recordLifeAction('吃零食');
-      recordLifeFood(food.name, effectLine);
-      logRat('好吃！' + food.name + '，鼠鼠记住这个味道了：' + effectLine);
+      logRat(getSnackEatContextLabel(context) + food.name + '，好吃！鼠鼠记住这个味道了：' + result.effectLine);
     }
 
-    finishAction();
+    finishAction({
+      checkOwner: context === 'outside' && !isAt('cage'),
+      actionName: context === 'outside' ? '门外吃零食' : '门内吃零食',
+      ownerBaseChance: context === 'outside' ? 0.05 : undefined,
+      ownerMaxChance: context === 'outside' ? 0.22 : undefined,
+      ownerReason: context === 'outside' ? '叼着零食去门外吃被发现' : undefined
+    });
   }
 
   // 显示零食中毒弹窗
@@ -17630,10 +19521,22 @@
       showBasket();
       return;
     }
-    takeCurrentSnackBasketItem();
+    const firstDefer = !food.deferred;
+    food.deferred = true;
     closeBasket();
-    recordLifeAction('拒绝零食');
-    logRat('还是不吃' + food.name + '了~ 鼠鼠先把小爪子收回来');
+    if (firstDefer) {
+      const patienceGain = randomGain(1, 3, getRatTrait().snackSkipMood || 1);
+      state.love = Math.min(100, state.love + patienceGain);
+      recordLifeAction('保留零食');
+      recordLifeMetric('snackSkips');
+      maybeCompleteDailySnackQuest('skip', food);
+      logRat('先不吃' + food.name + '，继续放在零食筐里，克制成功，抚触+' + patienceGain + '。6点清空前还可以再决定');
+      showGameNotice('已留在零食筐', '🧺');
+    } else {
+      logRat(food.name + '还在零食筐里，鼠鼠继续忍住小爪子');
+    }
+    renderSnackBasketQueue();
+    updateUI();
   }
 
   // 显示次数用完提醒弹窗
@@ -17667,12 +19570,12 @@
       hour:6, daysSurvived:0, ownerHome:true, location:'cage', inCage:true, escapedHome:false, gameOver:false,
       food:50, chew:50, play:50, love:50, poop:10,
       foodStock:BASE_DAILY_STOCK, ownerTrust:80, wellBehavedDays:0,
-      dayEscape:0, dayEscapedHome:0, dayPetCount:0, dayOwnerDiscoveries:0, groundedHours:0, dayInjuries:0, dayTidyNestCount:0, dayGroomSelfCount:0,
+      dayEscape:0, dayEscapedHome:0, dayPetCount:0, dayOwnerDiscoveries:0, groundedHours:0, dayInjuries:0, dayLostCount:0, dayTidyNestCount:0, dayGroomSelfCount:0,
       timeCapsules:0,
       dangerMemory:createDangerMemory(),
       chewLeft:DAILY_LIMITS.chew, playLeft:DAILY_LIMITS.play, loveLeft:DAILY_LIMITS.love,
       phoneLeft:DAILY_LIMITS.phone, ownerCalledHome:false, bossCaught:false,
-      firstBubbleShown: false, foodEatenToday: false, snackBasket: [], diaryStoryIndex: randomDiaryStoryIndex(),
+      firstBubbleShown: false, foodEatenToday: false, snackBasket: [], dailySnackFindDayKey: null, dailySnackFindCount: 0, dailySnackFindTypes: { good: 0, bad: 0 }, dailySnackQuest: null, diaryStoryIndex: randomDiaryStoryIndex(),
       neighborRatRepliesToday: 0, neighborRatSqueakUsed: false, neighborRatReplyReceived: false, neighborRatLastUpdate: null,
       canRevive: false, reviveAttempted: false, consecutiveEatCount: 0, totalOutsideTime: 0, lastActionName: '',
       lifeStats: createLifeStats(),
@@ -17746,7 +19649,8 @@
 
   // 菜篮子按钮
   $('#basketBtn').onclick = showBasket;
-  $('#basketEatBtn').onclick = eatFood;
+  $('#basketEatBtn').onclick = function() { eatFood('inside'); };
+  $('#basketEatOutsideBtn').onclick = function() { eatFood('outside'); };
   $('#basketNoBtn').onclick = noEatFood;
   $('#basketOverlay').onclick = closeBasket;
   $('#basketFood').onclick = showSnackList;
@@ -17982,6 +19886,7 @@
         timeInterval = null;
       }
       logEvent('通关成功！' + getCurrentRat().name + '把第' + state.daysSurvived + '天稳稳熬过去了。');
+      playSfx('victory');
       lifeSummarySnapshot = createVictorySummarySnapshot();
       hideTransientGamePopups();
       updateUI();
@@ -18036,8 +19941,12 @@
   setTimeout(showRatBubble, 3500);
 
   // ===== 背景音乐功能 =====
+  const LIFE_SUMMARY_MUSIC_SRC = './bgm/secret-garden-mixkit-595.mp3';
   let bgMusic = null;
+  let lifeSummaryMusic = null;
   let isMusicPlaying = false;  // 默认关闭播放
+  let isLifeSummaryMusicPlaying = false;
+  let resumeMainMusicAfterLifeSummary = false;
 
   function initMusic() {
     bgMusic = new Audio('./bgm/baby-animals-playful-cute.mp3');
@@ -18049,6 +19958,69 @@
 
     // 音乐播放错误处理
     bgMusic.addEventListener('error', function() {});
+    initLifeSummaryMusic();
+  }
+
+  function initLifeSummaryMusic() {
+    if (lifeSummaryMusic) return;
+    lifeSummaryMusic = new Audio(LIFE_SUMMARY_MUSIC_SRC);
+    lifeSummaryMusic.loop = true;
+    lifeSummaryMusic.volume = 0.44;
+    lifeSummaryMusic.preload = 'auto';
+    lifeSummaryMusic.addEventListener('error', function() {});
+  }
+
+  function playLifeSummaryMusic() {
+    initLifeSummaryMusic();
+    if (!lifeSummaryMusic) return;
+
+    resumeMainMusicAfterLifeSummary = !!(isMusicPlaying && bgMusic && !bgMusic.paused);
+    if (resumeMainMusicAfterLifeSummary && bgMusic) {
+      bgMusic.pause();
+    }
+
+    try {
+      lifeSummaryMusic.currentTime = 0;
+    } catch (error) {
+      // Some mobile browsers block seeking until metadata is ready.
+    }
+
+    const playPromise = lifeSummaryMusic.play();
+    if (!playPromise || typeof playPromise.then !== 'function') {
+      isLifeSummaryMusicPlaying = true;
+      updateMusicBtnUI();
+      return;
+    }
+
+    playPromise.then(function() {
+      isLifeSummaryMusicPlaying = true;
+      updateMusicBtnUI();
+    }).catch(function() {
+      isLifeSummaryMusicPlaying = false;
+      const shouldResume = resumeMainMusicAfterLifeSummary;
+      resumeMainMusicAfterLifeSummary = false;
+      updateMusicBtnUI();
+      if (shouldResume && isMusicPlaying) playMusic();
+    });
+  }
+
+  function stopLifeSummaryMusic(options = {}) {
+    if (lifeSummaryMusic) {
+      lifeSummaryMusic.pause();
+      try {
+        lifeSummaryMusic.currentTime = 0;
+      } catch (error) {
+        // Some mobile browsers block seeking until metadata is ready.
+      }
+    }
+
+    const shouldResume = options.resumeMain !== false && resumeMainMusicAfterLifeSummary;
+    isLifeSummaryMusicPlaying = false;
+    resumeMainMusicAfterLifeSummary = false;
+    updateMusicBtnUI();
+    if (shouldResume && isMusicPlaying) {
+      playMusic();
+    }
   }
 
   function playMusic() {
@@ -18064,6 +20036,9 @@
   }
 
   function pauseMusic() {
+    if (isLifeSummaryMusicPlaying) {
+      stopLifeSummaryMusic({ resumeMain: false });
+    }
     if (bgMusic) {
       bgMusic.pause();
       isMusicPlaying = false;
@@ -18082,7 +20057,7 @@
   function updateMusicBtnUI() {
     const musicBtn = $('#musicBtn');
     if (musicBtn) {
-      if (isMusicPlaying) {
+      if (isMusicPlaying || isLifeSummaryMusicPlaying) {
         musicBtn.textContent = '🎵';
         musicBtn.classList.remove('muted');
       } else {
@@ -18092,9 +20067,25 @@
     }
   }
 
+  function showCredits() {
+    const popup = $('#creditsPopup');
+    if (popup) popup.classList.remove('hide');
+  }
+
+  function closeCredits() {
+    const popup = $('#creditsPopup');
+    if (popup) popup.classList.add('hide');
+  }
+
   // 音乐按钮点击事件
   $('#musicBtn').onclick = function() {
     toggleMusic();
+  };
+
+  $('#creditsBtn').onclick = showCredits;
+  $('#creditsClose').onclick = closeCredits;
+  $('#creditsPopup').onclick = function(e) {
+    if (e.target === $('#creditsPopup')) closeCredits();
   };
 
   // 初始化音乐

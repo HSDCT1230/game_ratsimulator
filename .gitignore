@@ -17,3 +17,6 @@ desktop.ini
 dist/
 build/
 node_modules/
+
+# Local-only historical builds. Do not publish from the repository root.
+archive/
